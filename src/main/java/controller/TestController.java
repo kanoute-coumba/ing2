@@ -13,10 +13,10 @@ public class TestController {
     private TestService testService;
 
     /**
-     * Read - Get all employees
+     * Read
      * @return - An Iterable object of Employee full filled
      */
-    @GetMapping("/employees")
+    @GetMapping("/Test")
     public Iterable<Test> getTest() {
         return testService.getTest();
     }
