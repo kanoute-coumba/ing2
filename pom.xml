@@ -11,7 +11,7 @@
 	<groupId>episen.ing2.citizens</groupId>
 	<artifactId>citizens-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>citizens-backend</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
@@ -35,7 +35,12 @@
 			<artifactId>spring-core</artifactId>
 			<version>5.3.10</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.20</version>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
