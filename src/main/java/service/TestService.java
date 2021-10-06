@@ -1,12 +1,16 @@
 package service;
 
+import lombok.Data;
 import model.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import repository.TestRepo;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
+@Data
+@Service
 public class TestService {
 
     @Autowired
@@ -30,4 +34,4 @@ public class TestService {
     }
 
 }
-}
+
