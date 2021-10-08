@@ -28,7 +28,7 @@ public class TestService {
         testRepo.deleteById(id);
     }
 
-    public Test saveEmployee(Test test) {
+    public Test saveTest(Test test) {
         Test savedEmployee = testRepo.save(test);
         return savedEmployee;
     }
