@@ -1,11 +1,10 @@
-package service;
+package start.service;
 
-import model.Test;
+import start.model.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.TestRepo;
-import org.springframework.stereotype.Repository;
-import org.springframework.data.repository.CrudRepository;
+import start.repository.TestRepo;
+
 import java.util.Optional;
 
 @Service

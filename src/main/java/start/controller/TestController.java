@@ -1,12 +1,12 @@
-package controller;
+package start.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-import service.TestService;
-import model.Test;
+import start.service.TestService;
+import start.model.Test;
 
-@RestController
+@Controller
 public class TestController {
 
     @Autowired

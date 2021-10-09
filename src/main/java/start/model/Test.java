@@ -1,4 +1,4 @@
-package model;
+package start.model;
 
 public class Test {
     private int Id;
