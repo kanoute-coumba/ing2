@@ -22,7 +22,7 @@ public class CitizensBackendApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		logger.info("debut de la commande");
-		testController.getTest();
+		System.out.println(testController.getTest());
 	}
 
 

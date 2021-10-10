@@ -28,4 +28,5 @@ public class Test {
     public String getName() {
         return name;
     }
+    public String toString(){ return "{ id = " + Id + ", name = " + name + " } "; }
 }
