@@ -1,10 +1,13 @@
 package model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.stereotype.Component;
+@Component
 public class Test {
+    @Id
     private int Id;
     private String name;
-
-    public Test(int id, String n) {
+public Test(int id, String n) {
         Id = id;
         name = n;
     }

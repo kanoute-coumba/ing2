@@ -18,6 +18,7 @@ public class TestController {
      */
     @GetMapping("/Test")
     public Iterable<Test> getTest() {
+        System.out.println("returning values");
         return testService.getTest();
     }
 
