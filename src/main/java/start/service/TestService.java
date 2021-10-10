@@ -1,8 +1,9 @@
 package start.service;
 
-import start.model.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import start.model.Test;
+
 import start.repository.TestRepo;
 
 import java.util.Optional;
@@ -26,8 +27,7 @@ public class TestService {
     }
 
     public Test saveTest(Test test) {
-        Test savedEmployee = testRepo.save(test);
-        return savedEmployee;
+        return testRepo.save(test);
     }
 
 }
