@@ -8,6 +8,7 @@ import start.service.TestService;
 import start.model.Test;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class TestController {
 
     @Autowired
