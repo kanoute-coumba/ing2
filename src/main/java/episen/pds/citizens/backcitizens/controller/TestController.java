@@ -1,12 +1,12 @@
-package start.controller;
+package episen.pds.citizens.backcitizens.controller;
 
+import episen.pds.citizens.backcitizens.model.Test;
+import episen.pds.citizens.backcitizens.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import start.service.TestService;
-import start.model.Test;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
