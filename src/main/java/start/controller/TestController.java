@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import start.service.TestService;
 import start.model.Test;
@@ -25,4 +26,9 @@ public class TestController {
         return testService.getTest();
     }
 
+    @PostMapping("/Form")
+    public Test saveTest(Test test) {
+        System.out.println("receiving values");
+        return testService.saveTest(test);
+    }
 }
