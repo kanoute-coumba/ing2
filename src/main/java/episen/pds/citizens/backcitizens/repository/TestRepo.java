@@ -1,7 +1,7 @@
-package start.repository;
+package episen.pds.citizens.backcitizens.repository;
 
 
-import start.model.Test;
+import episen.pds.citizens.backcitizens.model.Test;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
