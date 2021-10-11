@@ -1,4 +1,4 @@
-package start.model;
+package episen.pds.citizens.backcitizens.model;
 
 import org.springframework.stereotype.Component;
 
