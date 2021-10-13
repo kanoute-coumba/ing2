@@ -21,8 +21,8 @@ public class CitizensBackendApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		logger.info("debut de la commande");
-		System.out.println(testController.getTest());
+		logger.config("debut de la commande");
+		logger.config(testController.getTest() + "");
 	}
 
 
