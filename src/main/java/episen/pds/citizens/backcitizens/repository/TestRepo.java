@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
     public interface TestRepo extends JpaRepository<Test, Integer> {
 
     @Query(name = "Test.findByName")
-    public Iterable<Test> findByName();
+    public Iterable<Test> findByName(String name);
 }
