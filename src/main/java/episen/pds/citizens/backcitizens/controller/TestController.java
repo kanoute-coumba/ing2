@@ -5,10 +5,7 @@ import episen.pds.citizens.backcitizens.model.Test;
 import episen.pds.citizens.backcitizens.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.logging.Logger;
 
@@ -27,13 +24,16 @@ public class TestController {
     }
 
     @PostMapping("/Form")
-    public Test saveTest(Test test) {
+    public void saveTest(@RequestBody Test test) {
         logger.config("receiving values");
-        return testService.saveTest(test);
+        System.out.println(testService.saveTest(test));
+        System.out.println(test);
+        //return testService.saveTest(test);
     }
-    @PostMapping("/DeleteId")
-    public void deleteTest(int Id) {
+    @PostMapping("/DeleteId/{id}")
+    public void deleteTest(@PathVariable int id) {
+        System.out.println("hhhhhhhh");
         logger.config("deleting values");
-        testService.deleteTestId(Id);
+        testService.deleteTestId(id);
     }
 }
