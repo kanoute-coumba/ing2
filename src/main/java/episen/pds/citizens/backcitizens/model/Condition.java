@@ -5,8 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 @Entity
-@Table(name = "Parameter")
-public class Parameter {
+@Table(name = "Condition")
+public class Condition {
     @Id
     @Column(name = "id")
     private int Id;
