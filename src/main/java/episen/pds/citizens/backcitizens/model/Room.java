@@ -15,6 +15,9 @@ public class Room {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "edge")
+    private boolean edge;
+
     @Column(name = "temperature")
     private double temperature;
 
