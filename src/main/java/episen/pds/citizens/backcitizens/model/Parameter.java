@@ -2,11 +2,12 @@ package episen.pds.citizens.backcitizens.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 @Entity
 @Table(name = "Parameter")
 public class Parameter {
-    @javax.persistence.Id
+    @Id
     @Column(name = "id")
     private int Id;
 

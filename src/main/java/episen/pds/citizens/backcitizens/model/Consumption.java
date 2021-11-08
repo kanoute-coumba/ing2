@@ -8,7 +8,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Consumption")
 public class Consumption {
-    @javax.persistence.Id
+    @Id
     @Column(name = "id")
     private int Id;
 
@@ -20,6 +20,22 @@ public class Consumption {
 
     @Column(name = "time")
     private String time;
+
+    public void setId(int id) {
+        Id = id;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     public int getId() {
         return Id;

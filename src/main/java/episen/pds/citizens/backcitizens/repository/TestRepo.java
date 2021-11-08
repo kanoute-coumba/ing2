@@ -9,7 +9,4 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-    public interface TestRepo extends CrudRepository<Test, Integer> {
-
-
-}
+    public interface TestRepo extends CrudRepository<Test, Integer> {}

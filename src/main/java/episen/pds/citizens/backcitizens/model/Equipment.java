@@ -2,11 +2,12 @@ package episen.pds.citizens.backcitizens.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 @Entity
 @Table(name = "Equipment")
 public class Equipment {
-    @javax.persistence.Id
+    @Id
     @Column(name = "id")
     private int Id;
 
@@ -16,4 +17,27 @@ public class Equipment {
     @Column(name = "value")
     private double value;
 
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
 }

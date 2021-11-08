@@ -26,13 +26,10 @@ public class TestController {
     @PostMapping("/Form")
     public void saveTest(@RequestBody Test test) {
         logger.config("receiving values");
-        System.out.println(testService.saveTest(test));
-        System.out.println(test);
         //return testService.saveTest(test);
     }
     @PostMapping("/DeleteId/{id}")
     public void deleteTest(@PathVariable int id) {
-        System.out.println("hhhhhhhh");
         logger.config("deleting values");
         testService.deleteTestId(id);
     }
