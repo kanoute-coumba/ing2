@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.logging.Logger;
 
-@Component
+@Component //doit être interpréter par spring
 @SpringBootApplication
 public class CitizensBackendApplication implements CommandLineRunner {
 
