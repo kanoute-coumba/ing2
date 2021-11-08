@@ -16,6 +16,13 @@ public class Equipment {
     @Column(name = "type")
     public String type;
 
+    public int getIdRoom() {
+        return idRoom;
+    }
+
+    @Column(name = "id_room")
+    public int idRoom;
+
     public int getId() {
         return id;
     }

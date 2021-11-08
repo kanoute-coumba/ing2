@@ -14,6 +14,9 @@ public class Consumption {
     @Column(name = "value")
     public String value;
 
+    @Column(name = "id_equip")
+    public int id_equip;
+
     public int getId() {
         return id;
     }
@@ -21,5 +24,7 @@ public class Consumption {
     public String getValue() {
         return value;
     }
-
+    public int getId_equip() {
+        return id_equip;
+    }
 }
