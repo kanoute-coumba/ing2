@@ -2,8 +2,13 @@ package episen.pds.citizens.backcitizens.model;
 
 import jdk.jfr.DataAmount;
 import lombok.Data;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.stereotype.Component;
 import javax.persistence.*;
+import java.io.IOException;
+import java.util.Properties;
 
 
 @Entity
@@ -30,5 +35,14 @@ public class Equipment {
     public String getType() {
         return type;
     }
+    Resource resource = new ClassPathResource("/sql_queries.properties");
+    Properties props;
 
+    {
+        try {
+            props = PropertiesLoaderUtils.loadProperties(resource);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
