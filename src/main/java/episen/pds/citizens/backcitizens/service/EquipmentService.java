@@ -13,6 +13,6 @@ public class EquipmentService {
     EquipmentRepo equipmentRepo;
 
     public Iterable<Object> getEquipmentByConsumption(int id_building){
-        return equipmentRepo.findByConsumption(id_building);
+        return equipmentRepo.findEquipmentByConsumption(id_building);
     }
 }
