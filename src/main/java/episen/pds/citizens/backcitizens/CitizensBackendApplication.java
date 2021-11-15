@@ -1,5 +1,6 @@
 package episen.pds.citizens.backcitizens;
 
+import episen.pds.citizens.backcitizens.controller.EquipmentController;
 import org.springframework.beans.factory.annotation.Autowired;
 import episen.pds.citizens.backcitizens.controller.TestController;
 import org.springframework.boot.CommandLineRunner;
@@ -18,6 +19,9 @@ public class CitizensBackendApplication implements CommandLineRunner {
 
 	@Autowired
 	TestController testController;
+
+	@Autowired
+	EquipmentController equipmentController;
 
 	@Override
 	public void run(String... args) throws Exception {
