@@ -35,14 +35,5 @@ public class Equipment {
     public String getType() {
         return type;
     }
-    Resource resource = new ClassPathResource("/sql_queries.properties");
-    Properties props;
 
-    {
-        try {
-            props = PropertiesLoaderUtils.loadProperties(resource);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
