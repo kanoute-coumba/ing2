@@ -16,6 +16,6 @@ public interface EquipmentWithConsumptionRepo extends CrudRepository<EquipmentWi
             "as c2 on equipment.id_equipment=c2.id_equipment \n" +
             "where id_room in (Select id_room from room \n" +
             "where id_floor in (Select id_floor from floor where \n" +
-            "id_building= %:idb% )) order by c2.value",nativeQuery = true)
-    public Iterable<EquipmentWithConsumption> findEquipmentByConsumption(@Param("idb") int id_building);
+            "id_building= 1 )) order by c2.value",nativeQuery = true)
+    public Iterable<EquipmentWithConsumption> findEquipmentByConsumption();
 }

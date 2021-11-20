@@ -14,7 +14,14 @@ import java.util.logging.Logger;
 @CrossOrigin(origins = "*", allowedHeaders = "*") //récup sur internet
 // autorise le front à récuperer des information par le front sur le back
 public class TestController {
-// c'est là qu'à lieu l'interaction avec le front
+    @Override
+    public String toString() {
+        return "TestController{" +
+                "testService=" + testService +
+                '}';
+    }
+
+    // c'est là qu'à lieu l'interaction avec le front
     @Autowired
     private TestService testService;
     private static final Logger logger = Logger.getLogger(TestController.class.getName());

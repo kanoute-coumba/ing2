@@ -17,9 +17,9 @@ public class EquipmentController {
     EquipmentService equipmentService;
     private static final Logger logger = Logger.getLogger(EquipmentController.class.getName());
 
-    @GetMapping("/EquipmentByConsumption/{idb}")
-    public Iterable<EquipmentWithConsumption> getEquipmentByConsumption(@PathVariable int idb){
+    @GetMapping("/EquipmentByConsumption")
+    public Iterable<EquipmentWithConsumption> getEquipmentByConsumption(){
         logger.info("getEquipmentByConsumption");
-        return equipmentService.getEquipmentByConsumption(idb);
+        return equipmentService.getEquipmentByConsumption();
     }
 }
