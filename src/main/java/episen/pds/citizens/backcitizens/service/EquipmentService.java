@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 public class EquipmentService {
 
     @Autowired
-    EquipmentWithConsumptionRepo equipmentRepo;
+    EquipmentWithConsumptionRepo equipmentWithConsumptionRepo;
 
     public Iterable<EquipmentWithConsumption> getEquipmentByConsumption(int id_building){
-        return equipmentRepo.findEquipmentByConsumption(id_building);
+        return equipmentWithConsumptionRepo.findEquipmentByConsumption(id_building);
     }
 }

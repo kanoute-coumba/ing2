@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 public interface EquipmentWithConsumptionRepo extends CrudRepository<EquipmentWithConsumption,Integer> {
-    @Query(value= "select * from equipment inner join \n" +
+    @Query(value= "select equipment.id_equipment,equipment.id_room,equipment.type,c2.value from equipment inner join \n" +
             "(select * from consumption \n" +
             "where id_consumption in (Select max \n" +
             "from (Select max(id_consumption),id_equipment \n" +
