@@ -1,13 +1,11 @@
 package episen.pds.citizens.backcitizens.service;
 
-import episen.pds.citizens.backcitizens.model.Configuration;
-import episen.pds.citizens.backcitizens.model.Consumption;
-import episen.pds.citizens.backcitizens.model.Equipment;
-import episen.pds.citizens.backcitizens.model.Room;
+import episen.pds.citizens.backcitizens.model.*;
 import episen.pds.citizens.backcitizens.repository.ConfigurationRepo;
 import episen.pds.citizens.backcitizens.repository.ConsumptionRepo;
 import episen.pds.citizens.backcitizens.repository.EquipmentRepo;
 import episen.pds.citizens.backcitizens.repository.RoomRepo;
+import episen.pds.citizens.frontend.model.ConsumptionByBuilding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,5 +58,12 @@ public class UseMonitorService {
     }
     public Iterable<Consumption> getAllConsumption() {
         return consumptionRepo.findAll();
+    }
+
+    public Iterable<Consumption> getConsumptionByBuilding(int id_building) {
+        return consumptionRepo.findConsumptionByBuilding(id_building);
+    }
+    public Iterable<Consumption> getConsumptionByRoom(int id_room) {
+        return consumptionRepo.findConsumptionByBuilding(id_room);
     }
 }

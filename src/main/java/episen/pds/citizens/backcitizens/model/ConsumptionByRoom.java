@@ -3,14 +3,12 @@ package episen.pds.citizens.backcitizens.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "Consumption")
-public class Consumption {
+public class ConsumptionByRoom {
     @Id
-    @Column(name = "id")
-    private int Id;
+    @Column(name = "id_room")
+    private int id_room;
 
     @Column(name = "value")
     private double value;
