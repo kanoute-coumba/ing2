@@ -30,4 +30,36 @@ public class Production {
                 ", id_central=" + id_central +
                 '}';
     }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public int getId_central() {
+        return id_central;
+    }
+
+    public void setId_central(int id_central) {
+        this.id_central = id_central;
+    }
 }

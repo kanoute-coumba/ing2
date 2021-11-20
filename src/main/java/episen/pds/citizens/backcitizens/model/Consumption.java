@@ -31,4 +31,36 @@ public class Consumption {
                 ", id_equipment=" + id_equipment +
                 '}';
     }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public int getId_equipment() {
+        return id_equipment;
+    }
+
+    public void setId_equipment(int id_equipment) {
+        this.id_equipment = id_equipment;
+    }
 }
