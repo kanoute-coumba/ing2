@@ -18,9 +18,9 @@ public class EquipmentController {
     private static final Logger logger = Logger.getLogger(EquipmentController.class.getName());
 
     @GetMapping("/ListEquipment")
-    public Iterable<String> getListEquipment(@RequestParam("typEquipement") String typEquipment, @RequestParam("location") String location) {
+    public Iterable<String> getListEquipment(@RequestParam("id_room") Integer id_room, @RequestParam("id_floor") Integer id_floor) {
         logger.config("returning values");
-        return equipmentService.getEquipment(typEquipment,location);
+        return equipmentService.getEquipment(id_room,id_floor);
     }
 
 

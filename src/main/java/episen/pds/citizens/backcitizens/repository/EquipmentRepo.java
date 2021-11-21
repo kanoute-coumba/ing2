@@ -11,7 +11,9 @@ import java.util.List;
 @Repository
 public interface EquipmentRepo extends CrudRepository<Equipment, Integer> {
 
-    @Query( value = "select equip_name From equipement where type_equip =:typEquipment AND locations =:location", nativeQuery = true)
-    List<String> findByNameEquipment(@Param("typEquipment") String typEquipment, @Param("location")String location);
+    @Query( value = "select type From equipment e inner join room r on e.id_room = r.id_room where r.id_room =:id_room AND id_floor =:id_floor", nativeQuery = true)
+    List<String> findByNameEquipment(@Param("id_room") Integer id_room, @Param("id_floor")Integer id_floor);
+
+
 
 }

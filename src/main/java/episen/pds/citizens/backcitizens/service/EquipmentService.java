@@ -1,7 +1,5 @@
 package episen.pds.citizens.backcitizens.service;
 
-import episen.pds.citizens.backcitizens.model.Equipment;
-
 import episen.pds.citizens.backcitizens.repository.EquipmentRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,7 @@ public class EquipmentService {
     @Autowired
     private EquipmentRepo equipmentRepo;
 
-    public Iterable<String> getEquipment(String typEquipment, String location) {
-        return equipmentRepo.findByNameEquipment(typEquipment, location);
+    public Iterable<String> getEquipment(Integer id_room, Integer id_floor) {
+        return equipmentRepo.findByNameEquipment(id_room, id_floor);
     }
 }
