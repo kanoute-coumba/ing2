@@ -53,9 +53,9 @@ public class UseMonitorService {
     }
     // CONSUMPTION
 
-    public Optional<Consumption> getConsumptionByDate(String date) {
+   /* public Optional<Consumption> getConsumptionByDate(String date) {
         return consumptionRepo.findConsumptionByDate(date);
-    }
+    }*/
     public Iterable<Consumption> getAllConsumption() {
         return consumptionRepo.findAll();
     }
@@ -65,5 +65,9 @@ public class UseMonitorService {
     }
     public Iterable<Consumption> getConsumptionByRoom(int id_room) {
         return consumptionRepo.findConsumptionByBuilding(id_room);
+    }
+
+    public Iterable<RoomsWithConsumption> getRoomsWithConsumption() {
+        return RoomRepo.findRoomsWithConsumption();
     }
 }

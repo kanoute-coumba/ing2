@@ -1,6 +1,7 @@
 package episen.pds.citizens.backcitizens.controller;
 
 import episen.pds.citizens.backcitizens.model.Consumption;
+import episen.pds.citizens.backcitizens.model.RoomsWithConsumption;
 import episen.pds.citizens.backcitizens.service.UseMonitorService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,5 +15,10 @@ public class UseMonitorController {
     @GetMapping("/getConsumptionByBuilding")
     public Iterable<Consumption> getConsumptionByBuilding(int id_building) {
         return useMonitorService.getConsumptionByBuilding(id_building);
+    }
+
+    @GetMapping("/getRoomsWithConsumption")
+    public Iterable<RoomsWithConsumption> getRoomsWithConsumption() {
+        return useMonitorService.getRoomsWithConsumption();
     }
 }
