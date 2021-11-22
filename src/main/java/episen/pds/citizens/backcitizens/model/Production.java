@@ -12,7 +12,7 @@ public class Production {
     @Column(name = "id_production")
     private int Id;
 
-    @Column(name = "timestamp")
+    @Column(name = "date_time")
     private Date timestamp;
 
     @Column(name = "value")
