@@ -16,7 +16,7 @@ public class Production {
     private Date timestamp;
 
     @Column(name = "value")
-    private int value;
+    private Double value;
 
     @Column(name = "id_central")
     private int id_central;
@@ -47,11 +47,11 @@ public class Production {
         this.timestamp = timestamp;
     }
 
-    public int getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 

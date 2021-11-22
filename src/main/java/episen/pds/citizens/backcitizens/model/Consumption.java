@@ -2,7 +2,6 @@ package episen.pds.citizens.backcitizens.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
@@ -17,7 +16,7 @@ public class Consumption {
     private Date timestamp;
 
     @Column(name = "value")
-    private int value;
+    private Double value;
 
     @Column(name = "id_equipment")
     private int id_equipment;
@@ -48,11 +47,11 @@ public class Consumption {
         this.timestamp = timestamp;
     }
 
-    public int getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 
