@@ -26,7 +26,6 @@ public class CitizensBackendApplication implements CommandLineRunner {
 		logger.config(consumptionController.getConsumption() + "");
 	}
 
-
 	public static void main(String[] args) {
 		SpringApplication.run(CitizensBackendApplication.class, args);
 	}
