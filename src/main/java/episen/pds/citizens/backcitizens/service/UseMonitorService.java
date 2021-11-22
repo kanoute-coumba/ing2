@@ -71,4 +71,8 @@ public class UseMonitorService {
     public Iterable<RoomsWithConsumption> getRoomsWithConsumption() {
         return roomRepo.findRoomsWithConsumption();
     }
+
+    public Iterable<Equipment> getEquipmentByRoom(int id_room) {
+        return  equipmentRepo.findEquipmentByRoom(id_room);
+    }
 }
