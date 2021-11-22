@@ -11,8 +11,15 @@ public class MixEn {
     private int mix;
 
     @Id
-    @Column(name = "address")
-    private String address;
+    @Column(name = "name_building")
+    private String name_building;
+
+    public MixEn(){}
+
+    public MixEn(int mix, String name_building){
+        this.mix=mix;
+        this.name_building=name_building;
+    }
 
     public int getMix(){
         return mix;
@@ -20,13 +27,13 @@ public class MixEn {
     public void setMix(int mix){
         this.mix=mix;
     }
-    public String getAdress(){
-        return address;
+    public String getNameBuilding(){
+        return name_building;
     }
-    public void setAdress(String address){
-        this.address=address;
+    public void setNameBuilding(String name_building){
+        this.name_building=name_building;
     }
     public String toString(){
-        return ""+address+" "+mix;
+        return ""+name_building+" "+mix;
     }
 }

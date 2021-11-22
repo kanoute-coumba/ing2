@@ -2,6 +2,7 @@ package episen.pds.citizens.backcitizens.controller;
 
 
 import episen.pds.citizens.backcitizens.model.MixEn;
+import episen.pds.citizens.backcitizens.model.MixEnBySite;
 import episen.pds.citizens.backcitizens.service.MixEnService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,8 +22,12 @@ public class MixEnController {
     @GetMapping("/Mix")
     public Iterable<MixEn> getMixEn() {
         logger.info("current mix return");
-        //for
-        //logger.info(mixEnService.getMixEn());
         return mixEnService.getMixEn();
+    }
+
+    @GetMapping("/MixBySite")
+    public Iterable<MixEnBySite> getMixEnBySite() {
+        logger.info("current mix return");
+        return mixEnService.getMixEnBySite();
     }
 }
