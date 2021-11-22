@@ -19,9 +19,16 @@ public class EquipmentService {
 
 
     public Iterable<EquipmentWithConsumption> getEquipmentByConsumption(){
-        logger.config("EquipmentService getEquipmentByConsumption");
-        Iterable<EquipmentWithConsumption> equipmentWithConsumptionIterable = equipmentWithConsumptionRepo.findEquipmentByConsumption();
-        logger.config(equipmentWithConsumptionIterable.toString());
-        return equipmentWithConsumptionIterable;
+        logger.info("EquipmentService getEquipmentByConsumption");
+        Iterable<EquipmentWithConsumption> a = equipmentWithConsumptionRepo.findEquipmentByConsumption();
+        logger.info(a.toString());
+        return a;
+    }
+
+    @Override
+    public String toString() {
+        return "EquipmentService{" +
+                "equipmentWithConsumptionRepo=" + equipmentWithConsumptionRepo +
+                '}';
     }
 }
