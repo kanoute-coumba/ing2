@@ -7,10 +7,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.function.Supplier;
+import java.util.logging.Logger;
+
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UseMonitorController {
     private UseMonitorService useMonitorService;
+    private static final Logger logger = Logger.getLogger(TestController.class.getName());
 
     @GetMapping("/getConsumptionByBuilding")
     public Iterable<Consumption> getConsumptionByBuilding(int id_building) {

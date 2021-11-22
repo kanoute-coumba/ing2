@@ -61,6 +61,7 @@ public class UseMonitorService {
     }
 
     public Iterable<Consumption> getConsumptionByBuilding(int id_building) {
+
         return consumptionRepo.findConsumptionByBuilding(id_building);
     }
     public Iterable<Consumption> getConsumptionByRoom(int id_room) {
@@ -68,6 +69,6 @@ public class UseMonitorService {
     }
 
     public Iterable<RoomsWithConsumption> getRoomsWithConsumption() {
-        return RoomRepo.findRoomsWithConsumption();
+        return roomRepo.findRoomsWithConsumption();
     }
 }

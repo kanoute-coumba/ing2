@@ -18,4 +18,12 @@ public class Consumption {
     @Column(name = "date_time")
     private String date_time;
 
+    @Override
+    public String toString() {
+        return "Consumption{" +
+                "Id=" + Id +
+                ", value=" + value +
+                ", date_time='" + date_time + '\'' +
+                '}';
+    }
 }
