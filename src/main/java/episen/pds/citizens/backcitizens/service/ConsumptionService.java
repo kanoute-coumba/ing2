@@ -12,7 +12,7 @@ public class ConsumptionService {
         private ConsumptionRepo consumptionRepo;
 
         public Iterable<Consumption> getConsumption() {
-            return consumptionRepo.findAll();
+            return consumptionRepo.findConsoValue();
         }
 
     }
