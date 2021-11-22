@@ -18,9 +18,9 @@ public class EquipmentService {
     private static final Logger logger = Logger.getLogger(EquipmentService.class.getName());
 
 
-    public Iterable<EquipmentWithConsumption> getEquipmentByConsumption(){
+    public Iterable<EquipmentWithConsumption> getEquipmentByConsumption(String id_b){
         logger.info("EquipmentService getEquipmentByConsumption");
-        Iterable<EquipmentWithConsumption> a = equipmentWithConsumptionRepo.findEquipmentByConsumption();
+        Iterable<EquipmentWithConsumption> a = equipmentWithConsumptionRepo.findEquipmentByConsumption(Integer.parseInt(id_b));
         logger.info(a.toString());
         return a;
     }
