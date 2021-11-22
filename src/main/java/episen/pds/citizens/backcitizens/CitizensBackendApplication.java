@@ -1,5 +1,6 @@
 package episen.pds.citizens.backcitizens;
 
+import episen.pds.citizens.backcitizens.controller.ConsumptionController;
 import org.springframework.beans.factory.annotation.Autowired;
 import episen.pds.citizens.backcitizens.controller.TestController;
 import org.springframework.boot.CommandLineRunner;
@@ -17,12 +18,12 @@ public class CitizensBackendApplication implements CommandLineRunner {
 	private static final Logger logger = Logger.getLogger(CitizensBackendApplication.class.getName());
 
 	@Autowired
-	TestController testController;
+	ConsumptionController consumptionController;
 
 	@Override
 	public void run(String... args) throws Exception {
 		logger.config("debut de la commande");
-		logger.config(testController.getTest() + "");
+		logger.config(consumptionController.getConsumption() + "");
 	}
 
 
