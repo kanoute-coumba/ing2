@@ -22,7 +22,7 @@ public class ConsumptionController {
     @GetMapping("/consumption")
     public Iterable<Consumption> getConsumption() {
         logger.config("returning values");
-        return consumptionService.getTest();
+        return consumptionService.getConsumption();
     }
 
 }
