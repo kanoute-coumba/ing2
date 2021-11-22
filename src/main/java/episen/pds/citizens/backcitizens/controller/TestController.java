@@ -1,6 +1,6 @@
 package episen.pds.citizens.backcitizens.controller;
 
-import episen.pds.citizens.backcitizens.CitizensBackendApplication;
+
 import episen.pds.citizens.backcitizens.model.Test;
 import episen.pds.citizens.backcitizens.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +9,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.logging.Logger;
 
-@RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@RestController //spring sert à utiliser le modèle MVC et l'annotation
+// sont pour indiquer à spring le role de chaque class
+@CrossOrigin(origins = "*", allowedHeaders = "*") //récup sur internet
+// autorise le front à récuperer des information par le front sur le back
 public class TestController {
+    @Override
+    public String toString() {
+        return "TestController{" +
+                "testService=" + testService +
+                '}';
+    }
 
+    // c'est là qu'à lieu l'interaction avec le front
     @Autowired
     private TestService testService;
     private static final Logger logger = Logger.getLogger(TestController.class.getName());
