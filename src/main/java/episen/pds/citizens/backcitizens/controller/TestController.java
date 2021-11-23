@@ -1,6 +1,7 @@
 package episen.pds.citizens.backcitizens.controller;
 
 import episen.pds.citizens.backcitizens.CitizensBackendApplication;
+import episen.pds.citizens.backcitizens.model.Menu;
 import episen.pds.citizens.backcitizens.model.Test;
 import episen.pds.citizens.backcitizens.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class TestController {
     @PostMapping("/Form")
     public void saveTest(@RequestBody Test test) {
         logger.config("receiving values");
-        //return testService.saveTest(test);
+        testService.saveTest(test);
     }
     @PostMapping("/DeleteId/{id}")
     public void deleteTest(@PathVariable int id) {
