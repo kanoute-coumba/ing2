@@ -27,7 +27,7 @@ public class UseMonitorController {
         return useMonitorService.getRoomsWithConsumption();
     }
 
-    @GetMapping("/getEquipmentByRoom")
+    @GetMapping("/getEquipmentsByRoom")
     public Iterable<Equipment> getEquipmentByRoom(int id_room) {
         return  useMonitorService.getEquipmentByRoom(id_room);
     }
