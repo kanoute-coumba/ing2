@@ -23,5 +23,10 @@ public class EquipmentController {
         return equipmentService.getEquipment(id_room,id_floor);
     }
 
+    @GetMapping("/Lampe")
+    public String getEquipmentLampe(@RequestParam("id_room") Integer id_room, @RequestParam("id_equipment") Integer id_equipment) {
+        return equipmentService.recoverLampe(id_room, id_equipment);
+    }
+
 
 }

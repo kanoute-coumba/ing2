@@ -14,4 +14,8 @@ public class EquipmentService {
     public Iterable<String> getEquipment(Integer id_room, Integer id_floor) {
         return equipmentRepo.findByNameEquipment(id_room, id_floor);
     }
+
+    public String recoverLampe (Integer id_room, Integer id_equipment) {
+        return equipmentRepo.equipLampe(id_room, id_equipment);
+    }
 }

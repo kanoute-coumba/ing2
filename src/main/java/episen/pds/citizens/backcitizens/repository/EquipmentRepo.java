@@ -14,6 +14,9 @@ public interface EquipmentRepo extends CrudRepository<Equipment, Integer> {
     @Query( value = "select type From equipment e inner join room r on e.id_room = r.id_room where r.id_room =:id_room AND id_floor =:id_floor", nativeQuery = true)
     List<String> findByNameEquipment(@Param("id_room") Integer id_room, @Param("id_floor")Integer id_floor);
 
+    @Query(value = "select type from equipment where id_room =:id_room AND id_equipment =:id_equipment", nativeQuery = true)
+    String equipLampe (@Param("id_room") Integer id_room , @Param("id_equipment") Integer id_equipment);
+
 
 
 }
