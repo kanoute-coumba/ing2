@@ -18,4 +18,8 @@ public class EquipmentService {
     public String recoverLampe (Integer id_room, Integer id_equipment) {
         return equipmentRepo.equipLampe(id_room, id_equipment);
     }
+
+    public String recoverClimatisation (Integer id_room, Integer id_equipment) {
+        return equipmentRepo.equipClimatisation(id_room, id_equipment);
+    }
 }
