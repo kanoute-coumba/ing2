@@ -27,5 +27,9 @@ public class EquipmentService {
         return equipmentRepo.equipRadiateur(id_room, id_equipment);
     }
 
+    public String recoverFenetre (Integer id_room, Integer id_equipment) {
+        return equipmentRepo.equipFenetre(id_room, id_equipment);
+    }
+
 
 }
