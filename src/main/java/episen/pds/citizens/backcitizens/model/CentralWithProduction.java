@@ -8,10 +8,7 @@ import javax.persistence.Id;
 public class CentralWithProduction {
     @Id
     @Column(name = "id_central")
-    public int id_equipment;
-
-    @Column(name = "id_building")
-    public int id_room;
+    public int id_central;
 
     @Column(name = "type")
     public String type;
@@ -19,21 +16,15 @@ public class CentralWithProduction {
     @Column(name = "value")
     public String value;
 
-    public int getId_equipment() {
-        return id_equipment;
+    public int getId_central() {
+        return id_central;
     }
 
-    public void setId_equipment(int id_equipment) {
-        this.id_equipment = id_equipment;
+    public void setId_central(int id_central) {
+        this.id_central = id_central;
     }
 
-    public int getId_room() {
-        return id_room;
-    }
 
-    public void setId_room(int id_room) {
-        this.id_room = id_room;
-    }
 
     public String getType() {
         return type;
@@ -54,8 +45,7 @@ public class CentralWithProduction {
     @Override
     public String toString() {
         return "CentralWithProductionRepo{" +
-                "id_equipment=" + id_equipment +
-                ", id_room=" + id_room +
+                "id_central=" + id_central +
                 ", type='" + type + '\'' +
                 ", value='" + value + '\'' +
                 '}';
