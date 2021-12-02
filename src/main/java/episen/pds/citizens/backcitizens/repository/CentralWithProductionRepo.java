@@ -12,7 +12,7 @@ public interface CentralWithProductionRepo extends CrudRepository<CentralWithPro
             "from (Select max(id_production),id_central \n" +
             "\tfrom production group by id_central) as c1)) as c2 on \n" +
             "\tc2.id_central=central.id_central\n" +
-            "where id_building = :idb",nativeQuery = true)
+            "where id_building = :idb order by value",nativeQuery = true)
     public Iterable<CentralWithProduction> getCentralWithProduction(@Param("idb") int id_b);
 
 }
