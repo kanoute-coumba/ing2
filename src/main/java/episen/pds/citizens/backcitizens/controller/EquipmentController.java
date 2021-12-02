@@ -34,5 +34,9 @@ public class EquipmentController {
 
     }
 
+    @GetMapping("/Radiateur")
+    public String getEquipmentRadiateur(@RequestParam("id_room") Integer id_room, @RequestParam("id_equipment") Integer id_equipment) {
+        return equipmentService.recoverRadiateur(id_room, id_equipment);
+    }
 
 }

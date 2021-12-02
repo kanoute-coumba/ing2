@@ -22,4 +22,10 @@ public class EquipmentService {
     public String recoverClimatisation (Integer id_room, Integer id_equipment) {
         return equipmentRepo.equipClimatisation(id_room, id_equipment);
     }
+
+    public String recoverRadiateur (Integer id_room, Integer id_equipment) {
+        return equipmentRepo.equipRadiateur(id_room, id_equipment);
+    }
+
+
 }
