@@ -31,5 +31,13 @@ public class EquipmentService {
         return equipmentRepo.equipFenetre(id_room, id_equipment);
     }
 
+    public String recoverStore (Integer id_room, Integer id_equipment) {
+        return equipmentRepo.equipStore(id_room, id_equipment);
+    }
+
+    public String recoverScreen (Integer id_room, Integer id_equipment) {
+        return equipmentRepo.equipScreen(id_room, id_equipment);
+    }
+
 
 }
