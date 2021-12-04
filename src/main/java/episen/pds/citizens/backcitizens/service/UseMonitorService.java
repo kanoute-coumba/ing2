@@ -1,10 +1,7 @@
 package episen.pds.citizens.backcitizens.service;
 
 import episen.pds.citizens.backcitizens.model.*;
-import episen.pds.citizens.backcitizens.repository.ConfigurationRepo;
-import episen.pds.citizens.backcitizens.repository.ConsumptionRepo;
-import episen.pds.citizens.backcitizens.repository.EquipmentRepo;
-import episen.pds.citizens.backcitizens.repository.RoomRepo;
+import episen.pds.citizens.backcitizens.repository.*;
 import episen.pds.citizens.frontend.model.ConsumptionByBuilding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +15,7 @@ public class UseMonitorService {
     private EquipmentRepo equipmentRepo;
     private ConsumptionRepo consumptionRepo;
     private RoomRepo roomRepo;
+    private ConditionRepo conditionRepo;
 
     // ROOMS
 
@@ -51,6 +49,7 @@ public class UseMonitorService {
     public void saveEquipment(Equipment equipment) {
         equipmentRepo.save(equipment);
     }
+
     // CONSUMPTION
 
    /* public Optional<Consumption> getConsumptionByDate(String date) {
@@ -74,5 +73,9 @@ public class UseMonitorService {
 
     public Iterable<Equipment> getEquipmentByRoom(int id_room) {
         return  equipmentRepo.findEquipmentByRoom(id_room);
+    }
+
+    public Iterable<Condition> getRoomConditions(int id_room) {
+        return conditionRepo.findConditionsByRoom(id_room);
     }
 }
