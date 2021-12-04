@@ -16,6 +16,16 @@ public class RoomsWithConsumption {
     @Column(name = "address")
     private String date_time;
 
+    @Override
+    public String toString() {
+        return "RoomsWithConsumption{" +
+                "id_room=" + id_room +
+                ", name='" + name + '\'' +
+                ", date_time='" + date_time + '\'' +
+                ", consumption=" + consumption +
+                '}';
+    }
+
     @Column(name = "value")
     private double consumption;
 

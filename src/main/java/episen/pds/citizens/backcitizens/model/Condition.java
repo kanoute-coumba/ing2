@@ -14,6 +14,16 @@ public class Condition {
     @Column(name = "luminosity")
     private double luminosity;
 
+    @Override
+    public String toString() {
+        return "Condition{" +
+                "Id=" + Id +
+                ", luminosity=" + luminosity +
+                ", temperature=" + temperature +
+                ", begin_time='" + begin_time + '\'' +
+                '}';
+    }
+
     @Column(name = "temperature")
     private double temperature;
 

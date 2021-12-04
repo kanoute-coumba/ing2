@@ -33,6 +33,15 @@ public class Equipment {
         this.type = type;
     }
 
+    @Override
+    public String toString() {
+        return "Equipment{" +
+                "Id=" + Id +
+                ", type='" + type + '\'' +
+                ", value=" + value +
+                '}';
+    }
+
     public double getValue() {
         return value;
     }

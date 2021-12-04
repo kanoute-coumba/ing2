@@ -16,4 +16,13 @@ public class ConsumptionByBuilding {
 
     @Column(name = "date_time")
     private String date_time;
+
+    @Override
+    public String toString() {
+        return "ConsumptionByBuilding{" +
+                "id_building=" + id_building +
+                ", value=" + value +
+                ", date_time='" + date_time + '\'' +
+                '}';
+    }
 }

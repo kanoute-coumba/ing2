@@ -28,6 +28,15 @@ public class Test {
         Id = id;
     }
 
+    @Override
+    public String toString() {
+        return "Test{" +
+                "Id=" + Id +
+                ", lastname='" + lastname + '\'' +
+                ", firstname='" + firstname + '\'' +
+                '}';
+    }
+
     public String getLastname() {
         return lastname;
     }
@@ -44,12 +53,4 @@ public class Test {
         this.firstname = firstname;
     }
 
-    @Override
-    public String toString() {
-        return "Test{" +
-                "Id=" + Id +
-                ", lastname='" + lastname + '\'' +
-                ", firstname='" + firstname + '\'' +
-                '}';
-    }
 }

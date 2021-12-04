@@ -38,6 +38,16 @@ public class User {
         return firstname;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id_user=" + id_user +
+                ", name='" + name + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", role='" + role + '\'' +
+                '}';
+    }
+
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }

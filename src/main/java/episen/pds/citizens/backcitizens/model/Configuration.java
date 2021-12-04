@@ -21,6 +21,17 @@ public class Configuration {
     @Column(name = "begin_time")
     private String begin_time;
 
+    @Override
+    public String toString() {
+        return "Configuration{" +
+                "Id=" + Id +
+                ", luminosity=" + luminosity +
+                ", temperature=" + temperature +
+                ", begin_time='" + begin_time + '\'' +
+                ", end_time='" + end_time + '\'' +
+                '}';
+    }
+
     @Column(name = "end_time")
     private String end_time;
 

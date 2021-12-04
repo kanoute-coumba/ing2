@@ -25,6 +25,17 @@ public class Room {
     @Column(name = "begin_time")
     private String begin_time;
 
+    @Override
+    public String toString() {
+        return "Room{" +
+                "Id=" + Id +
+                ", name='" + name + '\'' +
+                ", edge=" + edge +
+                ", temperature=" + temperature +
+                ", begin_time='" + begin_time + '\'' +
+                '}';
+    }
+
     public int getId() {
         return Id;
     }
