@@ -10,57 +10,69 @@ import javax.persistence.Table;
 public class Equipment {
 
     @Id
-    @Column(name = "id_equip")
-    private int id_equip;
+    @Column(name = "id_equipment")
+    private int id_equipment;
 
-    @Column(name = "equip_name")
-    private String equip_name;
+    @Column(name = "id_room")
+    private int id_room;
 
-    @Column(name = "type_equip")
-    private String type_equip;
+    @Column(name = "type")
+    private String type;
 
-    @Column(name = "locations")
-    private String locations;
+    @Column(name = "statut")
+    private String statut;
 
-    public int getId_equip() {
-        return id_equip;
+    @Column(name = "type_mode")
+    private String type_mode;
+
+    public int getId_equipment() {
+        return id_equipment;
     }
 
-    public void setId_equip(int id_equip) {
-        this.id_equip = id_equip;
+    public void setId_equipment(int id_equipment) {
+        this.id_equipment = id_equipment;
     }
 
-    public String getEquip_name() {
-        return equip_name;
+    public int getId_room() {
+        return id_room;
     }
 
-    public void setEquip_name(String equip_name) {
-        this.equip_name = equip_name;
+    public void setId_room(int id_room) {
+        this.id_room = id_room;
     }
 
-    public String getType_equip() {
-        return type_equip;
+    public String getType() {
+        return type;
     }
 
-    public void setType_equip(String type_equip) {
-        this.type_equip = type_equip;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getLocations() {
-        return locations;
+    public String getStatut() {
+        return statut;
     }
 
-    public void setLocations(String locations) {
-        this.locations = locations;
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
+
+    public String getType_mode() {
+        return type_mode;
+    }
+
+    public void setType_mode(String type_mode) {
+        this.type_mode = type_mode;
     }
 
     @Override
     public String toString() {
         return "Equipment{" +
-                "id_equip=" + id_equip +
-                ", equip_name='" + equip_name + '\'' +
-                ", type_equip='" + type_equip + '\'' +
-                ", locations='" + locations + '\'' +
+                "id_equipment=" + id_equipment +
+                ", id_room=" + id_room +
+                ", type='" + type + '\'' +
+                ", statut='" + statut + '\'' +
+                ", type_mode='" + type_mode + '\'' +
                 '}';
     }
 }

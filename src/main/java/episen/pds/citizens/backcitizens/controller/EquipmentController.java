@@ -54,4 +54,12 @@ public class EquipmentController {
         return equipmentService.recoverScreen(id_room, id_equipment);
     }
 
+    @PutMapping("/updateLampe")
+    public void updateStatutLampe(@RequestBody Equipment equipment) {
+        equipmentService.updateStatutLampe(equipment);
+        logger.info("update done");
+
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package episen.pds.citizens.backcitizens.service;
 
+import episen.pds.citizens.backcitizens.model.Equipment;
 import episen.pds.citizens.backcitizens.repository.EquipmentRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,11 @@ public class EquipmentService {
 
     public String recoverScreen (Integer id_room, Integer id_equipment) {
         return equipmentRepo.equipScreen(id_room, id_equipment);
+    }
+
+    public void updateStatutLampe(Equipment equipment) {
+        equipmentRepo.updateStatutLampe(equipment.getStatut(), equipment.getType_mode(), equipment.getId_room(), equipment.getId_equipment());
+
     }
 
 
