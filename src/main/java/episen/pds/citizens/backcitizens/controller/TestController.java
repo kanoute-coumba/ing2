@@ -1,13 +1,11 @@
 package episen.pds.citizens.backcitizens.controller;
 
-
 import episen.pds.citizens.backcitizens.model.Test;
 import episen.pds.citizens.backcitizens.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.web.bind.annotation.*;
-
 import java.util.logging.Logger;
+
 
 @RestController //spring sert à utiliser le modèle MVC et l'annotation
 // sont pour indiquer à spring le role de chaque class
