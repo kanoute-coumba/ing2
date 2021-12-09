@@ -21,4 +21,10 @@ public class OverrunController {
         return overrunService.getOverrun();
     }
 
+    @GetMapping("/whole")
+    public Iterable<Attribution> getConsumption() {
+        logger.config("returning values");
+        return overrunService.getConsumption();
+    }
+
 }
