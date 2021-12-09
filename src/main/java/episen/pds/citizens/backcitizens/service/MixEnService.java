@@ -36,7 +36,8 @@ public class MixEnService {
         // list of percentage of the current production for each energy
         List<MixEn> percentageMixEn = new ArrayList<MixEn>();
         for(MixEn m : listMixEn){
-            MixEn mix = new MixEn(m.getMix()*100/totalProduction, m.getNameBuilding());
+            int i = (int) Math.round(m.getMix()*100*1.0/totalProduction);
+            MixEn mix = new MixEn(i, m.getNameBuilding());
             percentageMixEn.add(mix);
             logger.info(mix.toString());
         }
@@ -56,7 +57,8 @@ public class MixEnService {
 
         List<MixEnBySite> percentageMixEnBySite = new ArrayList<MixEnBySite>();
         for(MixEnBySite m : listMixEnBySite){
-            MixEnBySite mix = new MixEnBySite(m.getMix()*100/totalProduction, m.getAddress());
+            int i = (int) Math.round(m.getMix()*100*1.0/totalProduction);
+            MixEnBySite mix = new MixEnBySite(i, m.getAddress());
             percentageMixEnBySite.add(mix);
             logger.info(mix.toString());
         }
