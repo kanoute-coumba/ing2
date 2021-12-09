@@ -1,8 +1,9 @@
 package episen.pds.citizens.backcitizens.service;
 
 import episen.pds.citizens.backcitizens.model.Attribution;
+import episen.pds.citizens.backcitizens.model.Consumption;
 import episen.pds.citizens.backcitizens.repository.ConsumptionRepo;
-import episen.pds.citizens.backcitizens.repository.OverrunRepo;
+import episen.pds.citizens.backcitizens.repository.AttributionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,13 +11,13 @@ import org.springframework.stereotype.Service;
 public class OverrunService {
 
         @Autowired
-        private ConsumptionRepo attributionRepo;
-        private OverrunRepo overrunRepo;
+        private ConsumptionRepo consumptionRepo;
+        private AttributionRepo attributionRepo;
 
-        public Iterable<Attribution> getConsumption() {
-            return attributionRepo.findWholeConsumption();
+        public Iterable<Consumption> getConsumption() {
+            return consumptionRepo.findWholeConsumption();
         }
-        public Iterable<Attribution> getOverrun() { return overrunRepo.findAttribution();
+        public Iterable<Attribution> getAttribution() { return attributionRepo.findAttribution();
     }
 
 

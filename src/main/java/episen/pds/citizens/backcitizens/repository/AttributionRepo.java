@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-    public interface OverrunRepo extends CrudRepository<Attribution, Integer> {
+    public interface AttributionRepo extends CrudRepository<Attribution, Integer> {
     @Query (value = " select value, id_building from Attribution", nativeQuery = true)
     public Iterable<Attribution> findAttribution();
     }
