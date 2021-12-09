@@ -12,7 +12,7 @@ public class OverrunService {
         private OverrunRepo overrunRepo;
 
         public Iterable<Attribution> getOverrun() {
-            return overrunRepo.findAll();
+            return overrunRepo.findWholeConsumption();
         }
 
     }
