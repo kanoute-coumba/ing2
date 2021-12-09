@@ -18,9 +18,9 @@ public class FloorService {
         this.floorRepo = floorRepo;
     }
 
-    public List<Floor> getAllFloors() {
-        return floorRepo.findAll();
-    }
+//    public List<Floor> getAllFloors() {
+//        return floorRepo.findAll();
+//    }
 
     public List<Floor> getFloorsOfBuilding(String name_building) {
         return floorRepo.getFloorsOfBuilding(name_building);
