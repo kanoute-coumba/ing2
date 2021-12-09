@@ -58,7 +58,7 @@ public class MixEnService {
         List<MixEnBySite> percentageMixEnBySite = new ArrayList<MixEnBySite>();
         for(MixEnBySite m : listMixEnBySite){
             int i = (int) Math.round(m.getMix()*100*1.0/totalProduction);
-            MixEnBySite mix = new MixEnBySite(i, m.getAddress());
+            MixEnBySite mix = new MixEnBySite(i, m.getAddress(), m.getName_building());
             percentageMixEnBySite.add(mix);
             logger.info(mix.toString());
         }
