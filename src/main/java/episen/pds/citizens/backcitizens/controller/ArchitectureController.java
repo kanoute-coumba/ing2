@@ -2,7 +2,7 @@ package episen.pds.citizens.backcitizens.controller;
 
 
 import episen.pds.citizens.backcitizens.model.architectureModel.Building;
-import episen.pds.citizens.backcitizens.model.architectureModel.Floor;
+import episen.pds.citizens.backcitizens.model.Floor;
 import episen.pds.citizens.backcitizens.model.architectureModel.Space;
 import episen.pds.citizens.backcitizens.service.architectureService.BuildingService;
 import episen.pds.citizens.backcitizens.service.architectureService.FloorService;

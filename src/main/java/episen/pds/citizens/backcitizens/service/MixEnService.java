@@ -4,6 +4,7 @@ package episen.pds.citizens.backcitizens.service;
 
 import episen.pds.citizens.backcitizens.model.MixEn;
 import episen.pds.citizens.backcitizens.model.MixEnBySite;
+import episen.pds.citizens.backcitizens.model.MixEnCapacityBySite;
 import episen.pds.citizens.backcitizens.repository.CurrentMixBySiteRepo;
 import episen.pds.citizens.backcitizens.repository.CurrentMixRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class MixEnService {
         return percentageMixEn;
     }
 
-    public Iterable<MixEnBySite> getMixEnBySite(){
+    public Iterable<MixEnCapacityBySite> getMixEnBySite(){
         // current production of each site
         Iterable<MixEnBySite> listMixEnBySite = currentMixBySiteRepo.findEnergyProductionBySite();
         // total current production
@@ -55,14 +56,18 @@ public class MixEnService {
         }
         logger.info(""+totalProduction);
 
-        List<MixEnBySite> percentageMixEnBySite = new ArrayList<MixEnBySite>();
+        List<MixEnCapacityBySite> listPercentageMixEnBySite = new ArrayList<>();
         for(MixEnBySite m : listMixEnBySite){
-            int i = (int) Math.round(m.getMix()*100*1.0/totalProduction);
-            MixEnBySite mix = new MixEnBySite(i, m.getAddress(), m.getName_building());
-            percentageMixEnBySite.add(mix);
-            logger.info(mix.toString());
+
+            int mix = (int) Math.round(m.getMix()*100*1.0/totalProduction);
+            int capacity_used = (int) Math.round(m.getActive_equip()*100*1.0/m.getNumber_equip());
+
+            MixEnCapacityBySite mixEnCapacityBySite = new MixEnCapacityBySite(mix,m.getMix(), m.getAddress(), m.getName_building(),m.getActive_equip(),m.getNumber_equip(), capacity_used);
+            listPercentageMixEnBySite.add(mixEnCapacityBySite);
+
+            logger.info(mixEnCapacityBySite.toString());
         }
-        return percentageMixEnBySite;
+        return listPercentageMixEnBySite;
 
     }
 
