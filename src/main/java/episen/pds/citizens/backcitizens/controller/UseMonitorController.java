@@ -5,6 +5,7 @@ import episen.pds.citizens.backcitizens.model.Consumption;
 import episen.pds.citizens.backcitizens.model.Equipment;
 import episen.pds.citizens.backcitizens.model.RoomsWithConsumption;
 import episen.pds.citizens.backcitizens.service.UseMonitorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.function.Supplier;
@@ -13,12 +14,9 @@ import java.util.logging.Logger;
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UseMonitorController {
-    private final UseMonitorService useMonitorService;
+    @Autowired
+    private UseMonitorService useMonitorService;
     private static final Logger logger = Logger.getLogger(TestController.class.getName());
-
-    public UseMonitorController(UseMonitorService useMonitorService) {
-        this.useMonitorService = useMonitorService;
-    }
 
     @GetMapping("/getConsumptionByBuilding/{id}")
     public Iterable<Consumption> getConsumptionByBuilding(@PathVariable("id") int id_building) {
@@ -50,5 +48,13 @@ public class UseMonitorController {
             logger.info(row.toString());
         }
         return useMonitorService.getRoomConditions(id_room);
+    }
+
+    @GetMapping("/getAllEquipments")
+    public Iterable<Equipment> getAllEquipments() {
+        for (Equipment row:useMonitorService.findEquipmentOrderByRoom()) {
+            logger.info(row.toString());
+        }
+        return useMonitorService.findEquipmentOrderByRoom();
     }
 }

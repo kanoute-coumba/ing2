@@ -7,34 +7,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Room")
+@Table(name = "room")
 public class Room {
     @Id
-    @Column(name = "id")
+    @Column(name = "id_room")
     private int Id;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "edge")
-    private boolean edge;
-
-    @Column(name = "temperature")
-    private double temperature;
-
-    @Column(name = "begin_time")
-    private String begin_time;
-
-    @Override
-    public String toString() {
-        return "Room{" +
-                "Id=" + Id +
-                ", name='" + name + '\'' +
-                ", edge=" + edge +
-                ", temperature=" + temperature +
-                ", begin_time='" + begin_time + '\'' +
-                '}';
-    }
+    @Column(name = "id_floor")
+    private int id_floor;
 
     public int getId() {
         return Id;
@@ -52,19 +35,20 @@ public class Room {
         this.name = name;
     }
 
-    public double getTemperature() {
-        return temperature;
+    public int getId_floor() {
+        return id_floor;
     }
 
-    public void setTemperature(double temperature) {
-        this.temperature = temperature;
+    public void setId_floor(int id_floor) {
+        this.id_floor = id_floor;
     }
 
-    public String getBegin_time() {
-        return begin_time;
-    }
-
-    public void setBegin_time(String begin_time) {
-        this.begin_time = begin_time;
+    @Override
+    public String toString() {
+        return "Room{" +
+                "Id=" + Id +
+                ", name='" + name + '\'' +
+                ", id_floor=" + id_floor +
+                '}';
     }
 }

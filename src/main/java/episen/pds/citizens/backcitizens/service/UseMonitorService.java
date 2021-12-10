@@ -10,11 +10,17 @@ import java.util.Optional;
 
 @Service
 public class UseMonitorService {
+
     @Autowired
-    private ConfigurationRepo configurationRepo;
     private EquipmentRepo equipmentRepo;
+
+    @Autowired
     private ConsumptionRepo consumptionRepo;
+
+    @Autowired
     private RoomRepo roomRepo;
+
+    @Autowired
     private ConditionRepo conditionRepo;
 
     // ROOMS
@@ -29,21 +35,12 @@ public class UseMonitorService {
         roomRepo.save(room);
     }
 
-    // CONFIGURATIONS
-
-    public Optional<Configuration> getConfigurationById(int id_configuration) {
-        return configurationRepo.findById(id_configuration);
-    }
-    public Iterable<Configuration> getAllConfigurations() {
-        return configurationRepo.findAll();
-    }
-
-    // EQUIPMENT
+    // EQUIPMENTS
 
     public Optional<Equipment> getEquipmentById(int id_equipment) {
         return equipmentRepo.findById(id_equipment);
     }
-    public Iterable<Equipment> getAllEquipment() {
+    public Iterable<Equipment> getAllEquipments() {
         return equipmentRepo.findAll();
     }
     public void saveEquipment(Equipment equipment) {
@@ -52,9 +49,6 @@ public class UseMonitorService {
 
     // CONSUMPTION
 
-   /* public Optional<Consumption> getConsumptionByDate(String date) {
-        return consumptionRepo.findConsumptionByDate(date);
-    }*/
     public Iterable<Consumption> getAllConsumption() {
         return consumptionRepo.findAll();
     }
@@ -67,12 +61,16 @@ public class UseMonitorService {
         return consumptionRepo.findConsumptionByBuilding(id_room);
     }
 
-  // public Iterable<RoomsWithConsumption> getRoomsWithConsumption() {
-  //     return roomRepo.findRoomsWithConsumption();
-  // }
-
+   /*public Iterable<RoomsWithConsumption> getRoomsWithConsumption() {
+       return roomRepo.findRoomsWithConsumption();
+   }
+*/
     public Iterable<Equipment> getEquipmentByRoom(int id_room) {
         return  equipmentRepo.findEquipmentByRoom(id_room);
+    }
+
+    public Iterable<Equipment> findEquipmentOrderByRoom() {
+        return  equipmentRepo.findEquipmentOrderByRoom();
     }
 
     public Iterable<Condition> getRoomConditions(int id_room) {

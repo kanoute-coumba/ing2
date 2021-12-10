@@ -5,11 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 @Entity
-@Table(name = "Condition")
+@Table(name = "conditions")
 public class Condition {
     @Id
-    @Column(name = "id")
-    private int Id;
+    @Column(name = "id_room")
+    private int id_room;
 
     @Column(name = "luminosity")
     private double luminosity;
@@ -17,7 +17,7 @@ public class Condition {
     @Override
     public String toString() {
         return "Condition{" +
-                "Id=" + Id +
+                "Id=" + id_room +
                 ", luminosity=" + luminosity +
                 ", temperature=" + temperature +
                 ", begin_time='" + begin_time + '\'' +
@@ -30,14 +30,17 @@ public class Condition {
     @Column(name = "begin_time")
     private String begin_time;
 
+    @Column(name = "end_time")
+    private String end_time;
+
     private int room;
 
     public int getId() {
-        return Id;
+        return id_room;
     }
 
     public void setId(int id) {
-        Id = id;
+        id_room = id;
     }
 
     public double getLuminosity() {

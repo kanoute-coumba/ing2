@@ -5,24 +5,27 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 @Entity
-@Table(name = "Equipment")
+@Table(name = "equipment")
 public class Equipment {
     @Id
-    @Column(name = "id")
-    private int Id;
+    @Column(name = "id_equipment")
+    private int id_equipment;
 
     @Column(name = "type")
     private String type;
 
-    @Column(name = "value")
-    private double value;
-    private String room;
-    public int getId() {
-        return Id;
+    @Column(name = "id_room")
+    private int id_room;
+
+    @Column(name = "statut")
+    private String statut;
+
+    public int getId_equipment() {
+        return id_equipment;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setId_equipment(int id_equipment) {
+        this.id_equipment = id_equipment;
     }
 
     public String getType() {
@@ -33,20 +36,29 @@ public class Equipment {
         this.type = type;
     }
 
+    public int getId_room() {
+        return id_room;
+    }
+
+    public void setId_room(int id_room) {
+        this.id_room = id_room;
+    }
+
+    public String getStatut() {
+        return statut;
+    }
+
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
+
     @Override
     public String toString() {
         return "Equipment{" +
-                "Id=" + Id +
+                "id_equipment=" + id_equipment +
                 ", type='" + type + '\'' +
-                ", value=" + value +
+                ", id_room=" + id_room +
+                ", statut='" + statut + '\'' +
                 '}';
-    }
-
-    public double getValue() {
-        return value;
-    }
-
-    public void setValue(double value) {
-        this.value = value;
     }
 }

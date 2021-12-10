@@ -14,11 +14,11 @@ public class Test {
     @Column(name = "id")
     private int Id;
 
-    @Column(name = "lastname")
-    private String lastname;
-
     @Column(name = "firstname")
     private String firstname;
+
+    @Column(name = "lastname")
+    private String lastname;
 
     public int getId() {
         return Id;
