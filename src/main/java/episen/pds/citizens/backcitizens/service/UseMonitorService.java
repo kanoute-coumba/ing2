@@ -2,7 +2,6 @@ package episen.pds.citizens.backcitizens.service;
 
 import episen.pds.citizens.backcitizens.model.*;
 import episen.pds.citizens.backcitizens.repository.*;
-import episen.pds.citizens.frontend.model.ConsumptionByBuilding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
