@@ -18,10 +18,15 @@ public class EquipmentController {
     EnergyService energyService;
     private static final Logger logger = Logger.getLogger(EquipmentController.class.getName());
 
-    @GetMapping("/EquipmentByConsumption/{id_b}")
-    public Iterable<EquipmentWithConsumption> getEquipmentByConsumption(@PathVariable String id_b){
-        logger.info("getEquipmentByConsumption");
+    @GetMapping("/EquipmentOrderByConsumption/idb={id_b}")
+    public Iterable<EquipmentWithConsumption> getEquipmentOrderByConsumptionByBuilding(@PathVariable String id_b){
+        logger.info("getEquipmentOrderByConsumptionByBuilding");
         return energyService.getEquipmentByConsumption(id_b);
+    }
+    @GetMapping("/EquipmentOrderByConsumption/idr={id_r}")
+    public Iterable<EquipmentWithConsumption> getEquipmentOrderByConsumptionByRoom(@PathVariable String id_r){
+        logger.info("getEquipmentOrderByConsumptionByRoom");
+        return energyService.getEquipmentOrderByConsumptionByRoom(id_r);
     }
     @GetMapping("/CentralByProduction/{id_b}")
     public Iterable<CentralWithProduction> getCentralByProduction(@PathVariable String id_b){

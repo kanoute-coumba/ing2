@@ -23,9 +23,13 @@ public class EnergyService {
 
     public Iterable<EquipmentWithConsumption> getEquipmentByConsumption(String id_b){
         logger.info("EnergyService getEquipmentByConsumption");
-        Iterable<EquipmentWithConsumption> a = equipmentWithConsumptionRepo.findEquipmentByConsumption(Integer.parseInt(id_b));
+        Iterable<EquipmentWithConsumption> a = equipmentWithConsumptionRepo.findEquipmentByConsumptionByBuilding(Integer.parseInt(id_b));
         logger.info(a.toString());
         return a;
+    }
+    public Iterable<EquipmentWithConsumption> getEquipmentOrderByConsumptionByRoom(String id_r){
+        logger.info("EnergyService getEquipmentOrderByConsumptionByRoom");
+        return equipmentWithConsumptionRepo.findEquipmentWithConsumptionByRoom(Integer.parseInt(id_r));
     }
     public Iterable<CentralWithProduction> getCentralByProduction(String id_b){
         logger.info("EnergyService getCentralByProduction");
