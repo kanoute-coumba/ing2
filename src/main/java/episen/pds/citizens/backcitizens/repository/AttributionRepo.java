@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
     public interface AttributionRepo extends CrudRepository<Attribution, Integer> {
-    @Query (value = " select * from Attribution", nativeQuery = true)
+    @Query (value = "select * from Attribution", nativeQuery = true)
     public Iterable<Attribution> findAttribution();
     }

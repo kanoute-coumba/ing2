@@ -15,9 +15,9 @@ public class OverrunService {
         @Autowired
         private AttributionRepo attributionRepo;
 
-        public Iterable<Consumption> getConsumption() {
+        /*public Iterable<Consumption> getConsumption() {
             return consumptionRepo.findWholeConsumption();
-        }
+        } */
         public Iterable<Attribution> getAttribution() { return attributionRepo.findAttribution();
     }
 

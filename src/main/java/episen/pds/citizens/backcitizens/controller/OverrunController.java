@@ -22,10 +22,10 @@ public class OverrunController {
         return overrunService.getAttribution();
     }
 
-    @GetMapping("/whole")
+    /* @GetMapping("/whole")
     public Iterable<Consumption> getConsumption() {
         logger.config("returning values");
         return overrunService.getConsumption();
-    }
+    }*/
 
 }

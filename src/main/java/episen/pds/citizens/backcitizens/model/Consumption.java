@@ -7,16 +7,57 @@ import java.util.Date;
 @Table(name= "consumption")
 public class Consumption {
     @Id
-    @Column(name = "id")
-    public int id;
+    @Column(name = "id_consumption")
+    private int id;
 
     @Column(name = "value")
-    public int value;
+    private Double value;
 
     @Column(name = "date_time")
-    public Date date_time;
+    private Date date_time;
 
     @Column(name = "id_equipment")
-    public int id_equipment;
+    private int id_equipment;
 
+    public Consumption() {
+    }
+
+    public Consumption(int id, Double value, Date date_time, int id_equipment) {
+        this.id = id;
+        this.value = value;
+        this.date_time = date_time;
+        this.id_equipment = id_equipment;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Double getValue() {
+        return value;
+    }
+
+    public void setValue(Double value) {
+        this.value = value;
+    }
+
+    public Date getDate_time() {
+        return date_time;
+    }
+
+    public void setDate_time(Date date_time) {
+        this.date_time = date_time;
+    }
+
+    public int getId_equipment() {
+        return id_equipment;
+    }
+
+    public void setId_equipment(int id_equipment) {
+        this.id_equipment = id_equipment;
+    }
 }
