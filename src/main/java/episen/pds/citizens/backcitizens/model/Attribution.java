@@ -10,7 +10,7 @@ import java.util.Date;
 @Table(name = "Attribution")
 public class Attribution {
     @Id
-    @Column(name = "id")
+    @Column(name = "id_attribution")
     private int Id;
 
     @Column(name = "date_time")

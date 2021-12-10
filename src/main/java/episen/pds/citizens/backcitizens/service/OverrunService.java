@@ -12,6 +12,7 @@ public class OverrunService {
 
         @Autowired
         private ConsumptionRepo consumptionRepo;
+        @Autowired
         private AttributionRepo attributionRepo;
 
         public Iterable<Consumption> getConsumption() {

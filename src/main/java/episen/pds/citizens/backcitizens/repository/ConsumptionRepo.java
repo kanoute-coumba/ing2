@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ConsumptionRepo extends CrudRepository<Consumption, Integer> {
-    @Query(value = " select sum(value), id_building from consumption c inner join building b " +
+    @Query(value = "select sum(value), id_building from consumption c inner join building b " +
             "where c.id_equipment in (select id_equipment from equipment " +
             "where id_room in (select id_room from room " +
-            "where id_floor in (select id_floor from floor))) group by id_building", nativeQuery = true)
+            "where id_floor in (select id_floor from floor))) group by id_building, date_time", nativeQuery = true)
     public Iterable<Consumption> findWholeConsumption();
 }
