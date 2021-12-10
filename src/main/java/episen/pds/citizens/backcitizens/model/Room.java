@@ -11,7 +11,7 @@ import javax.persistence.Table;
 public class Room {
     @Id
     @Column(name = "id_room")
-    private int Id;
+    private int id_room;
 
     @Column(name = "name")
     private String name;
@@ -19,12 +19,12 @@ public class Room {
     @Column(name = "id_floor")
     private int id_floor;
 
-    public int getId() {
-        return Id;
+    public int getId_room() {
+        return id_room;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setId_room(int id_room) {
+        this.id_room = id_room;
     }
 
     public String getName() {
@@ -46,7 +46,7 @@ public class Room {
     @Override
     public String toString() {
         return "Room{" +
-                "Id=" + Id +
+                "id_room=" + id_room +
                 ", name='" + name + '\'' +
                 ", id_floor=" + id_floor +
                 '}';

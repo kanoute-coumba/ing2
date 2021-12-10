@@ -1,9 +1,6 @@
 package episen.pds.citizens.backcitizens.controller;
 
-import episen.pds.citizens.backcitizens.model.Condition;
-import episen.pds.citizens.backcitizens.model.Consumption;
-import episen.pds.citizens.backcitizens.model.Equipment;
-import episen.pds.citizens.backcitizens.model.RoomsWithConsumption;
+import episen.pds.citizens.backcitizens.model.*;
 import episen.pds.citizens.backcitizens.service.UseMonitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -56,5 +53,13 @@ public class UseMonitorController {
             logger.info(row.toString());
         }
         return useMonitorService.findEquipmentOrderByRoom();
+    }
+
+    @GetMapping("/getAllRooms")
+    public Iterable<Room> getAllRooms() {
+        for (Room row:useMonitorService.getAllRooms()) {
+            logger.info(row.toString());
+        }
+        return useMonitorService.getAllRooms();
     }
 }
