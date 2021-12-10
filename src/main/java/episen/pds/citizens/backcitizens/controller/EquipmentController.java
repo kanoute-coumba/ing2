@@ -31,8 +31,11 @@ public class EquipmentController {
     @PutMapping("/choosestatut")
     public void UpdateStatutMode (@RequestParam("chooseStatut") String chooseStatut, @RequestParam("type_mode") String type_mode, @RequestParam("id_equipment") Integer id_equipment) {
          equipmentService.UpdateStatutMode(chooseStatut, type_mode, id_equipment);
-        System.out.println("fin 2");
+    }
 
+    @GetMapping("/nameRoom")
+    public String getNameRoomByIdroom (@RequestParam("id_room") Integer id_room) {
+        return equipmentService.getNameRoomByIdroom(id_room);
     }
 
 

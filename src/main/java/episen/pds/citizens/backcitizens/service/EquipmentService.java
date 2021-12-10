@@ -28,8 +28,10 @@ public class EquipmentService {
          equipmentRepo.UpdateStatutMode(chooseStatut, type_mode, id_equipment);
         System.out.println("fin");
 
+    }
 
-
+    public String getNameRoomByIdroom (Integer id_room) {
+        return equipmentRepo.findByNameRoom(id_room);
     }
 
 
