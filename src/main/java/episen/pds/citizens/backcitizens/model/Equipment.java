@@ -16,7 +16,7 @@ public class Equipment {
 
     @Column(name = "value")
     private double value;
-
+    private String room;
     public int getId() {
         return Id;
     }

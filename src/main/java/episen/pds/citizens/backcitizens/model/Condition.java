@@ -30,6 +30,8 @@ public class Condition {
     @Column(name = "begin_time")
     private String begin_time;
 
+    private int room;
+
     public int getId() {
         return Id;
     }
