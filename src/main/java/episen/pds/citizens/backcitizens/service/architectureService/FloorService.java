@@ -1,6 +1,6 @@
 package episen.pds.citizens.backcitizens.service.architectureService;
 
-import episen.pds.citizens.backcitizens.model.architectureModel.Floor;
+import episen.pds.citizens.backcitizens.model.Floor;
 import episen.pds.citizens.backcitizens.repository.architectureRepository.FloorRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
