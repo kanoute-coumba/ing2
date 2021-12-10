@@ -1,39 +1,64 @@
 package episen.pds.citizens.backcitizens.model;
 
-import jdk.jfr.DataAmount;
-import lombok.Data;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PropertiesLoaderUtils;
-import org.springframework.stereotype.Component;
-import javax.persistence.*;
-import java.io.IOException;
-import java.util.Properties;
-
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 @Entity
 @Table(name = "equipment")
 public class Equipment {
     @Id
-    @Column(name = "id")
-    public int id;
+    @Column(name = "id_equipment")
+    private int id_equipment;
 
     @Column(name = "type")
-    public String type;
-
-    public int getIdRoom() {
-        return idRoom;
-    }
+    private String type;
 
     @Column(name = "id_room")
-    public int idRoom;
+    private int id_room;
 
-    public int getId() {
-        return id;
+    @Column(name = "statut")
+    private String statut;
+
+    public int getId_equipment() {
+        return id_equipment;
+    }
+
+    public void setId_equipment(int id_equipment) {
+        this.id_equipment = id_equipment;
     }
 
     public String getType() {
         return type;
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getId_room() {
+        return id_room;
+    }
+
+    public void setId_room(int id_room) {
+        this.id_room = id_room;
+    }
+
+    public String getStatut() {
+        return statut;
+    }
+
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
+
+    @Override
+    public String toString() {
+        return "Equipment{" +
+                "id_equipment=" + id_equipment +
+                ", type='" + type + '\'' +
+                ", id_room=" + id_room +
+                ", statut='" + statut + '\'' +
+                '}';
+    }
 }

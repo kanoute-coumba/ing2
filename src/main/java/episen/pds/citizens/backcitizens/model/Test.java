@@ -14,11 +14,11 @@ public class Test {
     @Column(name = "id")
     private int Id;
 
-    @Column(name = "lastname")
-    private String lastname;
-
     @Column(name = "firstname")
     private String firstname;
+
+    @Column(name = "lastname")
+    private String lastname;
 
     public int getId() {
         return Id;
@@ -26,6 +26,15 @@ public class Test {
 
     public void setId(int id) {
         Id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Test{" +
+                "Id=" + Id +
+                ", lastname='" + lastname + '\'' +
+                ", firstname='" + firstname + '\'' +
+                '}';
     }
 
     public String getLastname() {
@@ -44,12 +53,4 @@ public class Test {
         this.firstname = firstname;
     }
 
-    @Override
-    public String toString() {
-        return "Test{" +
-                "Id=" + Id +
-                ", lastname='" + lastname + '\'' +
-                ", firstname='" + firstname + '\'' +
-                '}';
-    }
 }
