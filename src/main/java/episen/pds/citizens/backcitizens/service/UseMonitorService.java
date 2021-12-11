@@ -88,4 +88,12 @@ public class UseMonitorService {
     public void setEquipmentManu(int id_equipment) {
         equipmentRepo.setEquipmentManu(id_equipment);
     }
+
+    public void setEquipmentOff(int id_equipment) {
+        equipmentRepo.setEquipmentOff(id_equipment);
+    }
+
+    public void setEquipmentOn(int id_equipment) {
+        equipmentRepo.setEquipmentOn(id_equipment);
+    }
 }

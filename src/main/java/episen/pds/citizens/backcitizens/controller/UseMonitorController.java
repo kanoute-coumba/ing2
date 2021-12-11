@@ -80,4 +80,17 @@ public class UseMonitorController {
         logger.info("SET_MANU: id_equipment=" + id_equipment);
         useMonitorService.setEquipmentManu(id_equipment);
     }
+
+    @PostMapping("/setEquipmentOff/{id}")
+    public void setEquipmentOff(@PathVariable("id") int id_equipment) {
+        logger.info("SET_OFF: id_equipment=" + id_equipment);
+        useMonitorService.setEquipmentOff(id_equipment);
+    }
+
+    @PostMapping("/setEquipmentOn/{id}")
+    public void setEquipmentOn(@PathVariable("id") int id_equipment) {
+        logger.info("SET_OFF: id_equipment=" + id_equipment);
+        useMonitorService.setEquipmentOn(id_equipment);
+    }
+
 }
