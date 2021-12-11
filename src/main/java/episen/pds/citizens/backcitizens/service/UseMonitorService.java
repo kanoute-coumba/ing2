@@ -5,6 +5,7 @@ import episen.pds.citizens.backcitizens.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.Optional;
 
 @Service
@@ -74,5 +75,9 @@ public class UseMonitorService {
 
     public Iterable<Condition> getRoomConditions(int id_room) {
         return conditionRepo.findConditionsByRoom(id_room);
+    }
+
+    public void setEquipmentValue(int id_equipment, double value) {
+        equipmentRepo.setEquipmentValue(id_equipment, value);
     }
 }
