@@ -19,4 +19,12 @@ public interface EquipmentRepo extends CrudRepository<Equipment, Integer> {
     @Nullable
     @Query(value = "select cast(setEquipmentValue(?1,?2) as varchar)", nativeQuery = true)
     void setEquipmentValue(int id_equipment, double value);
+
+    @Nullable
+    @Query(value = "select cast(setEquipmentAuto(?1) as varchar)", nativeQuery = true)
+    void setEquipmentAuto(int id_equipment);
+
+    @Nullable
+    @Query(value = "select cast(setEquipmentManu(?1) as varchar)", nativeQuery = true)
+    void setEquipmentManu(int id_equipment);
 }
