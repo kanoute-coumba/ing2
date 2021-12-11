@@ -23,6 +23,9 @@ public class Equipment {
     @Column(name = "value")
     private double value;
 
+    @Column(name = "type_mode")
+    private String type_mode;
+
     public double getValue() {
         return value;
     }
@@ -63,6 +66,14 @@ public class Equipment {
         this.statut = statut;
     }
 
+    public String getType_mode() {
+        return type_mode;
+    }
+
+    public void setType_mode(String type_mode) {
+        this.type_mode = type_mode;
+    }
+
     @Override
     public String toString() {
         return "Equipment{" +
@@ -71,6 +82,7 @@ public class Equipment {
                 ", id_room=" + id_room +
                 ", statut='" + statut + '\'' +
                 ", value=" + value +
+                ", type_mode='" + type_mode + '\'' +
                 '}';
     }
 }
