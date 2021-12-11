@@ -62,4 +62,10 @@ public class UseMonitorController {
         }
         return useMonitorService.getAllRooms();
     }
+
+    @PostMapping("/setEquipment/{id}/{value}")
+    public void setEquipmentValue(@PathVariable("id") int id_equipment, @PathVariable("value") double value) {
+        logger.info("SET: id_equipment=" + id_equipment + ", value=" + value);
+        useMonitorService.setEquipmentValue(id_equipment,value);
+    }
 }
