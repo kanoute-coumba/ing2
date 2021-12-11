@@ -2,7 +2,7 @@ package episen.pds.citizens.backcitizens.controller;
 
 
 import episen.pds.citizens.backcitizens.model.architectureModel.Building;
-import episen.pds.citizens.backcitizens.model.Floor;
+import episen.pds.citizens.backcitizens.model.architectureModel.Floor;
 import episen.pds.citizens.backcitizens.model.architectureModel.Space;
 import episen.pds.citizens.backcitizens.service.architectureService.BuildingService;
 import episen.pds.citizens.backcitizens.service.architectureService.FloorService;
@@ -66,6 +66,11 @@ public class ArchitectureController {
     @GetMapping("/spaces_of_floor/{name_floor}")
     public List<Space> getSpacesOfFloor(@PathVariable String name_floor) {
         return spaceService.getSpacesOfFloor(name_floor);
+    }
+
+    @GetMapping(path = "/space/{id_space}")
+    public Optional<Space> getSpace(@PathVariable Integer id_space) {
+        return spaceService.getSpace(id_space);
     }
 
 }

@@ -13,7 +13,7 @@ public interface SpaceRepo extends JpaRepository<Space, Integer> {
     @Query(value = "select * from space s JOIN floor f on f.id_floor = s.id_floor WHERE f.name_floor = ?1", nativeQuery = true)
     List<Space> getSpacesOfFloor(String name_floor);
 
-    @Query(value = "select * from space s INNER JOIN floor f INNER JOIN building b WHERE f.id_floor = s.id_floor AND b.id_building = f.id_building AND b.type_building = 'Entreprise' AND b.name_building = ?1", nativeQuery = true)
-    List<Space> getSpacesOfBuilding(String name_building);
+//    @Query(value = "select * from space s INNER JOIN floor f INNER JOIN building b WHERE f.id_floor = s.id_floor AND b.id_building = f.id_building AND b.type_building = 'Entreprise' AND b.name_building = ?1", nativeQuery = true)
+//    List<Space> getSpacesOfBuilding(String name_building);
 }
 

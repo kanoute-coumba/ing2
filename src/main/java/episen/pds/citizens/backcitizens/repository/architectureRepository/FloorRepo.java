@@ -1,6 +1,6 @@
 package episen.pds.citizens.backcitizens.repository.architectureRepository;
 
-import episen.pds.citizens.backcitizens.model.Floor;
+import episen.pds.citizens.backcitizens.model.architectureModel.Floor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
