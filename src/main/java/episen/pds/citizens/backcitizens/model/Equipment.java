@@ -20,6 +20,17 @@ public class Equipment {
     @Column(name = "statut")
     private String statut;
 
+    @Column(name = "value")
+    private double value;
+
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
+
     public int getId_equipment() {
         return id_equipment;
     }
@@ -59,6 +70,7 @@ public class Equipment {
                 ", type='" + type + '\'' +
                 ", id_room=" + id_room +
                 ", statut='" + statut + '\'' +
+                ", value=" + value +
                 '}';
     }
 }
