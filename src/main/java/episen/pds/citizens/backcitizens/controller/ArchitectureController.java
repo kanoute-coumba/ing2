@@ -74,7 +74,7 @@ public class ArchitectureController {
     }
 
     // Not yet
-    @GetMapping("/spaces_of_floor/{name_floor}/{type_space}")
+    @GetMapping("/spaces_of_floor_by_type/{name_floor}/{type_space}")
     public List<Space> getSpacesOfFloorByTYpe(@PathVariable String name_floor,@PathVariable String type_space) {
         return spaceService.getSpacesOfFloorByType(name_floor,type_space);
     }
