@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "building")
-public class Building {
+public class BuildingPatch {
     @Id
     @Column(name = "id_building")
     private int id;
