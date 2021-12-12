@@ -19,16 +19,20 @@ public class SpaceService {
         this.spaceRepo = spaceRepo;
     }
 
-//    public List<Space> getAllSpaces() {
-//        return spaceRepo.findAll();
-//    }
+    public List<Space> getAllSpaces() {
+        return spaceRepo.findAll();
+    }
 
-//    public List<Space> getSpacesOfBuilding(String name_building) {
-//        return spaceRepo.getSpacesOfBuilding(name_building);
-//    }
+    public List<Space> getSpacesOfBuilding(String name_building) {
+        return spaceRepo.getSpacesOfBuilding(name_building);
+    }
 
     public List<Space> getSpacesOfFloor(String name_floor) {
         return spaceRepo.getSpacesOfFloor(name_floor);
+    }
+
+    public List<Space> getSpacesOfFloorByType(String name_floor, String type_space) {
+        return spaceRepo.getSpacesOfFloorByType(name_floor,type_space);
     }
 
     public Optional<Space> getSpace(Integer id_space) {

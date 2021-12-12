@@ -33,41 +33,53 @@ public class ArchitectureController {
         return buildingService.getAllBuildings();
     }
 
+    // Not yet
     @GetMapping(path = "/building/{id_building}")
     public Optional<Building> getBuilding(@PathVariable Integer id_building) {
         return buildingService.getBuilding(id_building);
     }
 
-//    @GetMapping("/floors")
-//    public List<Floor> getAllFloors() {
-//        return floorService.getAllFloors();
-//    }
+    // Not yet
+    @GetMapping("/floors")
+    public List<Floor> getAllFloors() {
+        return floorService.getAllFloors();
+    }
 
     @GetMapping("/floors_of/{name_building}")
     public List<Floor> getFloorsOfBuilding(@PathVariable String name_building) {
         return floorService.getFloorsOfBuilding(name_building);
     }
 
+    // Not yet
     @GetMapping(path = "/floor/{id_floor}")
     public Optional<Floor> getFloor(@PathVariable Integer id_floor) {
         return floorService.getFloor(id_floor);
     }
 
-//    @GetMapping("/spaces")
-//    public List<Space> getAllSpaces() {
-//        return SpaceService.getAllSpaces();
-//    }
+    // Not yet
+    @GetMapping("/spaces")
+    public List<Space> getAllSpaces() {
+        return spaceService.getAllSpaces();
+    }
 
-//    @GetMapping("/spaces_of_building/{name_building}")
-//    public List<Space> getSpacesOfBuilding(@PathVariable String name_building) {
-//        return spaceService.getSpacesOfBuilding(name_building);
-//    }
+    // Not yet
+    @GetMapping("/spaces_of_building/{name_building}")
+    public List<Space> getSpacesOfBuilding(@PathVariable String name_building) {
+        return spaceService.getSpacesOfBuilding(name_building);
+    }
 
     @GetMapping("/spaces_of_floor/{name_floor}")
     public List<Space> getSpacesOfFloor(@PathVariable String name_floor) {
         return spaceService.getSpacesOfFloor(name_floor);
     }
 
+    // Not yet
+    @GetMapping("/spaces_of_floor/{name_floor}/{type_space}")
+    public List<Space> getSpacesOfFloorByTYpe(@PathVariable String name_floor,@PathVariable String type_space) {
+        return spaceService.getSpacesOfFloorByType(name_floor,type_space);
+    }
+
+    // Not yet
     @GetMapping(path = "/space/{id_space}")
     public Optional<Space> getSpace(@PathVariable Integer id_space) {
         return spaceService.getSpace(id_space);
