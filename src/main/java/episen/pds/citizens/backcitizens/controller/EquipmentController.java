@@ -22,8 +22,11 @@ import java.util.logging.Logger;
 public class EquipmentController {
 
     @Autowired
-    private EquipmentService equipmentService;
+    EnergyService energyService;
     private static final Logger logger = Logger.getLogger(EquipmentController.class.getName());
+
+    @Autowired
+    private EquipmentService equipmentService;
 
     @GetMapping("/ListEquipment")
     public Iterable<String> getListEquipment(@RequestParam("id_room") Integer id_room, @RequestParam("id_floor") Integer id_floor) {
@@ -95,9 +98,6 @@ public class EquipmentController {
 //    public void updateStatutLampe(@RequestBody Equipment equipment,  @RequestParam("id_room") Integer id_room, @RequestParam("id_equipment") Integer id_equipment) {
 //        equipmentService.updateStatutLampe(equipment.getStatut(), equipment.getType_mode(), id_room, id_equipment);
 //    }
-    @Autowired
-    EnergyService energyService;
-    private static final Logger logger = Logger.getLogger(EquipmentController.class.getName());
 
     @GetMapping("/EquipmentOrderByConsumption/idb={id_b}")
     public Iterable<EquipmentWithConsumption> getEquipmentOrderByConsumptionByBuilding(@PathVariable String id_b){
