@@ -1,30 +1,64 @@
 package episen.pds.citizens.backcitizens.model;
-import jdk.jfr.DataAmount;
-import lombok.Data;
-import org.springframework.stereotype.Component;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Table(name= "consumption")
+@Table(name = "consumption")
 public class Consumption {
     @Id
-    @Column(name = "id")
-    public int id;
+    @Column(name = "id_consumption")
+    private int id_consumption;
 
     @Column(name = "value")
-    public String value;
+    private double value;
 
-    @Column(name = "id_equip")
-    public int id_equip;
+    @Column(name = "date_time")
+    private String date_time;
 
-    public int getId() {
-        return id;
+    @Column(name = "id_equipment")
+    private int id_equipment;
+
+    @Override
+    public String toString() {
+        return "Consumption{" +
+                "Id=" + id_consumption +
+                ", value=" + value +
+                ", date_time='" + date_time  + id_equipment + '\'' +
+                '}';
     }
 
-    public String getValue() {
+    public int getId_consumption() {
+        return id_consumption;
+    }
+
+    public void setId_consumption(int id_consumption) {
+        this.id_consumption = id_consumption;
+    }
+
+    public double getValue() {
         return value;
     }
-    public int getId_equip() {
-        return id_equip;
+
+    public void setValue(double value) {
+        this.value = value;
+    }
+
+    public String getDate_time() {
+        return date_time;
+    }
+
+    public void setDate_time(String date_time) {
+        this.date_time = date_time;
+    }
+
+    public int getId_equipment() {
+        return id_equipment;
+    }
+
+    public void setId_equipment(int id_equipment) {
+        this.id_equipment = id_equipment;
     }
 }

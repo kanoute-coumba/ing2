@@ -3,6 +3,7 @@ package episen.pds.citizens.backcitizens;
 import episen.pds.citizens.backcitizens.controller.EquipmentController;
 import org.springframework.beans.factory.annotation.Autowired;
 import episen.pds.citizens.backcitizens.controller.TestController;
+import episen.pds.citizens.backcitizens.controller.MenuController;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.logging.Logger;
 
-@Component //doit être interpréter par spring
+@Component
 @SpringBootApplication
 public class CitizensBackendApplication implements CommandLineRunner {
 
@@ -19,6 +20,8 @@ public class CitizensBackendApplication implements CommandLineRunner {
 
 	@Autowired
 	TestController testController;
+	@Autowired
+	MenuController menuController;
 
 	@Autowired
 	EquipmentController equipmentController;
@@ -27,7 +30,7 @@ public class CitizensBackendApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		logger.config("debut de la commande");
 		logger.config(testController.getTest() + "");
-		logger.config(String.valueOf(equipmentController.getEquipmentByConsumption()));
+		logger.config(String.valueOf(equipmentController.getEquipmentOrderByConsumptionByBuilding("1")));
 	}
 
 
