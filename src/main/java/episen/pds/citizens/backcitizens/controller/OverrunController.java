@@ -18,14 +18,14 @@ public class OverrunController {
 
     @GetMapping("/overrun")
     public Iterable<Attribution> getAttribution() {
-        logger.config("returning values");
+        logger.config("Building energy attributed");
         return overrunService.getAttribution();
     }
 
-    /* @GetMapping("/whole")
+    @GetMapping("/conso")
     public Iterable<Consumption> getConsumption() {
-        logger.config("returning values");
+        logger.config("Consumption per equipment per day");
         return overrunService.getConsumption();
-    }*/
+    }
 
 }
