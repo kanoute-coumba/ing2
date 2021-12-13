@@ -23,7 +23,7 @@ public class TestService {
         return testRepo.findAll();
     }
 
-   public void deleteTestId(final int id) { testRepo.deleteById(id); }
+    public void deleteTestId(final int id) { testRepo.deleteById(id); }
 
     public Test saveTest(Test test) {
         return testRepo.save(test);
