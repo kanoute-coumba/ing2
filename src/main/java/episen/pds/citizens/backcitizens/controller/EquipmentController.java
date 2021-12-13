@@ -44,9 +44,19 @@ public class EquipmentController {
          equipmentService.UpdateStatutMode(chooseStatut, type_mode, id_equipment);
     }
 
+    @PutMapping("/valueEquipment")
+    public void UpdateValueEquipment (@RequestParam("valueEquipment") Integer valueEquipment, @RequestParam("id_equipment") Integer id_equipment) {
+        equipmentService.UpdateValueEquipment(valueEquipment, id_equipment);
+    }
+
     @GetMapping("/nameRoom")
     public String getNameRoomByIdroom (@RequestParam("id_room") Integer id_room) {
         return equipmentService.getNameRoomByIdroom(id_room);
+    }
+
+    @GetMapping("/nameEquipment")
+    public String NameEquipment (@RequestParam("id_equipment") Integer id_equipment) {
+        return equipmentService.NameEquipment(id_equipment);
     }
 
 

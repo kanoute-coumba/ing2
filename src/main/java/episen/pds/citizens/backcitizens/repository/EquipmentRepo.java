@@ -31,11 +31,18 @@ public interface EquipmentRepo extends CrudRepository<Equipment, Integer> {
     @Query(value = "select name from room where id_room=:idr", nativeQuery = true)
     String findByNameRoom(@Param("idr") Integer idr);
 
+    @Query(value = "select type from equipment where id_equipment =:id_equipment", nativeQuery = true)
+    String NameEquipment (@Param("id_equipment") Integer id_equipment);
+
     @Query(value="select * from equipment where id_room=? order by id_equipment", nativeQuery = true)
     Iterable<Equipment> findEquipmentByRoom(int id_room);
 
     @Query(value="select * from equipment order by id_room", nativeQuery = true)
     Iterable<Equipment> findEquipmentOrderByRoom();
+
+    @Modifying
+    @Query(value = "update equipment set value =:valueEquipment where id_equipment =:id_equipment", nativeQuery = true)
+    void UpdateValueEquipment (@Param("valueEquipment") Integer valueEquipment, @Param("id_equipment") Integer id_equipment);
 
     @Nullable
     @Query(value = "select cast(setEquipmentValue(?1,?2) as varchar)", nativeQuery = true)

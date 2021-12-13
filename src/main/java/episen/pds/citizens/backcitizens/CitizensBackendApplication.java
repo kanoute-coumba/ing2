@@ -31,6 +31,7 @@ public class CitizensBackendApplication implements CommandLineRunner {
 		logger.config("debut de la commande");
 		logger.config(testController.getTest() + "");
 		logger.config(String.valueOf(equipmentController.getEquipmentOrderByConsumptionByBuilding("1")));
+
 	}
 
 

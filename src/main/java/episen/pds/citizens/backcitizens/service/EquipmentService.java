@@ -23,15 +23,20 @@ public class EquipmentService {
 
     @Transactional
     public void UpdateStatutMode (String chooseStatut, String type_mode, Integer id_equipment) {
-        System.out.println("jjjjjjjjjjj");
-        System.out.println(chooseStatut +""+ id_equipment);
-         equipmentRepo.UpdateStatutMode(chooseStatut, type_mode, id_equipment);
-        System.out.println("fin");
+        equipmentRepo.UpdateStatutMode(chooseStatut, type_mode, id_equipment);
+    }
 
+    @Transactional
+    public void UpdateValueEquipment(Integer valueEquipment, Integer id_equipment) {
+        equipmentRepo.UpdateValueEquipment(valueEquipment, id_equipment);
     }
 
     public String getNameRoomByIdroom (Integer id_room) {
         return equipmentRepo.findByNameRoom(id_room);
+    }
+
+    public String NameEquipment(Integer id_equipment) {
+        return equipmentRepo.NameEquipment(id_equipment);
     }
 
 
