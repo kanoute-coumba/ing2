@@ -18,14 +18,16 @@ public class FloorService {
         this.floorRepo = floorRepo;
     }
 
-//    public List<Floor> getAllFloors() {
-//        return floorRepo.findAll();
-//    }
+    // Not yet
+    public List<Floor> getAllFloors() {
+        return floorRepo.findAll();
+    }
 
     public List<Floor> getFloorsOfBuilding(String name_building) {
         return floorRepo.getFloorsOfBuilding(name_building);
     }
 
+    // Not yet
     public Optional<Floor> getFloor(Integer id_floor) {
         return floorRepo.findById(id_floor);
     }
