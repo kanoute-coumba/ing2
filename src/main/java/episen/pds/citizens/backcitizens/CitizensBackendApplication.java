@@ -1,6 +1,7 @@
 package episen.pds.citizens.backcitizens;
 
 import episen.pds.citizens.backcitizens.controller.EquipmentController;
+import episen.pds.citizens.backcitizens.controller.OverrunController;
 import org.springframework.beans.factory.annotation.Autowired;
 import episen.pds.citizens.backcitizens.controller.TestController;
 import episen.pds.citizens.backcitizens.controller.MenuController;
@@ -22,12 +23,17 @@ public class CitizensBackendApplication implements CommandLineRunner {
 	MenuController menuController;
 
 	@Autowired
+	OverrunController overrunController;
+
+	@Autowired
 	EquipmentController equipmentController;
 
 	@Override
 	public void run(String... args) throws Exception {
 		logger.config("debut de la commande");
 		logger.config(testController.getTest() + "");
+		logger.config(overrunController.getAttribution() + "");
+		logger.config(overrunController.getConsumption() + "");
 		logger.config(String.valueOf(equipmentController.getEquipmentOrderByConsumptionByBuilding("1")));
 	}
 
