@@ -1,7 +1,7 @@
 package episen.pds.citizens.backcitizens.controller;
 
 import episen.pds.citizens.backcitizens.model.Attribution;
-import episen.pds.citizens.backcitizens.model.Consumption;
+import episen.pds.citizens.backcitizens.model.ConsumptionDay;
 import episen.pds.citizens.backcitizens.service.OverrunService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +23,7 @@ public class OverrunController {
     }
 
     @GetMapping("/conso")
-    public Iterable<Consumption> getConsumption() {
+    public Iterable<ConsumptionDay> getConsumption() {
         logger.config("Consumption per equipment per day");
         return overrunService.getConsumption();
     }

@@ -5,7 +5,7 @@ import java.util.Date;
 
 @Entity
 @Table(name= "consumption")
-public class Consumption {
+public class ConsumptionDay {
     @Id
     @Column(name = "id_consumption")
     private int id;
@@ -19,10 +19,10 @@ public class Consumption {
     @Column(name = "id_equipment")
     private int id_equipment;
 
-    public Consumption() {
+    public ConsumptionDay() {
     }
 
-    public Consumption(int id, Double value, Date date_time, int id_equipment) {
+    public ConsumptionDay(int id, Double value, Date date_time, int id_equipment) {
         this.id = id;
         this.value = value;
         this.date_time = date_time;
