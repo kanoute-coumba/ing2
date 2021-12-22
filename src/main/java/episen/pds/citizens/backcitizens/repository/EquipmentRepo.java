@@ -12,6 +12,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 @Repository
@@ -25,7 +26,7 @@ public interface EquipmentRepo extends CrudRepository<Equipment, Integer> {
     Iterable<Equipment> findEquipmentByRoom (@Param("idr") Integer idr);
 
     @Modifying
-    @Query(value = "update equipment set statut =:chooseStatut, type_mode =:type_mode where id_equipment =:id_equipment",nativeQuery = true )
+    @Query(value = "update equipment_data set statut =:chooseStatut, type_mode =:type_mode where id_equipment =:id_equipment",nativeQuery = true )
     void UpdateStatutMode (@Param("chooseStatut") String chooseStatut, @Param("type_mode") String type_mode, @Param("id_equipment") Integer id_equipment);
 
     @Query(value = "select name from room where id_room=:idr", nativeQuery = true)
@@ -40,8 +41,14 @@ public interface EquipmentRepo extends CrudRepository<Equipment, Integer> {
     @Query(value="select * from equipment order by id_room", nativeQuery = true)
     Iterable<Equipment> findEquipmentOrderByRoom();
 
+    @Query(value="select r.name from room r inner JOIN floor f ON r.id_floor = f.id_floor where r.id_floor =:id_floor", nativeQuery = true)
+    List<String> NameRoomByFloor (@Param("id_floor") Integer id_floor);
+
+    @Query(value = "select id_room from room where name =:name AND id_floor =:id_floor", nativeQuery = true)
+    Integer getIdRoom (@Param("name") String name, @Param("id_floor") Integer id_floor);
+
     @Modifying
-    @Query(value = "update equipment set value =:valueEquipment where id_equipment =:id_equipment", nativeQuery = true)
+    @Query(value = "update equipment_data set value =:valueEquipment where id_equipment =:id_equipment", nativeQuery = true)
     void UpdateValueEquipment (@Param("valueEquipment") Integer valueEquipment, @Param("id_equipment") Integer id_equipment);
 
     @Nullable

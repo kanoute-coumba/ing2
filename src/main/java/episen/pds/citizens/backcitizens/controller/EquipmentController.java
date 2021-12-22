@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import episen.pds.citizens.backcitizens.model.CentralWithProduction;
 import episen.pds.citizens.backcitizens.model.EquipmentWithConsumption;
 import episen.pds.citizens.backcitizens.service.EnergyService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 @RestController
@@ -59,6 +59,15 @@ public class EquipmentController {
         return equipmentService.NameEquipment(id_equipment);
     }
 
+    @GetMapping("/nameRoomByFloor")
+    public Iterable<String> NameRoomByFloor (@RequestParam("id_floor") Integer id_floor) {
+        return equipmentService.NameRoomByFloor(id_floor);
+    }
+
+    @GetMapping("/getIdRoom")
+    public Integer getIdRoom (@RequestParam("name") String name, @RequestParam("id_floor") Integer id_floor) {
+        return equipmentService.getIdRoom(name, id_floor);
+    }
 
 
 

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class EquipmentService {
 
@@ -38,6 +40,15 @@ public class EquipmentService {
     public String NameEquipment(Integer id_equipment) {
         return equipmentRepo.NameEquipment(id_equipment);
     }
+
+    public Iterable<String> NameRoomByFloor (Integer id_floor) {
+        return equipmentRepo.NameRoomByFloor(id_floor);
+    }
+
+    public Integer getIdRoom (String  name, Integer id_floor) {
+        return equipmentRepo.getIdRoom(name, id_floor);
+    }
+
 
 
 
