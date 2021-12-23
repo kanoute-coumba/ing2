@@ -53,6 +53,12 @@ public class EquipmentService {
         return equipmentRepo.NameFloorByBuilding(id_building);
     }
 
+    public Integer getIdFloor (String  name_floor, Integer id_building) {
+        return equipmentRepo.getIdFloor(name_floor, id_building);
+    }
+
+
+
 
 
 
