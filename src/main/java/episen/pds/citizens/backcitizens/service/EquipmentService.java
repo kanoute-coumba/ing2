@@ -49,6 +49,10 @@ public class EquipmentService {
         return equipmentRepo.getIdRoom(name, id_floor);
     }
 
+    public Iterable<String> NameFloorByBuilding (Integer id_building) {
+        return equipmentRepo.NameFloorByBuilding(id_building);
+    }
+
 
 
 

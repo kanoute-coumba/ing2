@@ -69,6 +69,11 @@ public class EquipmentController {
         return equipmentService.getIdRoom(name, id_floor);
     }
 
+    @GetMapping("/nameFloorByBuilding")
+    public Iterable<String> NameFloorByBuilding (@RequestParam("id_building") Integer id_building) {
+        return  equipmentService.NameFloorByBuilding(id_building);
+    }
+
 
 
 

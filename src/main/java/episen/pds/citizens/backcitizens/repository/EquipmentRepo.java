@@ -47,6 +47,9 @@ public interface EquipmentRepo extends CrudRepository<Equipment, Integer> {
     @Query(value = "select id_room from room where name =:name AND id_floor =:id_floor", nativeQuery = true)
     Integer getIdRoom (@Param("name") String name, @Param("id_floor") Integer id_floor);
 
+    @Query(value = "select name_floor from floor f inner JOIN building b ON f.id_building = b.id_building where f.id_building =:id_building", nativeQuery = true)
+    List<String> NameFloorByBuilding (@Param("id_building") Integer id_building);
+
     @Modifying
     @Query(value = "update equipment_data set value =:valueEquipment where id_equipment =:id_equipment", nativeQuery = true)
     void UpdateValueEquipment (@Param("valueEquipment") Integer valueEquipment, @Param("id_equipment") Integer id_equipment);
