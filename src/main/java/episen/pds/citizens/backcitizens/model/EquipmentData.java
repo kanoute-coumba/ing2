@@ -8,12 +8,9 @@ import javax.persistence.Table;
 
 @Data
 @Entity
-@Table(name = "equipment")
-public class Equipment {
+@Table(name = "equipment_data")
+public class EquipmentData {
     @Id
-    private int id_equipment;
-    private String type;
-    private int id_room;
     private int id_equipment_data;
     private String statut;
     private String type_mode;

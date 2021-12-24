@@ -19,12 +19,12 @@ public class EquipmentService {
         return equipmentRepo.findByNameEquipment(id_room, id_floor);
     }
 
-    public Iterable<Equipment> getEquipmentBYRoom (Integer idr) {
-        return  equipmentRepo.findEquipmentByRoom(idr);
+    public Iterable<Equipment> getEquipmentBYRoom(Integer idr) {
+        return equipmentRepo.findEquipmentByRoom(idr);
     }
 
     @Transactional
-    public void UpdateStatutMode (String chooseStatut, String type_mode, Integer id_equipment) {
+    public void UpdateStatutMode(String chooseStatut, String type_mode, Integer id_equipment) {
         equipmentRepo.UpdateStatutMode(chooseStatut, type_mode, id_equipment);
     }
 
@@ -33,7 +33,7 @@ public class EquipmentService {
         equipmentRepo.UpdateValueEquipment(valueEquipment, id_equipment);
     }
 
-    public String getNameRoomByIdroom (Integer id_room) {
+    public String getNameRoomByIdroom(Integer id_room) {
         return equipmentRepo.findByNameRoom(id_room);
     }
 
@@ -41,26 +41,25 @@ public class EquipmentService {
         return equipmentRepo.NameEquipment(id_equipment);
     }
 
-    public Iterable<String> NameRoomByFloor (Integer id_floor) {
+    public Iterable<String> NameRoomByFloor(Integer id_floor) {
         return equipmentRepo.NameRoomByFloor(id_floor);
     }
 
-    public Integer getIdRoom (String  name, Integer id_floor) {
+    public Integer getIdRoom(String name, Integer id_floor) {
         return equipmentRepo.getIdRoom(name, id_floor);
     }
 
-    public Iterable<String> NameFloorByBuilding (Integer id_building) {
+    public Iterable<String> NameFloorByBuilding(Integer id_building) {
         return equipmentRepo.NameFloorByBuilding(id_building);
     }
 
-    public Integer getIdFloor (String  name_floor, Integer id_building) {
+    public Integer getIdFloor(String name_floor, Integer id_building) {
         return equipmentRepo.getIdFloor(name_floor, id_building);
     }
 
-
-
-
-
+    public Integer getIdRoomByEquipment(Integer id_equipment) {
+        return equipmentRepo.findIdRoomByEquipment(id_equipment);
+    }
 
 
 //    public String recoverLampe (Integer id_room, Integer id_equipment) {

@@ -79,6 +79,11 @@ public class EquipmentController {
         return equipmentService.getIdFloor(name_floor, id_building);
     }
 
+    @GetMapping("/getIdRoomByEquipment")
+    public Integer getIdRoomByEquipment(@RequestParam("id_equipment") Integer id_equipment) {
+        return equipmentService.getIdRoomByEquipment(id_equipment);
+    }
+
 
 
 
