@@ -14,19 +14,19 @@ public class Design {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_design;
     private String name_design;
-    private float lengthOffice_design;
-    private float widthOffice_design;
-    private float lengthOpenSpace_design;
-    private float widthOpenSpace_design;
-    private float lengthIndividRoom_design;
-    private float widthIndividRoom_design;
-    private float lengthMeetRoom_design;
-    private float widthMeetRoom_design;
+    private Float lengthOffice_design;
+    private Float widthOffice_design;
+    private Float lengthOpenSpace_design;
+    private Float widthOpenSpace_design;
+    private Float lengthIndividRoom_design;
+    private Float widthIndividRoom_design;
+    private Float lengthMeetRoom_design;
+    private Float widthMeetRoom_design;
 
     public Design() {
     }
 
-    public Design(Integer id_design, String name_design, float lengthOffice_design, float widthOffice_design, float lengthOpenSpace_design, float widthOpenSpace_design, float lengthIndividRoom_design, float widthIndividRoom_design, float lengthMeetRoom_design, float widthMeetRoom_design) {
+    public Design(Integer id_design, String name_design, Float lengthOffice_design, Float widthOffice_design, Float lengthOpenSpace_design, Float widthOpenSpace_design, Float lengthIndividRoom_design, Float widthIndividRoom_design, Float lengthMeetRoom_design, Float widthMeetRoom_design) {
         this.id_design = id_design;
         this.name_design = name_design;
         this.lengthOffice_design = lengthOffice_design;

@@ -58,6 +58,12 @@ public class ArchitectureController {
     }
 
     // Not yet
+    @GetMapping(path = "/design_of/{name_floor}")
+    public String getDesignOfFloor(@PathVariable String name_floor) {
+        return floorService.getDesignOfFloor(name_floor);
+    }
+
+    // Not yet
     @GetMapping("/spaces")
     public List<Space> getAllSpaces() {
         return spaceService.getAllSpaces();
@@ -76,7 +82,7 @@ public class ArchitectureController {
 
     // Not yet
     @GetMapping("/spaces_of_floor_by_type/{name_floor}/{type_space}")
-    public List<Space> getSpacesOfFloorByTYpe(@PathVariable String name_floor,@PathVariable String type_space) {
+    public List<Space> getSpacesOfFloorByType(@PathVariable String name_floor,@PathVariable String type_space) {
         return spaceService.getSpacesOfFloorByType(name_floor,type_space);
     }
 

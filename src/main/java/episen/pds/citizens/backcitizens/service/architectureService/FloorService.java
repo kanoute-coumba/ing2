@@ -33,5 +33,10 @@ public class FloorService {
         return floorRepo.findById(id_floor);
     }
 
+    // Not yet
+    public String getDesignOfFloor(String name_floor) {
+        return floorRepo.getDesignOfFloor(name_floor);
+    }
+
 }
 

@@ -15,14 +15,14 @@ public class Space {
     private Integer id_space;
     private String name_space;
     private String type_space;
-    private float length_space;
-    private float width_space;
+    private Float length_space;
+    private Float width_space;
     private Integer id_floor;
 
     public Space() {
     }
 
-    public Space(Integer id_space, String name_space, String type_space, float length_space, float width_space, Integer id_floor) {
+    public Space(Integer id_space, String name_space, String type_space, Float length_space, Float width_space, Integer id_floor) {
         this.id_space = id_space;
         this.name_space = name_space;
         this.type_space = type_space;

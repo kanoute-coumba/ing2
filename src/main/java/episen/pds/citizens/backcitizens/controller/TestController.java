@@ -24,7 +24,7 @@ public class TestController {
     @PostMapping("/Form")
     public void saveTest(@RequestBody Test test) {
         logger.config("receiving values");
-        //return testService.saveTest(test);
+        testService.saveTest(test);
     }
     @PostMapping("/DeleteId/{id}")
     public void deleteTest(@PathVariable int id) {
