@@ -4,10 +4,8 @@ package episen.pds.citizens.backcitizens.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "building")
 public class BuildingPatch {
     @Id
     @Column(name = "id_building")

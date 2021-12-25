@@ -5,6 +5,8 @@ import episen.pds.citizens.backcitizens.controller.OverrunController;
 import org.springframework.beans.factory.annotation.Autowired;
 import episen.pds.citizens.backcitizens.controller.TestController;
 import episen.pds.citizens.backcitizens.controller.MenuController;
+import episen.pds.citizens.backcitizens.controller.TestController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -35,6 +37,7 @@ public class CitizensBackendApplication implements CommandLineRunner {
 		logger.config(overrunController.getAttribution() + "");
 		logger.config(overrunController.getConsumption() + "");
 		logger.config(String.valueOf(equipmentController.getEquipmentOrderByConsumptionByBuilding("1")));
+
 	}
 
 
