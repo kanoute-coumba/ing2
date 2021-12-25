@@ -1,18 +1,15 @@
 package episen.pds.citizens.backcitizens.controller;
 
-import episen.pds.citizens.backcitizens.model.Equipment;
-
-import episen.pds.citizens.backcitizens.service.EquipmentService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 import episen.pds.citizens.backcitizens.model.CentralWithProduction;
 import episen.pds.citizens.backcitizens.model.EquipmentWithConsumption;
+import episen.pds.citizens.backcitizens.model.equipments.Equipment;
+import episen.pds.citizens.backcitizens.model.equipments.FloorHouse;
+import episen.pds.citizens.backcitizens.model.equipments.House;
+import episen.pds.citizens.backcitizens.model.equipments.RoomHouse;
 import episen.pds.citizens.backcitizens.service.EnergyService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import episen.pds.citizens.backcitizens.service.EquipmentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -28,11 +25,6 @@ public class EquipmentController {
     @Autowired
     private EquipmentService equipmentService;
 
-    @GetMapping("/ListEquipment")
-    public Iterable<String> getListEquipment(@RequestParam("id_room") Integer id_room, @RequestParam("id_floor") Integer id_floor) {
-        logger.config("returning values");
-        return equipmentService.getEquipment(id_room, id_floor);
-    }
 
     @GetMapping("/equipmentBYRoom/{idr}")
     public Iterable<Equipment> getEquipmentBYRoom(@PathVariable("idr") String idr) {
@@ -40,43 +32,23 @@ public class EquipmentController {
     }
 
     @PutMapping("/choosestatut")
-    public void UpdateStatutMode (@RequestParam("chooseStatut") String chooseStatut, @RequestParam("type_mode") String type_mode, @RequestParam("id_equipment") Integer id_equipment) {
-         equipmentService.UpdateStatutMode(chooseStatut, type_mode, id_equipment);
+    public void UpdateStatutMode(@RequestParam("chooseStatut") String chooseStatut, @RequestParam("type_mode") String type_mode, @RequestParam("id_equipment") Integer id_equipment) {
+        equipmentService.UpdateStatutMode(chooseStatut, type_mode, id_equipment);
     }
 
     @PutMapping("/valueEquipment")
-    public void UpdateValueEquipment (@RequestParam("valueEquipment") Integer valueEquipment, @RequestParam("id_equipment") Integer id_equipment) {
+    public void UpdateValueEquipment(@RequestParam("valueEquipment") Integer valueEquipment, @RequestParam("id_equipment") Integer id_equipment) {
         equipmentService.UpdateValueEquipment(valueEquipment, id_equipment);
     }
 
     @GetMapping("/nameRoom")
-    public String getNameRoomByIdroom (@RequestParam("id_room") Integer id_room) {
+    public String getNameRoomByIdroom(@RequestParam("id_room") Integer id_room) {
         return equipmentService.getNameRoomByIdroom(id_room);
     }
 
     @GetMapping("/nameEquipment")
-    public String NameEquipment (@RequestParam("id_equipment") Integer id_equipment) {
+    public String NameEquipment(@RequestParam("id_equipment") Integer id_equipment) {
         return equipmentService.NameEquipment(id_equipment);
-    }
-
-    @GetMapping("/nameRoomByFloor")
-    public Iterable<String> NameRoomByFloor (@RequestParam("id_floor") Integer id_floor) {
-        return equipmentService.NameRoomByFloor(id_floor);
-    }
-
-    @GetMapping("/getIdRoom")
-    public Integer getIdRoom (@RequestParam("name") String name, @RequestParam("id_floor") Integer id_floor) {
-        return equipmentService.getIdRoom(name, id_floor);
-    }
-
-    @GetMapping("/nameFloorByBuilding")
-    public Iterable<String> NameFloorByBuilding (@RequestParam("id_building") Integer id_building) {
-        return  equipmentService.NameFloorByBuilding(id_building);
-    }
-
-    @GetMapping("/getIdFloor")
-    public Integer getIdFloor (@RequestParam("name_floor") String name_floor, @RequestParam("id_building") Integer id_building) {
-        return equipmentService.getIdFloor(name_floor, id_building);
     }
 
     @GetMapping("/getIdRoomByEquipment")
@@ -84,67 +56,38 @@ public class EquipmentController {
         return equipmentService.getIdRoomByEquipment(id_equipment);
     }
 
+    @GetMapping("/house")
+    public List<House> getHouses(@RequestParam("email") String email) {
+        System.out.println(email);
+        return equipmentService.getHouseByEmail(email);
+    }
 
+    @GetMapping("/floor")
+    public List<FloorHouse> getFloors(@RequestParam("house") String house) {
+        System.out.println(house);
+        return equipmentService.getFloors(house);
+    }
 
-
-
-
-
-//    @GetMapping("/Lampe")
-//    public String getEquipmentLampe(@RequestParam("id_room") Integer id_room, @RequestParam("id_equipment") Integer id_equipment) {
-//        return equipmentService.recoverLampe(id_room, id_equipment);
-//    }
-//
-//    @GetMapping("/Climatisation")
-//    public String getEquipmentClimatisation(@RequestParam("id_room") Integer id_room, @RequestParam("id_equipment") Integer id_equipment) {
-//        return equipmentService.recoverClimatisation(id_room, id_equipment);
-//
-//    }
-//
-//    @GetMapping("/Radiateur")
-//    public String getEquipmentRadiateur(@RequestParam("id_room") Integer id_room, @RequestParam("id_equipment") Integer id_equipment) {
-//        return equipmentService.recoverRadiateur(id_room, id_equipment);
-//    }
-//
-//    @GetMapping("/Fenetre")
-//    public String getEquipmentFenetre(@RequestParam("id_room") Integer id_room, @RequestParam("id_equipment") Integer id_equipment) {
-//        return equipmentService.recoverFenetre(id_room, id_equipment);
-//    }
-//
-//    @GetMapping("/Store")
-//    public String getEquipmentStore(@RequestParam("id_room") Integer id_room, @RequestParam("id_equipment") Integer id_equipment) {
-//        return equipmentService.recoverStore(id_room, id_equipment);
-//    }
-//
-//    @GetMapping("/Screen")
-//    public String getEquipmentScreen(@RequestParam("id_room") Integer id_room, @RequestParam("id_equipment") Integer id_equipment) {
-//        return equipmentService.recoverScreen(id_room, id_equipment);
-//    }
-
-//    @PutMapping("/updateLampe")
-//    public void updateStatutLampe(@RequestBody Equipment equipment) {
-//        equipmentService.updateStatutLampe(equipment);
-//        logger.info("update done");
-//
-//    }
-//
-//    @PutMapping("/updateLampe")
-//    public void updateStatutLampe(@RequestBody Equipment equipment,  @RequestParam("id_room") Integer id_room, @RequestParam("id_equipment") Integer id_equipment) {
-//        equipmentService.updateStatutLampe(equipment.getStatut(), equipment.getType_mode(), id_room, id_equipment);
-//    }
+    @GetMapping("/room")
+    public List<RoomHouse> getRooms(@RequestParam("floor") String floor) {
+        System.out.println(floor);
+        return equipmentService.getRooms(floor);
+    }
 
     @GetMapping("/EquipmentOrderByConsumption/idb={id_b}")
-    public Iterable<EquipmentWithConsumption> getEquipmentOrderByConsumptionByBuilding(@PathVariable String id_b){
+    public Iterable<EquipmentWithConsumption> getEquipmentOrderByConsumptionByBuilding(@PathVariable String id_b) {
         logger.info("getEquipmentOrderByConsumptionByBuilding");
         return energyService.getEquipmentByConsumption(id_b);
     }
+
     @GetMapping("/EquipmentOrderByConsumption/idr={id_r}")
-    public Iterable<EquipmentWithConsumption> getEquipmentOrderByConsumptionByRoom(@PathVariable String id_r){
+    public Iterable<EquipmentWithConsumption> getEquipmentOrderByConsumptionByRoom(@PathVariable String id_r) {
         logger.info("getEquipmentOrderByConsumptionByRoom");
         return energyService.getEquipmentOrderByConsumptionByRoom(id_r);
     }
+
     @GetMapping("/CentralByProduction/{id_b}")
-    public Iterable<CentralWithProduction> getCentralByProduction(@PathVariable String id_b){
+    public Iterable<CentralWithProduction> getCentralByProduction(@PathVariable String id_b) {
         logger.info("getCentralByProduction");
         return energyService.getCentralByProduction(id_b);
     }

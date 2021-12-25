@@ -1,4 +1,4 @@
-package episen.pds.citizens.backcitizens.model;
+package episen.pds.citizens.backcitizens.model.equipments;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Data
 @Entity
-@Table(name = "equipment")
+@Table(name = "equipment", schema = "equipments")
 public class Equipment {
     @Id
     private int id_equipment;
