@@ -17,8 +17,7 @@ public class Building {
     private String name_building;
     private String type_building;
 
-    public Building() {
-    }
+    public Building() { }
 
     public Building(Integer id_building, String address, String name_building, String type_building) {
         this.id_building = id_building;
