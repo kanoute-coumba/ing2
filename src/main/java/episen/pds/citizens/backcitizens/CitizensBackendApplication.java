@@ -45,4 +45,5 @@ public class CitizensBackendApplication implements CommandLineRunner {
 		SpringApplication.run(CitizensBackendApplication.class, args);
 	}
 
+
 }

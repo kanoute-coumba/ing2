@@ -25,5 +25,6 @@ public class BuildingService {
     public Optional<Building> getBuilding(Integer id_building) {
         return buildingRepo.findById(id_building);
     }
+
 }
 
