@@ -1,11 +1,13 @@
 package episen.pds.citizens.backcitizens.controller;
 
-import episen.pds.citizens.backcitizens.model.*;
+import episen.pds.citizens.backcitizens.model.Condition;
+import episen.pds.citizens.backcitizens.model.Consumption;
+import episen.pds.citizens.backcitizens.model.Room;
+import episen.pds.citizens.backcitizens.model.equipments.Equipment;
 import episen.pds.citizens.backcitizens.service.UseMonitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.function.Supplier;
 import java.util.logging.Logger;
 
 @RestController
