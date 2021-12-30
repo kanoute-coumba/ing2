@@ -18,11 +18,6 @@ public class FloorService {
         this.floorRepo = floorRepo;
     }
 
-    // Not yet
-    public List<Floor> getAllFloors() {
-        return floorRepo.findAll();
-    }
-
     public List<Floor> getFloorsOfBuilding(String name_building) {
         return floorRepo.getFloorsOfBuilding(name_building);
     }
@@ -32,11 +27,9 @@ public class FloorService {
         return floorRepo.findById(id_floor);
     }
 
-    // Not yet
     public String getDesignOfFloor(String name_floor) {
         return floorRepo.getDesignOfFloor(name_floor);
     }
-
 
 }
 
