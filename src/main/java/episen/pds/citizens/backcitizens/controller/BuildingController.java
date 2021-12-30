@@ -2,7 +2,6 @@ package episen.pds.citizens.backcitizens.controller;
 
 import episen.pds.citizens.backcitizens.model.BuildingPatch;
 import episen.pds.citizens.backcitizens.service.BuildingServicePatch;
-import episen.pds.citizens.backcitizens.service.architectureService.BuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
