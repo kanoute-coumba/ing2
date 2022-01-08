@@ -39,6 +39,9 @@ public interface EquipmentRepo extends CrudRepository<Equipment, Integer> {
     @Query(value = "update equipments.equipment_data set value =:valueEquipment where id_equipment_data =:id_equipment", nativeQuery = true)
     void UpdateValueEquipment(@Param("valueEquipment") Integer valueEquipment, @Param("id_equipment") Integer id_equipment);
 
+    @Query(value = "select * from equipments.equipment eq inner join equipments.equipment_data e on eq.id_equipment=e.id_equipment_data where type_mode =:type_mode and type=:type and id_room =:id_room", nativeQuery = true)
+    Iterable<Equipment> getEquipmentLampeAutomatic (@Param("type_mode") String type_mode, @Param("type") String type, @Param("id_room") Integer id_room);
+
     @Nullable
     @Query(value = "select cast(setEquipmentValue(?1,?2) as varchar)", nativeQuery = true)
     void setEquipmentValue(int id_equipment, double value);

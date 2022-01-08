@@ -8,11 +8,14 @@ import episen.pds.citizens.backcitizens.model.equipments.House;
 import episen.pds.citizens.backcitizens.model.equipments.RoomHouse;
 import episen.pds.citizens.backcitizens.service.EnergyService;
 import episen.pds.citizens.backcitizens.service.EquipmentService;
+import episen.pds.citizens.backcitizens.service.ThreadLight;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.logging.Logger;
+
+import static java.lang.Thread.sleep;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -73,6 +76,16 @@ public class EquipmentController {
         System.out.println(floor);
         return equipmentService.getRooms(floor);
     }
+
+
+    @PutMapping("/lampeAuto/{id}")
+    public void getEquipmentLampeAutomatic(@PathVariable("id") String id) {
+        ThreadLight threadLight = new ThreadLight(equipmentService, id);
+        threadLight.run();
+    }
+
+
+
 
     @GetMapping("/EquipmentOrderByConsumption/idb={id_b}")
     public Iterable<EquipmentWithConsumption> getEquipmentOrderByConsumptionByBuilding(@PathVariable String id_b) {

@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Component;
 import java.util.logging.Logger;
 
 @Component
 @SpringBootApplication
+@EnableScheduling
 public class CitizensBackendApplication implements CommandLineRunner {
 
 	private static final Logger logger = Logger.getLogger(CitizensBackendApplication.class.getName());
