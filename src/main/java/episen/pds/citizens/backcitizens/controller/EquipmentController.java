@@ -8,14 +8,12 @@ import episen.pds.citizens.backcitizens.model.equipments.House;
 import episen.pds.citizens.backcitizens.model.equipments.RoomHouse;
 import episen.pds.citizens.backcitizens.service.EnergyService;
 import episen.pds.citizens.backcitizens.service.EquipmentService;
-import episen.pds.citizens.backcitizens.service.ThreadLight;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.logging.Logger;
-
-import static java.lang.Thread.sleep;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -24,6 +22,7 @@ public class EquipmentController {
     @Autowired
     EnergyService energyService;
     private static final Logger logger = Logger.getLogger(EquipmentController.class.getName());
+    private static int hours = 0;
 
     @Autowired
     private EquipmentService equipmentService;
@@ -77,14 +76,49 @@ public class EquipmentController {
         return equipmentService.getRooms(floor);
     }
 
+    @PutMapping("updateAuto")
+    public void updateStatutAuto (@RequestParam("type_mode") String type_mode, @RequestParam("id_equipment") Integer id_equipment) {
+        equipmentService.updateStatutAuto(type_mode, id_equipment);
 
-    @PutMapping("/lampeAuto/{id}")
-    public void getEquipmentLampeAutomatic(@PathVariable("id") String id) {
-        ThreadLight threadLight = new ThreadLight(equipmentService, id);
-        threadLight.run();
     }
 
 
+//    @PutMapping("/lampeAuto/{id}")
+//    public void getEquipmentLampeAutomatic(@PathVariable("id") String id) {
+//        ThreadLight threadLight = new ThreadLight(equipmentService, id);
+//        threadLight.run();
+//    }
+
+    @Scheduled(fixedRate = 2000)
+    public void updateLightAutomatic() {
+
+
+
+            if ((hours >= 0 && hours < 7) || (hours >= 8 && hours < 18)) {
+                 List<Integer> id_equipment_data = equipmentService.getEquipmentLampeAutomatic("ON");
+                 for(int i=0; i<id_equipment_data.size(); i++) {
+                 equipmentService.updateStatutAutomaticLight(id_equipment_data.get(i), "OFF", 0);
+                 }
+
+
+            } else if ((hours >= 7 && hours < 8) || (hours >= 18 && hours <= 23)) {
+                List<Integer> id_equipment_data = equipmentService.getEquipmentLampeAutomatic("OFF");
+                for(int i=0; i<id_equipment_data.size(); i++) {
+                    if((hours >= 18 && hours <= 23)) {
+                        equipmentService.updateStatutAutomaticLight(id_equipment_data.get(i), "ON", 10);
+                    } else {
+                    equipmentService.updateStatutAutomaticLight(id_equipment_data.get(i), "ON", 5);
+                    }
+                }
+            }
+            hours++;
+            if (hours == 25) {
+                hours = 0;
+            }
+
+
+
+    }
 
 
     @GetMapping("/EquipmentOrderByConsumption/idb={id_b}")

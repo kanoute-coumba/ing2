@@ -9,6 +9,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @PropertySource("classpath:sql_queries.properties")
 public interface EquipmentRepo extends CrudRepository<Equipment, Integer> {
@@ -39,8 +41,17 @@ public interface EquipmentRepo extends CrudRepository<Equipment, Integer> {
     @Query(value = "update equipments.equipment_data set value =:valueEquipment where id_equipment_data =:id_equipment", nativeQuery = true)
     void UpdateValueEquipment(@Param("valueEquipment") Integer valueEquipment, @Param("id_equipment") Integer id_equipment);
 
-    @Query(value = "select * from equipments.equipment eq inner join equipments.equipment_data e on eq.id_equipment=e.id_equipment_data where type_mode =:type_mode and type=:type and id_room =:id_room", nativeQuery = true)
-    Iterable<Equipment> getEquipmentLampeAutomatic (@Param("type_mode") String type_mode, @Param("type") String type, @Param("id_room") Integer id_room);
+    @Query(value = "select e.id_equipment_data from equipments.equipment eq inner join equipments.equipment_data e on eq.id_equipment=e.id_equipment_data where type_mode ='Automatique' and statut =:statut and type = 'lampe';", nativeQuery = true)
+    List<Integer> getEquipmentLampeAutomatic (@Param("statut") String statut);
+
+    @Modifying
+    @Query(value = "update equipments.equipment_data set statut =:statut, value=:value where id_equipment_data =:id_equipment_data", nativeQuery = true)
+    void updateStatutAutomaticLight(@Param("id_equipment_data") Integer id_equipment_data, @Param("statut") String statut, @Param("value") Integer value);
+
+    @Modifying
+    @Query(value = "update equipments.equipment_data set type_mode =:type_mode where id_equipment_data =:id_equipment", nativeQuery = true)
+    void updateStatutAuto (@Param("type_mode") String type_mode, @Param("id_equipment") Integer id_equipment);
+
 
     @Nullable
     @Query(value = "select cast(setEquipmentValue(?1,?2) as varchar)", nativeQuery = true)

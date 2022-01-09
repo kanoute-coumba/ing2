@@ -68,34 +68,18 @@ public class EquipmentService {
         return roomHouseRepo.findRoomByFloor(Integer.parseInt(floor));
     }
 
-    @Transactional
-    public void AutomaticLightUpdate() {
-        int hours = 0;
-        while (true) {
+    public List<Integer> getEquipmentLampeAutomatic (String statut){
+        return equipmentRepo.getEquipmentLampeAutomatic(statut);
+    }
 
-            if ((hours >= 0 && hours < 7) || (hours >= 8 && hours < 18)) {
-                System.out.println(" entre 0h et 7h");
-                equipmentRepo.UpdateValueEquipment(0, 36);
-                equipmentRepo.UpdateStatutMode("OFF", "Automatique", 36);
-            } else if (hours >= 7 && hours < 8) {
-                System.out.println(" entre 7h et 8h");
-                equipmentRepo.UpdateValueEquipment(5, 36);
-                equipmentRepo.UpdateStatutMode("ON", "Automatique", 36);
-            } else if (hours >= 18 && hours < 0) {
-                System.out.println(" entre 18h et 0h");
-                equipmentRepo.UpdateValueEquipment(10, 36);
-                equipmentRepo.UpdateStatutMode("ON", "Automatique", 36);
-            }
-            hours++;
-            if (hours == 25) {
-                hours = 0;
-            }
-            System.out.println("Automatic update" + hours);
-            try {
-                sleep(20000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+    @Transactional
+    public void updateStatutAutomaticLight (Integer id_equipment_data, String statut, Integer value) {
+        equipmentRepo.updateStatutAutomaticLight(id_equipment_data, statut, value);
+    }
+
+    @Transactional
+    public void updateStatutAuto (String type_mode,  Integer id_equipment) {
+        equipmentRepo.updateStatutAuto(type_mode, id_equipment);
+        //System.out.println(type_mode + "type_mode");
     }
 }
