@@ -9,8 +9,6 @@ import javax.persistence.Id;
 
 @Data
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 public class Building {
     @Id
     private Integer id_building;
