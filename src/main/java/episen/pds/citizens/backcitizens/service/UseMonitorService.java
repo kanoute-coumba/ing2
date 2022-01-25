@@ -2,7 +2,7 @@ package episen.pds.citizens.backcitizens.service;
 
 import episen.pds.citizens.backcitizens.model.Condition;
 import episen.pds.citizens.backcitizens.model.Consumption;
-import episen.pds.citizens.backcitizens.model.Room;
+import episen.pds.citizens.backcitizens.model.equipments.Room;
 import episen.pds.citizens.backcitizens.model.equipments.Equipment;
 import episen.pds.citizens.backcitizens.repository.ConditionRepo;
 import episen.pds.citizens.backcitizens.repository.ConsumptionRepo;

@@ -2,10 +2,9 @@ package episen.pds.citizens.backcitizens.controller;
 
 import episen.pds.citizens.backcitizens.model.CentralWithProduction;
 import episen.pds.citizens.backcitizens.model.EquipmentWithConsumption;
-import episen.pds.citizens.backcitizens.model.equipments.Equipment;
-import episen.pds.citizens.backcitizens.model.equipments.FloorHouse;
-import episen.pds.citizens.backcitizens.model.equipments.House;
-import episen.pds.citizens.backcitizens.model.equipments.RoomHouse;
+import episen.pds.citizens.backcitizens.model.architectureModel.Building;
+import episen.pds.citizens.backcitizens.model.architectureModel.Floor;
+import episen.pds.citizens.backcitizens.model.equipments.*;
 import episen.pds.citizens.backcitizens.service.EnergyService;
 import episen.pds.citizens.backcitizens.service.EquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 @RestController
@@ -29,7 +29,7 @@ public class EquipmentController {
 
 
     @GetMapping("/equipmentBYRoom/{idr}")
-    public Iterable<Equipment> getEquipmentBYRoom(@PathVariable("idr") String idr) {
+    public Iterable<Map<String, String>> getEquipmentBYRoom(@PathVariable("idr") String idr) {
         return equipmentService.getEquipmentBYRoom(Integer.parseInt(idr));
     }
 
@@ -59,25 +59,26 @@ public class EquipmentController {
     }
 
     @GetMapping("/house")
-    public List<House> getHouses(@RequestParam("email") String email) {
+    public List<Building> getHouses(@RequestParam("email") String email) {
         System.out.println(email);
         return equipmentService.getHouseByEmail(email);
     }
 
     @GetMapping("/floor")
-    public List<FloorHouse> getFloors(@RequestParam("house") String house) {
+    public List<Floor> getFloors(@RequestParam("house") String house) {
         System.out.println(house);
+        System.out.println(equipmentService.getFloors(house));
         return equipmentService.getFloors(house);
     }
 
     @GetMapping("/room")
-    public List<RoomHouse> getRooms(@RequestParam("floor") String floor) {
+    public List<Room> getRooms(@RequestParam("floor") String floor) {
         System.out.println(floor);
         return equipmentService.getRooms(floor);
     }
 
     @PutMapping("updateAuto")
-    public void updateStatutAuto (@RequestParam("type_mode") String type_mode, @RequestParam("id_equipment") Integer id_equipment) {
+    public void updateStatutAuto(@RequestParam("type_mode") String type_mode, @RequestParam("id_equipment") Integer id_equipment) {
         equipmentService.updateStatutAuto(type_mode, id_equipment);
 
     }
@@ -92,33 +93,68 @@ public class EquipmentController {
     @Scheduled(fixedRate = 2000)
     public void updateLightAutomatic() {
 
+        if ((hours >= 0 && hours < 7) || (hours >= 8 && hours < 18)) {
+            List<Integer> id_equipment_data = equipmentService.getEquipmentLampeAutomatic("ON");
+            for (int i = 0; i < id_equipment_data.size(); i++) {
+                equipmentService.updateStatutAutomaticLight(id_equipment_data.get(i), "OFF", 0);
 
+            }
 
-            if ((hours >= 0 && hours < 7) || (hours >= 8 && hours < 18)) {
-                 List<Integer> id_equipment_data = equipmentService.getEquipmentLampeAutomatic("ON");
-                 for(int i=0; i<id_equipment_data.size(); i++) {
-                 equipmentService.updateStatutAutomaticLight(id_equipment_data.get(i), "OFF", 0);
-                 }
-
-
-            } else if ((hours >= 7 && hours < 8) || (hours >= 18 && hours <= 23)) {
-                List<Integer> id_equipment_data = equipmentService.getEquipmentLampeAutomatic("OFF");
-                for(int i=0; i<id_equipment_data.size(); i++) {
-                    if((hours >= 18 && hours <= 23)) {
-                        equipmentService.updateStatutAutomaticLight(id_equipment_data.get(i), "ON", 10);
-                    } else {
+        } else if ((hours >= 7 && hours < 8) || (hours >= 18 && hours <= 23)) {
+            List<Integer> id_equipment_data = equipmentService.getEquipmentLampeAutomatic("OFF");
+            for (int i = 0; i < id_equipment_data.size(); i++) {
+                if ((hours >= 18 && hours <= 23)) {
+                    equipmentService.updateStatutAutomaticLight(id_equipment_data.get(i), "ON", 10);
+                } else {
                     equipmentService.updateStatutAutomaticLight(id_equipment_data.get(i), "ON", 5);
-                    }
                 }
             }
-            hours++;
-            if (hours == 25) {
-                hours = 0;
+        }
+
+        if ((hours >= 0 && hours < 9) || (hours >= 13 && hours < 20)) {
+            System.out.println("en début");
+            List<Integer> listId = equipmentService.getEquipmentScreenAutomaticF("ON");
+            for (int i = 0; i < listId.size(); i++) {
+                equipmentService.updateStatutAutomaticScreen(listId.get(i), "OFF", 0);
+                System.out.println(listId.get(i) + "liste 0h et 9h F");
             }
 
+        } else if ((hours >= 9 && hours < 13) || (hours >= 20 && hours <= 23)) {
+            System.out.println("au milieu");
+            List<Integer> listIdl = equipmentService.getEquipmentScreenAutomaticF("OFF");
+            for (int i = 0; i < listIdl.size(); i++) {
+                equipmentService.updateStatutAutomaticScreen(listIdl.get(i), "ON", 1);
+                System.out.println(listIdl.get(i) + "TTT");
+            }
+        }
+
+//        else if((hours >= 0 && hours < 9) || (hours >= 13 && hours < 20)) {
+//            System.out.println("en fin");
+//            List<Integer> listId = equipmentService.getEquipmentScreenAutomaticF("OFF");
+//            for (int i = 0; i < listId.size(); i++) {
+//                equipmentService.updateStatutAutomaticScreen(listId.get(i), "ON", 1);
+//                System.out.println(listId.get(i) + "FFF");
+//            }
+//        }
+//        else if((hours >= 9 && hours < 13) || (hours >= 20 && hours <= 23)) {
+//            List<Integer> listIdl = equipmentService.getEquipmentScreenAutomaticT("ON");
+//            for (int i = 0; i < listIdl.size(); i++) {
+//                equipmentService.updateStatutAutomaticScreen(listIdl.get(i), "OFF", 0);
+//                System.out.println(listIdl.get(i) + "TTT");
+//            }
+//        }
 
 
+        hours++;
+        if (hours == 25) {
+            hours = 0;
+        }
     }
+
+
+
+
+
 
 
     @GetMapping("/EquipmentOrderByConsumption/idb={id_b}")

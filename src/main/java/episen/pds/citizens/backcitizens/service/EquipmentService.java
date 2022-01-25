@@ -1,19 +1,18 @@
 package episen.pds.citizens.backcitizens.service;
 
-import episen.pds.citizens.backcitizens.model.equipments.Equipment;
-import episen.pds.citizens.backcitizens.model.equipments.FloorHouse;
-import episen.pds.citizens.backcitizens.model.equipments.House;
-import episen.pds.citizens.backcitizens.model.equipments.RoomHouse;
+import episen.pds.citizens.backcitizens.model.architectureModel.Building;
+import episen.pds.citizens.backcitizens.model.architectureModel.Floor;
+import episen.pds.citizens.backcitizens.model.equipments.*;
 import episen.pds.citizens.backcitizens.repository.EquipmentRepo;
 import episen.pds.citizens.backcitizens.repository.FloorHouseRepo;
 import episen.pds.citizens.backcitizens.repository.HouseRepo;
 import episen.pds.citizens.backcitizens.repository.RoomHouseRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 import static java.lang.Thread.sleep;
 
@@ -30,7 +29,7 @@ public class EquipmentService {
     RoomHouseRepo roomHouseRepo;
 
 
-    public Iterable<Equipment> getEquipmentBYRoom(Integer idr) {
+    public Iterable<Map<String, String>> getEquipmentBYRoom(Integer idr) {
         return equipmentRepo.findEquipmentByRoom(idr);
     }
 
@@ -56,20 +55,33 @@ public class EquipmentService {
         return equipmentRepo.findIdRoomByEquipment(id_equipment);
     }
 
-    public List<House> getHouseByEmail(String email) {
+    public List<Building> getHouseByEmail(String email) {
         return houseRepo.findHouseByEmail(email);
     }
 
-    public List<FloorHouse> getFloors(String house) {
+    public List<Floor> getFloors(String house) {
         return floorRepo.findFloorByHouse(house);
     }
 
-    public List<RoomHouse> getRooms(String floor) {
+    public List<Room> getRooms(String floor) {
         return roomHouseRepo.findRoomByFloor(Integer.parseInt(floor));
     }
 
     public List<Integer> getEquipmentLampeAutomatic (String statut){
         return equipmentRepo.getEquipmentLampeAutomatic(statut);
+    }
+
+    public List<Integer> getEquipmentScreenAutomaticT (String statut) {
+        return equipmentRepo.getEquipmentScreenAutomaticT(statut);
+    }
+
+    public List<Integer> getEquipmentScreenAutomaticF (String statut) {
+        return equipmentRepo.getEquipmentScreenAutomaticF(statut);
+    }
+
+    @Transactional
+    public void updateStatutAutomaticScreen (Integer id_equipment_data, String statut, Integer value) {
+        equipmentRepo.updateStatutAutomaticScreen(id_equipment_data, statut, value);
     }
 
     @Transactional
@@ -80,6 +92,5 @@ public class EquipmentService {
     @Transactional
     public void updateStatutAuto (String type_mode,  Integer id_equipment) {
         equipmentRepo.updateStatutAuto(type_mode, id_equipment);
-        //System.out.println(type_mode + "type_mode");
     }
 }
