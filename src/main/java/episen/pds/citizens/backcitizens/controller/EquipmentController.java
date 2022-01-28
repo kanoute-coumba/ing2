@@ -109,6 +109,12 @@ public class EquipmentController {
         logger.info("getEquipmentOrderByConsumptionByRoom");
         return energyService.getEquipmentOrderByConsumptionByRoom(id_r);
     }
+    @GetMapping("/EquipmentWithConsumptionHistoric/ide={id_e}")
+    public Iterable<EquipmentWithConsumption> getEquipmentWithConsumptionHistoric(@PathVariable String id_e){
+        logger.info("getEquipmentWithConsumptionHistoric");
+        return energyService.getEquipmentOrderByConsumptionByRoom(id_e);
+    }
+
     @GetMapping("/CentralByProduction/{id_b}")
     public Iterable<CentralWithProduction> getCentralByProduction(@PathVariable String id_b){
         logger.info("getCentralByProduction");

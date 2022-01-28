@@ -19,6 +19,9 @@ public class EquipmentWithConsumption {
     @Column(name = "value")
     public String value;
 
+    @Column(name ="date_time")
+    String date_time;
+
     public int getIdRoom() {
         return id_room;
     }

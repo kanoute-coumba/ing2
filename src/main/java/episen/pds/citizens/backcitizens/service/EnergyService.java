@@ -37,4 +37,8 @@ public class EnergyService {
         logger.info(a.toString());
         return a;
     }
+    public Iterable<EquipmentWithConsumption> getEquipmentWithConsumptionHistoric(String id_r){
+        logger.info("EnergyService getEquipmentWithConsumptionHistoric");
+        return equipmentWithConsumptionRepo.findHistoryEquipmentWithConsumptionById(Integer.parseInt(id_r));
+    }
 }
