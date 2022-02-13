@@ -26,9 +26,4 @@ public interface EquipmentWithConsumptionRepo extends CrudRepository<EquipmentWi
             as c2 on equipment.id_equipment=c2.id_equipment
             where id_room=:id_r order by c2.value""", nativeQuery = true)
     Iterable<EquipmentWithConsumption> findEquipmentWithConsumptionByRoom(@Param("id_r") int id_r);
-    @Query(value = "Select equipment.id_equipment,equipment.id_room,equipment.type,consumption.value" +
-            "  ,date_time from equipment inner join" +
-            " equipment.id_equipment=consumption.id_equipment" +
-            " Where equipment.id_equipment=: id_equip",nativeQuery = true)
-    Iterable<EquipmentWithConsumption> findHistoryEquipmentWithConsumptionById(@Param("id_equip") int id_equip);
-}
+  }
