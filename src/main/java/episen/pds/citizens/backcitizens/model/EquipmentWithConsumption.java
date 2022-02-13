@@ -3,6 +3,7 @@ package episen.pds.citizens.backcitizens.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 
 @Entity
 public class EquipmentWithConsumption {
@@ -20,7 +21,7 @@ public class EquipmentWithConsumption {
     public String value;
 
     @Column(name ="date_time")
-    String date_time;
+    LocalDateTime date_time;
 
     public int getIdRoom() {
         return id_room;

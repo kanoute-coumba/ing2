@@ -9,6 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Repository
@@ -38,7 +39,7 @@ public interface ConsumptionRepo extends CrudRepository<Consumption, Integer> {
             " Where equipment.id_equipment=:id_equip and " +
             "date_time<':date_end' and date_time>':date_begin' order by date_time",nativeQuery = true)
     Iterable<Consumption> findHistoryConsumptionByIdEquipmentBetweenTwoDate(@Param("id_equip") int id_equip,
-                                                                                @Param("date_begin") String date_begin,
-                                                                                @Param("date_end") String date_end);
+                                                                                @Param("date_begin") LocalDateTime date_begin,
+                                                                                @Param("date_end") LocalDateTime date_end);
 
 }
