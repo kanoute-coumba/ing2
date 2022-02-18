@@ -23,6 +23,7 @@ public class MixEnService {
     private CurrentMixBySiteRepo currentMixBySiteRepo;
     private static final Logger logger = Logger.getLogger(MixEnService.class.getName());
 
+    //method for current mix
     public Iterable<MixEn> getMixEn() {
         // current production of each energy
         Iterable<MixEn> listMixEn = currentMixRepo.findEnergyProduction();
@@ -45,6 +46,7 @@ public class MixEnService {
         return percentageMixEn;
     }
 
+    //method for current mix
     public Iterable<MixEnCapacityBySite> getMixEnBySite(){
         // current production of each site
         Iterable<MixEnBySite> listMixEnBySite = currentMixBySiteRepo.findEnergyProductionBySite();
@@ -68,6 +70,101 @@ public class MixEnService {
             logger.info(mixEnCapacityBySite.toString());
         }
         return listPercentageMixEnBySite;
+
+    }
+
+    //method for algo
+    public void getResultAlgoMix(float consumption){
+        //choix de l'algo et paraméttre
+
+        //capacité de prod pour chaque énergie(unité)
+        float capacityOneSolarCentral = ;
+        float capacityOneWindTurbineCentral = ;
+        float capacityOneHydraulicCentral = ;
+
+        //nb d'équipement des usines pour chaque type d'énergie
+        int nbSolarCentral = ;
+        int nbWindTurbineCentral = ;
+        int nbHydraulicCentral = ;
+
+        //nb de central à activer (résultat)
+        int nbSolarCentralResult = ;
+        int nbWindTurbineCentralResult = ;
+        int nbHydraulicCentralResult = ;
+
+        float production =0;
+
+        // selon le choix différent algo
+        //préférence
+        if(){
+
+            if(choi1 = "Solaire"){
+                while(production<consumption || nbSolarCentralResult<nbSolarCentral){
+                    nbSolarCentralResult+=1;
+                    production+=capacityOneSolarCentral;
+                }
+                if(choix2 = "Eolienne" && production<consumption){
+                    while(production<consumption || nbWindTurbineCentralResult<nbWindTurbineCentral){
+                        nbWindTurbineCentralResult+=1;
+                        production+=capacityOneWindTurbineCentral;
+                    }
+                }
+                if(choix2 = "Hydraulique" && production<consumption){
+                    while(production<consumption || nbHydraulicCentralResult<nbHydraulicCentral){
+                        nbHydraulicCentralResult+=1;
+                        production+=capacityOneHydraulicCentral;
+                    }
+                }
+                return RESULTAT;
+            }
+
+            if(choi1 = "Eolienne"){
+                while(production<consumption || nbWindTurbineCentralResult<nbWindTurbineCentral){
+                    nbWindTurbineCentralResult+=1;
+                    production+=capacityOneWindTurbineCentral;
+                }
+
+                if(choix2 = "Solaire" && production<consumption){
+                    while(production<consumption || nbSolarCentralResult<nbSolarCentral){
+                        nbSolarCentralResult+=1;
+                        production+=capacityOneSolarCentral;
+                    }
+                }
+                if(choix2 = "Hydraulique" && production<consumption){
+                    while(production<consumption || nbHydraulicCentralResult<nbHydraulicCentral){
+                        nbHydraulicCentralResult+=1;
+                        production+=capacityOneHydraulicCentral;
+                    }
+                }
+                return RESULTAT;
+            }
+
+            if(choi1 = "Hydraulique"){
+                while(production<consumption || nbHydraulicCentralResult<nbHydraulicCentral){
+                    nbHydraulicCentralResult+=1;
+                    production+=capacityOneHydraulicCentral;
+                }
+
+                if(choix2 = "Eolienne" && production<consumption){
+                    while(production<consumption || nbWindTurbineCentralResult<nbWindTurbineCentral){
+                        nbWindTurbineCentralResult+=1;
+                        production+=capacityOneWindTurbineCentral;
+                    }
+                }
+                if(choix2 = "Solaire" && production<consumption){
+                    while(production<consumption || nbSolarCentralResult<nbSolarCentral){
+                        nbSolarCentralResult+=1;
+                        production+=capacityOneSolarCentral;
+                    }
+                }
+                return RESULTAT;
+            }
+
+        }
+        //proportion
+        if(){
+
+        }
 
     }
 
