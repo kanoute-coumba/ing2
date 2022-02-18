@@ -52,6 +52,12 @@ public interface EquipmentRepo extends CrudRepository<Equipment, Integer> {
     @Query(value = "select e.id_equipment_data from equipment e inner join equipment_data eq on e.id_equipment_data = eq.id_equipment_data where id_room in ( select s.id_room from room r inner join sensor s on r.id_room = s.id_room inner join measure m on  m.id_sensor = s.id_sensor where  s.type = 'capteur de présence' and (m.value > 50) AND (m.value <= 100)) and e.type = 'télévision' and type_mode = 'Automatique' and statut =:statut", nativeQuery = true)
     List<Integer> getEquipmentScreenAutomaticF (@Param("statut") String statut);
 
+    @Query(value = "select e.id_equipment_data from equipment e inner join equipment_data eq on e.id_equipment_data = eq.id_equipment_data where id_room in (select s.id_room from room r inner join sensor s on r.id_room = s.id_room inner join measure m on  m.id_sensor = s.id_sensor where  s.type = 'capteur de temperature' and (m.value > -10) AND (m.value <= 15)) and e.type = 'radiateur' and type_mode = 'Automatique' and statut =:statut", nativeQuery = true)
+    List<Integer> getEquipmentRadiateurHivernal(@Param("statut") String statut);
+
+    @Query(value = "select e.id_equipment_data from equipment e inner join equipment_data eq on e.id_equipment_data = eq.id_equipment_data where id_room in (select s.id_room from room r inner join sensor s on r.id_room = s.id_room inner join measure m on  m.id_sensor = s.id_sensor where  s.type = 'capteur de temperature' and (m.value > 15) AND (m.value <= 40)) and e.type = 'radiateur' and type_mode = 'Automatique' and statut =:statut", nativeQuery = true)
+    List<Integer> getEquipmentRadiateurEte(@Param("statut") String statut);
+
     @Modifying
     @Query(value = "update equipment_data set statut =:statut, value=:value where id_equipment_data =:id_equipment_data", nativeQuery = true)
     void updateStatutAutomaticLight(@Param("id_equipment_data") Integer id_equipment_data, @Param("statut") String statut, @Param("value") Integer value);
