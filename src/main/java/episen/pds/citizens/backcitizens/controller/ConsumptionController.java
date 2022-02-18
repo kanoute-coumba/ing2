@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
@@ -30,9 +31,10 @@ public class ConsumptionController {
     }
     @GetMapping("/ConsumptionEquipment/{ide}/Between/{dBegin}&{dEnd}")
     public Iterable<Consumption> findHistoryConsumptionByIdEquipmentBetweenTwoDate(@PathVariable("ide") String id_e,
-                                                                                   @PathVariable("dBegin")LocalDateTime dBegin,
-                                                                                   @PathVariable("dEnd") LocalDateTime dEnd){
+                                                                                   @PathVariable("dBegin")long dBegin,
+                                                                                   @PathVariable("dEnd") long dEnd){
         logger.info("findHistoryConsumptionByIdEquipmentBetweenTwoDate");
+
         return consumptionService.findHistoryConsumptionByIdEquipmentBetweenTwoDate(id_e,dBegin,dEnd);
     }
 }

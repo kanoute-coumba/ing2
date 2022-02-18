@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,7 +18,7 @@ public class Consumption {
     private double value;
 
     @Column(name = "date_time")
-    private LocalDateTime date_time;
+    private long date_time;
 
     @Column(name = "id_equipment")
     private int id_equipment;
@@ -47,11 +48,11 @@ public class Consumption {
         this.value = value;
     }
 
-    public LocalDateTime getDate_time() {
+    public long getDate_time() {
         return date_time;
     }
 
-    public void setDate_time(LocalDateTime date_time) {
+    public void setDate_time(long date_time) {
         this.date_time = date_time;
     }
 
