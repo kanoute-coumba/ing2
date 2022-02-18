@@ -36,8 +36,8 @@ public class CitizensBackendApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		logger.config("debut de la commande");
 		logger.config(testController.getTest() + "");
-		logger.config(overrunController.getAttribution() + "");
-		logger.config(overrunController.getConsumption() + "");
+//		logger.config(overrunController.getAttribution() + "");
+//		logger.config(overrunController.getConsumption() + "");
 		logger.config(String.valueOf(equipmentController.getEquipmentOrderByConsumptionByBuilding("1")));
 
 	}

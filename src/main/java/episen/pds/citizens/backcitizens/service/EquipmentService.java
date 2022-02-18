@@ -55,7 +55,8 @@ public class EquipmentService {
         return equipmentRepo.findIdRoomByEquipment(id_equipment);
     }
 
-    public List<Building> getHouseByEmail(String email) {
+    public List <Building> getHouseByEmail(String email) {
+        System.out.println(houseRepo.findHouseByEmail(email));
         return houseRepo.findHouseByEmail(email);
     }
 
