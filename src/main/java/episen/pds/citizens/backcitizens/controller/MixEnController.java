@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 @RestController
@@ -29,5 +30,12 @@ public class MixEnController {
     public Iterable<MixEnCapacityBySite> getMixEnBySite() {
         logger.info("current mix return");
         return mixEnService.getMixEnBySite();
+    }
+
+    @GetMapping("/Algo")
+    public List<Integer> getAlgo() {
+        logger.info("algo");
+        logger.info(""+mixEnService.getResultAlgoMix(1500));
+        return mixEnService.getResultAlgoMix(1500);
     }
 }

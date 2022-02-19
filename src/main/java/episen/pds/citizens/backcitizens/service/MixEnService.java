@@ -12,8 +12,8 @@ import episen.pds.citizens.backcitizens.repository.CurrentMixRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
+import java.util.*;
 import java.util.logging.Logger;
 
 @Service
@@ -78,7 +78,8 @@ public class MixEnService {
     }
 
     //method for algo
-    public void getResultAlgoMix(float consumption){
+
+    public List<Integer> getResultAlgoMix(float consumption){
         //choice of algo in the database
         ChoiceAlgo choiceAlgo = choiceAlgoRepo.getChoiceAlgo();
 
@@ -109,6 +110,7 @@ public class MixEnService {
         int nbSolarCentralResult = 0;
         int nbWindTurbineCentralResult = 0;
         int nbHydraulicCentralResult = 0;
+        List<Integer> l = new ArrayList<>();
 
         float production =0;
 
@@ -117,55 +119,62 @@ public class MixEnService {
         //TODO return the result
         if(choiceAlgo.getChoice().equals("preference")){
             if(choiceAlgo.getPref1().equals("solaire")){
-                while(production<consumption || nbSolarCentralResult<nbSolarCentral){
+                while(production<consumption && nbSolarCentralResult<nbSolarCentral){
                     nbSolarCentralResult+=1;
                     production+=capacityOneSolarCentral;
                 }
                 if(choiceAlgo.getPref2().equals("eolienne") && production<consumption){
-                    while(production<consumption || nbWindTurbineCentralResult<nbWindTurbineCentral){
+                    while(production<consumption && nbWindTurbineCentralResult<nbWindTurbineCentral){
                         nbWindTurbineCentralResult+=1;
                         production+=capacityOneWindTurbineCentral;
                     }
-                    while(production<consumption || nbHydraulicCentralResult<nbHydraulicCentral){
+                    while(production<consumption && nbHydraulicCentralResult<nbHydraulicCentral){
                         nbHydraulicCentralResult+=1;
                         production+=capacityOneHydraulicCentral;
                     }
                 }
                 if(choiceAlgo.getPref2().equals("hydraulique") && production<consumption){
-                    while(production<consumption || nbHydraulicCentralResult<nbHydraulicCentral){
+                    while(production<consumption && nbHydraulicCentralResult<nbHydraulicCentral){
                         nbHydraulicCentralResult+=1;
                         production+=capacityOneHydraulicCentral;
                     }
-                    while(production<consumption || nbWindTurbineCentralResult<nbWindTurbineCentral){
+                    while(production<consumption && nbWindTurbineCentralResult<nbWindTurbineCentral){
                         nbWindTurbineCentralResult+=1;
                         production+=capacityOneWindTurbineCentral;
                     }
                 }
-                //return RESULTAT;
+                //TODO RESULTAT;
+                l.add(nbSolarCentralResult);
+                l.add(nbSolarCentral);
+                l.add(nbWindTurbineCentralResult);
+                l.add(nbWindTurbineCentral);
+                l.add(nbHydraulicCentralResult);
+                l.add(nbHydraulicCentral);
+                return l;
             }
 
             if(choiceAlgo.getPref1().equals("eolienne")){
-                while(production<consumption || nbWindTurbineCentralResult<nbWindTurbineCentral){
+                while(production<consumption && nbWindTurbineCentralResult<nbWindTurbineCentral){
                     nbWindTurbineCentralResult+=1;
                     production+=capacityOneWindTurbineCentral;
                 }
 
                 if(choiceAlgo.getPref2().equals("solaire") && production<consumption){
-                    while(production<consumption || nbSolarCentralResult<nbSolarCentral){
+                    while(production<consumption && nbSolarCentralResult<nbSolarCentral){
                         nbSolarCentralResult+=1;
                         production+=capacityOneSolarCentral;
                     }
-                    while(production<consumption || nbHydraulicCentralResult<nbHydraulicCentral){
+                    while(production<consumption && nbHydraulicCentralResult<nbHydraulicCentral){
                         nbHydraulicCentralResult+=1;
                         production+=capacityOneHydraulicCentral;
                     }
                 }
                 if(choiceAlgo.getPref2().equals("hydraulique") && production<consumption){
-                    while(production<consumption || nbHydraulicCentralResult<nbHydraulicCentral){
+                    while(production<consumption && nbHydraulicCentralResult<nbHydraulicCentral){
                         nbHydraulicCentralResult+=1;
                         production+=capacityOneHydraulicCentral;
                     }
-                    while(production<consumption || nbSolarCentralResult<nbSolarCentral){
+                    while(production<consumption && nbSolarCentralResult<nbSolarCentral){
                         nbSolarCentralResult+=1;
                         production+=capacityOneSolarCentral;
                     }
@@ -174,27 +183,27 @@ public class MixEnService {
             }
 
             if(choiceAlgo.getPref1().equals("hydraulique")){
-                while(production<consumption || nbHydraulicCentralResult<nbHydraulicCentral){
+                while(production<consumption && nbHydraulicCentralResult<nbHydraulicCentral){
                     nbHydraulicCentralResult+=1;
                     production+=capacityOneHydraulicCentral;
                 }
 
                 if(choiceAlgo.getPref2().equals("eolienne") && production<consumption){
-                    while(production<consumption || nbWindTurbineCentralResult<nbWindTurbineCentral){
+                    while(production<consumption && nbWindTurbineCentralResult<nbWindTurbineCentral){
                         nbWindTurbineCentralResult+=1;
                         production+=capacityOneWindTurbineCentral;
                     }
-                    while(production<consumption || nbSolarCentralResult<nbSolarCentral){
+                    while(production<consumption && nbSolarCentralResult<nbSolarCentral){
                         nbSolarCentralResult+=1;
                         production+=capacityOneSolarCentral;
                     }
                 }
                 if(choiceAlgo.getPref2().equals("solaire") && production<consumption){
-                    while(production<consumption || nbSolarCentralResult<nbSolarCentral){
+                    while(production<consumption && nbSolarCentralResult<nbSolarCentral){
                         nbSolarCentralResult+=1;
                         production+=capacityOneSolarCentral;
                     }
-                    while(production<consumption || nbWindTurbineCentralResult<nbWindTurbineCentral){
+                    while(production<consumption && nbWindTurbineCentralResult<nbWindTurbineCentral){
                         nbWindTurbineCentralResult+=1;
                         production+=capacityOneWindTurbineCentral;
                     }
@@ -203,6 +212,8 @@ public class MixEnService {
             }
 
         }
+        return l;
+        /*
         // Algo : proportion user choice
         if(choiceAlgo.getChoice().equals("proportionchoice")){
 
@@ -218,7 +229,7 @@ public class MixEnService {
         if(choiceAlgo.getChoice().equals("proportionweather")){
 
         }
-
+*/
     }
 
 }
