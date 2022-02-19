@@ -40,7 +40,7 @@ public class MixEnService {
         logger.info(""+totalProduction);
 
         // list of percentage of the current production for each energy
-        List<MixEn> percentageMixEn = new ArrayList<MixEn>();
+        List<MixEn> percentageMixEn = new ArrayList<>();
         for(MixEn m : listMixEn){
             int i = (int) Math.round(m.getMix()*100*1.0/totalProduction);
             MixEn mix = new MixEn(i, m.getNameBuilding());
@@ -83,9 +83,10 @@ public class MixEnService {
         ChoiceAlgo choiceAlgo = choiceAlgoRepo.getChoiceAlgo();
 
         //production capacity for each energy (unit)
-        float capacityOneSolarCentral = ;
-        float capacityOneWindTurbineCentral = ;
-        float capacityOneHydraulicCentral = ;
+        //TODO modif : data in database or by another method with scope3
+        float capacityOneSolarCentral = 200;
+        float capacityOneWindTurbineCentral = 200;
+        float capacityOneHydraulicCentral = 200;
 
         //number of plant equipment for each type of energy
         int nbSolarCentral = 0;
@@ -93,13 +94,13 @@ public class MixEnService {
         int nbHydraulicCentral = 0;
         Iterable<MixEnBySite> listMixEnBySite = currentMixBySiteRepo.findEnergyProductionBySite();
         for(MixEnBySite m : listMixEnBySite){
-            if(){
+            if(m.getName_building().equals("solaire")){
                 nbSolarCentral += m.getNumber_equip();
             }
-            if(){
+            if(m.getName_building().equals("eolienne")){
                 nbWindTurbineCentral += m.getNumber_equip();
             }
-            if(){
+            if(m.getName_building().equals("hydraulique")){
                 nbHydraulicCentral += m.getNumber_equip();
             }
         }
@@ -113,6 +114,7 @@ public class MixEnService {
 
         // the different algorithms
         //Algo : preference
+        //TODO return the result
         if(choiceAlgo.getChoice().equals("preference")){
             if(choiceAlgo.getPref1().equals("solaire")){
                 while(production<consumption || nbSolarCentralResult<nbSolarCentral){
@@ -139,7 +141,7 @@ public class MixEnService {
                         production+=capacityOneWindTurbineCentral;
                     }
                 }
-                return RESULTAT;
+                //return RESULTAT;
             }
 
             if(choiceAlgo.getPref1().equals("eolienne")){
@@ -168,7 +170,7 @@ public class MixEnService {
                         production+=capacityOneSolarCentral;
                     }
                 }
-                return RESULTAT;
+                //return RESULTAT;
             }
 
             if(choiceAlgo.getPref1().equals("hydraulique")){
@@ -197,12 +199,13 @@ public class MixEnService {
                         production+=capacityOneWindTurbineCentral;
                     }
                 }
-                return RESULTAT;
+                //return RESULTAT;
             }
 
         }
         // Algo : proportion user choice
         if(choiceAlgo.getChoice().equals("proportionchoice")){
+
 
         }
 

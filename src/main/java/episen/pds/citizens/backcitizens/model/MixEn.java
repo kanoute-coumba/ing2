@@ -11,7 +11,7 @@ public class MixEn {
     private int mix;
 
     @Id
-    @Column(name = "name_building")
+    @Column(name = "type_building")
     private String name_building;
 
     public MixEn(){}
