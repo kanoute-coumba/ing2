@@ -5,7 +5,6 @@ import episen.pds.citizens.backcitizens.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
 import java.util.Optional;
 
 @Service
@@ -73,7 +72,7 @@ public class UseMonitorService {
         return  equipmentRepo.findEquipmentOrderByRoom();
     }
 
-    public Iterable<Condition> getRoomConditions(int id_room) {
+    public Condition getRoomConditions(int id_room) {
         return conditionRepo.findConditionsByRoom(id_room);
     }
 
@@ -95,5 +94,55 @@ public class UseMonitorService {
 
     public void setEquipmentOn(int id_equipment) {
         equipmentRepo.setEquipmentOn(id_equipment);
+    }
+
+    public Condition getLastConditions(int id_room) {
+        return conditionRepo.findConditionsByRoom(id_room);
+    }
+
+    public void autoAdjustOneEquipment(int id_equipment) {
+        Room current_room = roomRepo.findRoomByEquipment(id_equipment);
+        Condition current_conditions = conditionRepo.findConditionsByRoom(current_room.getId_room());
+        Equipment current_equipment = equipmentRepo.findEquipmentById(id_equipment);
+        Equipment_Data current_equipment_data = equipmentRepo.findEquipment_DataById(id_equipment);
+        if (current_equipment.getType().equals("radiateur") || current_equipment.getType().equals("fenêtre") || current_equipment.getType().equals("climatisation"))
+            this.autoAdjustTemperatureOneEquipment(current_equipment, current_conditions, current_room);
+
+        if (current_equipment.getType().equals("store") || current_equipment.getType().equals("lampe"))
+            this.autoAdjustLuminosityOneEquipment(current_equipment, current_conditions, current_room);
+
+    }
+
+    private void autoAdjustLuminosityOneEquipment(Equipment current_equipment, Condition current_conditions, Room current_room) {
+        int best_luminosity = 400;
+        while (current_conditions.getLuminosity()<= best_luminosity) {
+            setEquipmentOneUp(current_equipment.getId_equipment());
+            current_conditions = conditionRepo.findConditionsByRoom(current_room.getId_room());
+        }
+    }
+
+    private void setEquipmentOneUp(int id_equipment) {
+        equipmentRepo.setEquipmentOneUp(id_equipment);
+    }
+
+    private void autoAdjustTemperatureOneEquipment(Equipment current_equipment, Condition current_conditions, Room current_room) {
+        int best_temperature = 21;
+        while (current_conditions.getTemperature()<= best_temperature) {
+            if (current_equipment.getType().equals("fenêtre"))
+                equipmentRepo.setEquipmentOff(current_equipment.getId_equipment());
+            else if (current_equipment.getType().equals("climatisation"))
+                setEquipmentOneDown(current_equipment.getId_equipment());
+            else
+                setEquipmentOneUp(current_equipment.getId_equipment());
+            current_conditions = conditionRepo.findConditionsByRoom(current_room.getId_room());
+        }
+    }
+
+    private void setEquipmentOneDown(int id_equipment) {
+        equipmentRepo.setEquipmentOneDown(id_equipment);
+    }
+
+    public void setBestConditions(int id_room, Condition best_conditions) {
+
     }
 }

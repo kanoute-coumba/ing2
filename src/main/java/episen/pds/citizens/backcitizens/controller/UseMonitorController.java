@@ -40,10 +40,8 @@ public class UseMonitorController {
     }
 
     @GetMapping("/getRoomConditions/{id}")
-    public Iterable<Condition> getRoomConditions(@PathVariable("id") int id_room) {
-        for (Condition row:useMonitorService.getRoomConditions(id_room)) {
-            logger.info(row.toString());
-        }
+    public Condition getRoomConditions(@PathVariable("id") int id_room) {
+        logger.info(useMonitorService.getRoomConditions(id_room).toString());
         return useMonitorService.getRoomConditions(id_room);
     }
 
@@ -73,6 +71,7 @@ public class UseMonitorController {
     public void setEquipmentAuto(@PathVariable("id") int id_equipment) {
         logger.info("SET_AUTO: id_equipment=" + id_equipment);
         useMonitorService.setEquipmentAuto(id_equipment);
+        useMonitorService.autoAdjustOneEquipment(id_equipment);
     }
 
     @PostMapping("/setEquipmentManu/{id}")
@@ -93,4 +92,15 @@ public class UseMonitorController {
         useMonitorService.setEquipmentOn(id_equipment);
     }
 
+    @GetMapping("/getLastConditions/{id_room}")
+    public Condition getLastConditions(@PathVariable("id_room") int id_room) {
+        logger.info("GET_COND: id_room=" + id_room);
+        logger.info(useMonitorService.getLastConditions(id_room).toString());
+        return useMonitorService.getLastConditions(id_room);
+    }
+
+    @PostMapping("/setBestConditions/{id_room}")
+    public void setBestConditions(@PathVariable("id_room") int id_room, @RequestParam("cond") Condition best_conditions) {
+        useMonitorService.setBestConditions(id_room, best_conditions);
+    }
 }

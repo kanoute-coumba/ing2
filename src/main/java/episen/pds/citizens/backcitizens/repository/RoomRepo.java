@@ -11,6 +11,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 @PropertySource("classpath:sql_queries.properties")
 public interface RoomRepo extends CrudRepository<Room, Integer>  {
+    @Query(value = "select room.* from room inner join " +
+            "equipment on equipment.id_room = room.id_room " +
+            "where equipment.id_equipment = ?1 ;", nativeQuery = true)
+    Room findRoomByEquipment(int id_equipment);
+
 /*    @Query(value = "${findRooms}", nativeQuery = true)
     Iterable<RoomsWithConsumption> findRoomsWithConsumption();*/
 }

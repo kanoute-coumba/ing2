@@ -33,8 +33,6 @@ public class Condition {
     @Column(name = "end_time")
     private String end_time;
 
-    private int room;
-
     public int getId() {
         return id_room;
     }
