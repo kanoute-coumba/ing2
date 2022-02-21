@@ -43,6 +43,13 @@ public class Consumption {
         return value;
     }
 
+    public Consumption(int id_consumption, double value, long date_time, int id_equipment) {
+        this.id_consumption = id_consumption;
+        this.value = value;
+        this.date_time = date_time;
+        this.id_equipment = id_equipment;
+    }
+
     public void setValue(double value) {
         this.value = value;
     }

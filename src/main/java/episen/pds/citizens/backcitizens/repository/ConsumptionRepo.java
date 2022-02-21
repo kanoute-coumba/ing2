@@ -3,6 +3,7 @@ package episen.pds.citizens.backcitizens.repository;
 import episen.pds.citizens.backcitizens.model.Consumption;
 import episen.pds.citizens.backcitizens.model.ConsumptionByBuilding;
 import episen.pds.citizens.backcitizens.model.ConsumptionByRoom;
+import episen.pds.citizens.backcitizens.model.EquipmentWithConsumption;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Repository
@@ -45,10 +47,21 @@ public interface ConsumptionRepo extends CrudRepository<Consumption, Integer> {
     @Query(value = "Select consumption.id_consumption, equipment.id_equipment,consumption.value" +
             "  ,date_time from equipment inner join consumption on" +
             " equipment.id_equipment=consumption.id_equipment" +
-            " Where equipment.id_equipment=:id_equip and " +
+            " Where equipment.id_room=:id_room and " +
             "date_time<:date_end and date_time>:date_begin order by date_time",nativeQuery = true)
-    Iterable<Consumption> findHistoryConsumptionByIdRoomBetweenTwoDate(@Param("id_room") int id_equip,
-                                                                            @Param("date_begin") long date_begin,
-                                                                            @Param("date_end") long date_end);
+    ArrayList<Consumption> findHistoryConsumptionByIdRoomBetweenTwoDate(@Param("id_room") int id_equip,
+                                                                        @Param("date_begin") long date_begin,
+                                                                        @Param("date_end") long date_end);
 
+    @Query(value = """
+            SELECT c2.id_equipment,c2.value\s
+             ,c2.date_time, c2.id_consumption from equipment inner join
+            (SELECT * FROM consumption cs
+            WHERE date_time = (SELECT MAX(date_time) FROM consumption cs1
+            Where date_time <= :dBegin 
+            GROUP BY cs1.id_equipment  
+            HAVING cs.id_equipment = cs1.id_equipment))
+            as c2 on equipment.id_equipment=c2.id_equipment
+            where id_room=:id_r order by c2.date_time""", nativeQuery = true)
+    ArrayList<Consumption> findEquipmentWithConsumptionByRoomBefore(@Param("id_r") int id_r, @Param("dBegin") long dBegin);
 }
