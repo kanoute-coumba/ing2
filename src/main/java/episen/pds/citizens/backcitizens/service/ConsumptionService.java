@@ -32,9 +32,7 @@ public class ConsumptionService {
     public Iterable<Consumption> findHistoryConsumptionByIdRoomBetweenTwoDate(String id_r,
                                                                               long dBegin,
                                                                               long dEnd){
-        logger.info("avant premier");
         ArrayList<Consumption> consumptionArrayList = consumptionRepo.findHistoryConsumptionByIdRoomBetweenTwoDate(Integer.parseInt(id_r), dBegin,dEnd);
-        logger.info("avant deuxième");
         ArrayList<Consumption> c = consumptionRepo.findEquipmentWithConsumptionByRoomBefore(Integer.parseInt(id_r),dBegin);
         HashMap<Integer,Consumption> hashMap = new HashMap();
         ArrayList<Consumption> sortie = new ArrayList<>();
