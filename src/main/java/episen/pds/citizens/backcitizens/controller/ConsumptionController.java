@@ -36,13 +36,12 @@ public class ConsumptionController {
 
         return consumptionService.findHistoryConsumptionByIdEquipmentBetweenTwoDate(id_e,dBegin,dEnd);
     }
-    @GetMapping("/ConsumptionEquipment/{ide}/Between/{dBegin}&{dEnd}")
-    public Iterable<Consumption> findHistoryConsumptionByIdEquipmentBetweenTwoDate(@PathVariable("ide") String id_e,
-                                                                                   @PathVariable("dBegin") Timestamp dBegin,
-                                                                                   @PathVariable("dEnd") Timestamp dEnd){
-        logger.info("findHistoryConsumptionByIdEquipmentBetweenTwoDate");
-        long db = dBegin.getTime();
-        long de = dEnd.getTime();
-        return consumptionService.findHistoryConsumptionByIdEquipmentBetweenTwoDate(id_e,db,de);
+    @GetMapping("/ConsumptionRoom/{idr}/Between/{dBegin}&{dEnd}")
+    public Iterable<Consumption> findHistoryConsumptionByIdRoomBetweenTwoDate(@PathVariable("idr") String id_r,
+                                                                                   @PathVariable("dBegin")long dBegin,
+                                                                                   @PathVariable("dEnd") long dEnd){
+        logger.info("findHistoryConsumptionByIdRoomBetweenTwoDate");
+
+        return consumptionService.findHistoryConsumptionByIdRoomBetweenTwoDate(id_r,dBegin,dEnd);
     }
 }

@@ -50,6 +50,9 @@ public class Consumption {
         this.id_equipment = id_equipment;
     }
 
+    public Consumption() {
+    }
+
     public void setValue(double value) {
         this.value = value;
     }
