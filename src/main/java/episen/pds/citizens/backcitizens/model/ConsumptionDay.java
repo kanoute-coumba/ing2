@@ -1,63 +1,40 @@
 package episen.pds.citizens.backcitizens.model;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
-@Table(name= "consumption")
+@Table(name= "consobyday")
 public class ConsumptionDay {
     @Id
-    @Column(name = "id_consumption")
-    private int id;
+    @Column(name = "date")
+    private Date date;
 
-    @Column(name = "value")
-    private Double value;
-
-    @Column(name = "date_time")
-    private long date_time;
-
-    @Column(name = "id_equipment")
-    private int id_equipment;
+    @Column(name = "consoday")
+    private int consoday;
 
     public ConsumptionDay() {
+
     }
 
-    public ConsumptionDay(int id, Double value, long date_time, int id_equipment) {
-        this.id = id;
-        this.value = value;
-        this.date_time = date_time;
-        this.id_equipment = id_equipment;
+    public ConsumptionDay(Date date, int consoday) {
+        this.date = date;
+        this.consoday = consoday;
     }
 
-    public int getId() {
-        return id;
+    public Date getDate() {
+        return date;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public Double getValue() {
-        return value;
+    public int getConsoday() {
+        return consoday;
     }
 
-    public void setValue(Double value) {
-        this.value = value;
-    }
-
-    public long getDate_time() {
-        return date_time;
-    }
-
-    public void setDate_time(long date_time) {
-        this.date_time = date_time;
-    }
-
-    public int getId_equipment() {
-        return id_equipment;
-    }
-
-    public void setId_equipment(int id_equipment) {
-        this.id_equipment = id_equipment;
+    public void setConsoday(int consoday) {
+        this.consoday = consoday;
     }
 }
