@@ -24,7 +24,7 @@ public class OverrunController {
 
     @GetMapping("/conso")
     public Iterable<ConsumptionDay> getConsumption() {
-        logger.config("Consumption per equipment per day");
+        logger.config("Consumption per day in the SmartCity");
         return overrunService.getConsumption();
     }
 
