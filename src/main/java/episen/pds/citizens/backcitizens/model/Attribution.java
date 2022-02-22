@@ -10,41 +10,26 @@ import java.util.Date;
 @Table(name = "Attribution")
 public class Attribution {
     @Id
-    @Column(name = "id_attribution")
-    private int Id;
 
-    @Column(name = "date_time")
-    private Date date_time;
+    @Column(name = "date")
+    private Date date;
 
     @Column(name = "value")
     private Double value;
 
-    @Column(name = "id_building")
-    private int id_building;
-
     public Attribution() {}
 
-    public Attribution(int id, Date date_time, Double value, int id_building) {
-        Id = id;
-        this.date_time = date_time;
+    public Attribution(Date date, Double value) {
+        this.date = date;
         this.value = value;
-        this.id_building = id_building;
-    }
-
-    public int getId() {
-        return Id;
-    }
-
-    public void setId(int id) {
-        Id = id;
     }
 
     public Date getDate_time() {
-        return date_time;
+        return date;
     }
 
     public void setDate_time(Date date_time) {
-        this.date_time = date_time;
+        this.date = date;
     }
 
     public Double getValue() {
@@ -55,11 +40,4 @@ public class Attribution {
         this.value = value;
     }
 
-    public int getId_building() {
-        return id_building;
-    }
-
-    public void setId_building(int id_building) {
-        this.id_building = id_building;
-    }
 }

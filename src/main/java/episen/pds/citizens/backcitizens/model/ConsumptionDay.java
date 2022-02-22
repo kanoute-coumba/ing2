@@ -14,7 +14,7 @@ public class ConsumptionDay {
     private Double value;
 
     @Column(name = "date_time")
-    private Date date_time;
+    private long date_time;
 
     @Column(name = "id_equipment")
     private int id_equipment;
@@ -22,7 +22,7 @@ public class ConsumptionDay {
     public ConsumptionDay() {
     }
 
-    public ConsumptionDay(int id, Double value, Date date_time, int id_equipment) {
+    public ConsumptionDay(int id, Double value, long date_time, int id_equipment) {
         this.id = id;
         this.value = value;
         this.date_time = date_time;
@@ -45,11 +45,11 @@ public class ConsumptionDay {
         this.value = value;
     }
 
-    public Date getDate_time() {
+    public long getDate_time() {
         return date_time;
     }
 
-    public void setDate_time(Date date_time) {
+    public void setDate_time(long date_time) {
         this.date_time = date_time;
     }
 
