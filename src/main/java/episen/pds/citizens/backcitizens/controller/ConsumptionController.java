@@ -33,7 +33,6 @@ public class ConsumptionController {
                                                                                    @PathVariable("dBegin")long dBegin,
                                                                                    @PathVariable("dEnd") long dEnd){
         logger.info("findHistoryConsumptionByIdEquipmentBetweenTwoDate");
-
         return consumptionService.findHistoryConsumptionByIdEquipmentBetweenTwoDate(id_e,dBegin,dEnd);
     }
     @GetMapping("/ConsumptionRoom/{idr}/Between/{dBegin}&{dEnd}")
@@ -41,7 +40,20 @@ public class ConsumptionController {
                                                                                    @PathVariable("dBegin")long dBegin,
                                                                                    @PathVariable("dEnd") long dEnd){
         logger.info("findHistoryConsumptionByIdRoomBetweenTwoDate");
-
         return consumptionService.findHistoryConsumptionByIdRoomBetweenTwoDate(id_r,dBegin,dEnd);
+    }
+    @GetMapping("/ConsumptionFloor/{idf}/Between/{dBegin}&{dEnd}")
+    public Iterable<Consumption> findHistoryConsumptionByIdFloorBetweenTwoDate(@PathVariable("idf") String id_f,
+                                                                              @PathVariable("dBegin")long dBegin,
+                                                                              @PathVariable("dEnd") long dEnd){
+        logger.info("findHistoryConsumptionByIdFloorBetweenTwoDate");
+        return consumptionService.findHistoryConsumptionByIdFloorBetweenTwoDate(id_f,dBegin,dEnd);
+    }
+    @GetMapping("/ConsumptionBuilding/{idb}/Between/{dBegin}&{dEnd}")
+    public Iterable<Consumption> findHistoryConsumptionByIdBuildingBetweenTwoDate(@PathVariable("idb") String id_b,
+                                                                              @PathVariable("dBegin")long dBegin,
+                                                                              @PathVariable("dEnd") long dEnd){
+        logger.info("findHistoryConsumptionByIdBuildingBetweenTwoDate");
+        return consumptionService.findHistoryConsumptionByIdBuildingBetweenTwoDate(id_b,dBegin,dEnd);
     }
 }

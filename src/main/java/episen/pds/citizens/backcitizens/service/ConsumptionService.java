@@ -58,5 +58,63 @@ public class ConsumptionService {
         }
         return sortie;
     }
+    public Iterable<Consumption> findHistoryConsumptionByIdFloorBetweenTwoDate(String id_f,
+                                                                              long dBegin,
+                                                                              long dEnd){
+        ArrayList<Consumption> consumptionArrayList = consumptionRepo.findHistoryConsumptionByIdFloorBetweenTwoDate(Integer.parseInt(id_f), dBegin,dEnd);
+        ArrayList<Consumption> c = consumptionRepo.findEquipmentWithConsumptionByFloorBefore(Integer.parseInt(id_f),dBegin);
+        HashMap<Integer,Consumption> hashMap = new HashMap();
+        ArrayList<Consumption> sortie = new ArrayList<>();
+        double somme = 0.0;
+        for (Consumption consumption : c) {
+            hashMap.put(consumption.getId_equipment(),consumption);
+            somme += consumption.getValue();
+        }
+        sortie.add(new Consumption(c.get(c.size()-1).getId_consumption(),
+                somme,c.get(c.size()-1).getDate_time(),c.get(c.size()-1).getId_equipment()));
+        for (Consumption consumption : consumptionArrayList) {
+            if (hashMap.containsKey(consumption.getId_equipment())) {
+                somme = somme - hashMap.get(consumption.getId_equipment()).getValue() + consumption.getValue();
+                hashMap.replace(consumption.getId_equipment(),consumption);
+            }
+            else {
+                hashMap.put(consumption.getId_equipment(),consumption);
+                somme = somme + consumption.getValue();
+            }
+            Consumption consumption1 = new Consumption(consumption.getId_consumption(),
+                    somme, consumption.getDate_time(), consumption.getId_equipment());
+            sortie.add(consumption1);
+        }
+        return sortie;
+    }
 
+    public Iterable<Consumption> findHistoryConsumptionByIdBuildingBetweenTwoDate(String id_b,
+                                                                               long dBegin,
+                                                                               long dEnd){
+        ArrayList<Consumption> consumptionArrayList = consumptionRepo.findHistoryConsumptionByIdBuildingBetweenTwoDate(Integer.parseInt(id_b), dBegin,dEnd);
+        ArrayList<Consumption> c = consumptionRepo.findEquipmentWithConsumptionByBuildingBefore(Integer.parseInt(id_b),dBegin);
+        HashMap<Integer,Consumption> hashMap = new HashMap();
+        ArrayList<Consumption> sortie = new ArrayList<>();
+        double somme = 0.0;
+        for (Consumption consumption : c) {
+            hashMap.put(consumption.getId_equipment(),consumption);
+            somme += consumption.getValue();
+        }
+        sortie.add(new Consumption(c.get(c.size()-1).getId_consumption(),
+                somme,c.get(c.size()-1).getDate_time(),c.get(c.size()-1).getId_equipment()));
+        for (Consumption consumption : consumptionArrayList) {
+            if (hashMap.containsKey(consumption.getId_equipment())) {
+                somme = somme - hashMap.get(consumption.getId_equipment()).getValue() + consumption.getValue();
+                hashMap.replace(consumption.getId_equipment(),consumption);
+            }
+            else {
+                hashMap.put(consumption.getId_equipment(),consumption);
+                somme = somme + consumption.getValue();
+            }
+            Consumption consumption1 = new Consumption(consumption.getId_consumption(),
+                    somme, consumption.getDate_time(), consumption.getId_equipment());
+            sortie.add(consumption1);
+        }
+        return sortie;
+    }
 }
