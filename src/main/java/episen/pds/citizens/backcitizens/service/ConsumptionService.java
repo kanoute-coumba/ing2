@@ -37,12 +37,14 @@ public class ConsumptionService {
         HashMap<Integer,Consumption> hashMap = new HashMap();
         ArrayList<Consumption> sortie = new ArrayList<>();
         double somme = 0.0;
-        for (Consumption consumption : c) {
-            hashMap.put(consumption.getId_equipment(),consumption);
-            somme += consumption.getValue();
+        if(!c.isEmpty()) {
+            for (Consumption consumption : c) {
+                hashMap.put(consumption.getId_equipment(), consumption);
+                somme += consumption.getValue();
+            }
+            sortie.add(new Consumption(c.get(c.size() - 1).getId_consumption(),
+                    somme, c.get(c.size() - 1).getDate_time(), c.get(c.size() - 1).getId_equipment()));
         }
-        sortie.add(new Consumption(c.get(c.size()-1).getId_consumption(),
-                somme,c.get(c.size()-1).getDate_time(),c.get(c.size()-1).getId_equipment()));
         for (Consumption consumption : consumptionArrayList) {
             if (hashMap.containsKey(consumption.getId_equipment())) {
                 somme = somme - hashMap.get(consumption.getId_equipment()).getValue() + consumption.getValue();
@@ -66,12 +68,15 @@ public class ConsumptionService {
         HashMap<Integer,Consumption> hashMap = new HashMap();
         ArrayList<Consumption> sortie = new ArrayList<>();
         double somme = 0.0;
-        for (Consumption consumption : c) {
-            hashMap.put(consumption.getId_equipment(),consumption);
-            somme += consumption.getValue();
+        if(!c.isEmpty()) {
+            for (Consumption consumption : c) {
+                hashMap.put(consumption.getId_equipment(), consumption);
+                somme += consumption.getValue();
+            }
+            int i = c.size();
+            sortie.add(new Consumption(0,
+                    somme, c.get(i-1).getDate_time(), 0));
         }
-        sortie.add(new Consumption(c.get(c.size()-1).getId_consumption(),
-                somme,c.get(c.size()-1).getDate_time(),c.get(c.size()-1).getId_equipment()));
         for (Consumption consumption : consumptionArrayList) {
             if (hashMap.containsKey(consumption.getId_equipment())) {
                 somme = somme - hashMap.get(consumption.getId_equipment()).getValue() + consumption.getValue();
@@ -96,12 +101,14 @@ public class ConsumptionService {
         HashMap<Integer,Consumption> hashMap = new HashMap();
         ArrayList<Consumption> sortie = new ArrayList<>();
         double somme = 0.0;
-        for (Consumption consumption : c) {
-            hashMap.put(consumption.getId_equipment(),consumption);
-            somme += consumption.getValue();
+        if(!c.isEmpty()) {
+            for (Consumption consumption : c) {
+                hashMap.put(consumption.getId_equipment(), consumption);
+                somme += consumption.getValue();
+            }
+            sortie.add(new Consumption(c.get(c.size() - 1).getId_consumption(),
+                    somme, c.get(c.size() - 1).getDate_time(), c.get(c.size() - 1).getId_equipment()));
         }
-        sortie.add(new Consumption(c.get(c.size()-1).getId_consumption(),
-                somme,c.get(c.size()-1).getDate_time(),c.get(c.size()-1).getId_equipment()));
         for (Consumption consumption : consumptionArrayList) {
             if (hashMap.containsKey(consumption.getId_equipment())) {
                 somme = somme - hashMap.get(consumption.getId_equipment()).getValue() + consumption.getValue();
