@@ -3,10 +3,8 @@ package episen.pds.citizens.backcitizens.controller;
 import episen.pds.citizens.backcitizens.model.Messages;
 import episen.pds.citizens.backcitizens.service.MessagesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -21,14 +19,27 @@ public class MessagesController {
 
     private static final Logger logger = Logger.getLogger(MessagesController.class.getName());
 
- /*   @PostMapping("/users")
-    public void saveMenu(@RequestBody Users users) {
-        logger.config("receiving values menu_reservation");
-        logger.config(users.toString());
-        UsersService.saveMenuReservation(menu_reservation);
+//   @PostMapping("/messages")
+//    public void saveMessage(@RequestBody Messages messages) {
+//        logger.config("receiving values message");
+//        logger.config(messages.toString());
+//        messagesService.saveMessage(messages);
+//    }
+
+    @RequestMapping(value = "/messages",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            //produces = MediaType.APPLICATION_JSON_VALUE,
+            method = RequestMethod.POST)
+    public void saveMessage(@RequestBody Messages messages) {
+        logger.config("receiving values message");
+        logger.config(messages.toString());
+        messagesService.saveMessage(messages);
     }
 
-  */
+
+
+
+
  /*   @GetMapping("/cafeteria_reservation")
     public Optional<Menu_reservation> getMenuReservation(@PathVariable int id) {
         logger.config("returning menu values");

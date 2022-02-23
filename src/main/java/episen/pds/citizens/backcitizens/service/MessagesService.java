@@ -34,10 +34,10 @@ public class MessagesService {
     }
 
 
-    //public UsersRegistration saveMenuReservation(UsersRegistration usersRegistration) {
-    //    logger.config(userRegistration.toString());
-    //    return userRegistrationRepo.save(userRegistration);
-    //}
+    public Messages saveMessage(Messages messages) {
+        logger.config("messages send : " + messages.toString());
+        return messagesRepo.save(messages);
+    }
 
 
 }

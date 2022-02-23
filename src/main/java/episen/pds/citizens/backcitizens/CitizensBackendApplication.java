@@ -7,7 +7,10 @@ import episen.pds.citizens.backcitizens.controller.MenuController;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 import java.util.logging.Logger;
@@ -25,6 +28,17 @@ public class CitizensBackendApplication implements CommandLineRunner {
 
 	@Autowired
 	EquipmentController equipmentController;
+
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**");
+			}
+		};
+	}
 
 	@Override
 	public void run(String... args) throws Exception {

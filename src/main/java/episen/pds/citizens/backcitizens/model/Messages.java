@@ -21,7 +21,7 @@ public class Messages {
     private String receiver;
 
     @Column(name = "time")
-    private int time;
+    private long time;
 
     public void setMessage_id(int message_id) {
         this.message_id = message_id;
@@ -39,7 +39,7 @@ public class Messages {
         this.receiver = receiver;
     }
 
-    public void setTime(int time) {
+    public void setTime(long time) {
         this.time = time;
     }
 
@@ -59,7 +59,7 @@ public class Messages {
         return receiver;
     }
 
-    public int getTime() {
+    public long getTime() {
         return time;
     }
 

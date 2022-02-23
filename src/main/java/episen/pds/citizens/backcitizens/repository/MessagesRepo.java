@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
 @PropertySource("classpath:sql_queries.properties")
     public interface MessagesRepo extends CrudRepository<Messages, Integer> {
 
-    @Query(value="select * from messages where sender=? and receiver=? order by time", nativeQuery = true)
+    @Query(value="select * from messages where (sender=?1 and receiver=?2) or (receiver=?1 and sender=?2) order by time", nativeQuery = true)
     Iterable<Messages> findMessageBySender(String sender, String receiver);
 }
