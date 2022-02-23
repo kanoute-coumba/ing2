@@ -18,9 +18,14 @@ public class OverrunService {
         public Iterable<ConsumptionDay> getConsumption() {
             return consumptionRepo.findConsoPerEquipementPerDay();
         }
+
         public Iterable<Attribution> getAttribution() {
             return attributionRepo.findAttribution();
+        }
+        public Iterable<ConsumptionDay> getPeakDay() {
+        return consumptionRepo.findPeakDay();
     }
+
 
 
     }

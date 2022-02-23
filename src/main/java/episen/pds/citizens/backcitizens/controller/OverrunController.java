@@ -28,4 +28,10 @@ public class OverrunController {
         return overrunService.getConsumption();
     }
 
+    @GetMapping("/peak")
+    public Iterable<ConsumptionDay> getPeakDay() {
+        logger.config("Find all peak days in the SmartCity");
+        return overrunService.getPeakDay();
+    }
+
 }

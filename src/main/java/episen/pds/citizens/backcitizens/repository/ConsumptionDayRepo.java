@@ -24,4 +24,13 @@ public interface ConsumptionDayRepo extends CrudRepository<ConsumptionDay, Date>
 
     public Iterable<ConsumptionDay> findConsoPerEquipementPerDay();
 
+    @Query(value = " SELECT t1.date, t1.consoday, " +
+            " t2.value, count(*) as Numberofoverrun FROM consobyday t1 INNER JOIN attribution t2 " +
+            " ON t1.date = t2.date " +
+            " where t1.consoday > t2.value group by(t1.date,t1.consoday, t2.value) ", nativeQuery=true)
+
+    public Iterable<ConsumptionDay> findPeakDay();
+
+
+
 }
