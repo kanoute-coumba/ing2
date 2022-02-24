@@ -100,18 +100,19 @@ public class EquipmentController {
             List<Integer> id_equipment_data_false = equipmentService.getEquipmentAutomaticPresenceFalse("ON", "capteur de présence");
 
             // recupère la liste des équipements dont le statut est ON (valeur sensor comprise entre 0 et 50) = presence = true
-
             List<Integer> id_equipment_data_true = equipmentService.getEquipmentAutomaticPresenceTrue("OFF", "capteur de présence");
-            System.out.println(id_equipment_data_true.size() + "true");
+
             // mise à jour des lampes ou la présence est false
             for (int i = 0; i < id_equipment_data_false.size(); i++) {
                 equipmentService.updateStatutAutomaticLight(id_equipment_data_false.get(i), "OFF", 0);
+                equipmentService.updateLowValuesensor(16, "capteur de présence");
             }
 
 
             //mise à jour des lampes ou la présence est vrai
             for (int i = 0; i < id_equipment_data_true.size(); i++) {
                 equipmentService.updateStatutAutomaticLight(id_equipment_data_true.get(i), "ON", 5);
+                equipmentService.updateHighValuesensor(73, "capteur de présence");
             }
 
         }

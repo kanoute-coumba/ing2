@@ -78,6 +78,16 @@ public class EquipmentService {
         return equipmentRepo.getEquipmentAutomaticTrue(statut, sensor);
     }
 
+    @Transactional
+    public void updateHighValuesensor(Integer value, String sensor) {
+        equipmentRepo.updateHighValue(value, sensor);
+    }
+
+    @Transactional
+    public void updateLowValuesensor(Integer value, String sensor) {
+        equipmentRepo.updateLowValue(value, sensor);
+    }
+
 
 
     //pas encore faire -- A faire!!
