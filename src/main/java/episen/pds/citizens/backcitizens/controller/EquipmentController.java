@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -22,8 +23,7 @@ public class EquipmentController {
     @Autowired
     EnergyService energyService;
     private static final Logger logger = Logger.getLogger(EquipmentController.class.getName());
-    private static int hours = 0;
-
+    private static Timestamp hours = null;
     @Autowired
     private EquipmentService equipmentService;
 
@@ -59,7 +59,7 @@ public class EquipmentController {
     }
 
     @GetMapping("/house")
-    public List <Building> getHouses(@RequestParam("email") String email) {
+    public List<Building> getHouses(@RequestParam("email") String email) {
 
         System.out.println(email + " kkkkkk");
         return equipmentService.getHouseByEmail(email);
@@ -78,84 +78,129 @@ public class EquipmentController {
         return equipmentService.getRooms(floor);
     }
 
-    @PutMapping("updateAuto")
+
+
+    @PutMapping("/updateAuto")
     public void updateStatutAuto(@RequestParam("type_mode") String type_mode, @RequestParam("id_equipment") Integer id_equipment) {
         equipmentService.updateStatutAuto(type_mode, id_equipment);
 
     }
 
 
-//    @PutMapping("/lampeAuto/{id}")
-//    public void getEquipmentLampeAutomatic(@PathVariable("id") String id) {
-//        ThreadLight threadLight = new ThreadLight(equipmentService, id);
-//        threadLight.run();
-//    }
+    @GetMapping("/updateAutoEquip")
+    public String updateAutomatic(@RequestParam("meeting_time") String meeting_time) {
 
-    @Scheduled(fixedRate = 2000)
-    public void updateLightAutomatic() {
+        String d = meeting_time.replace('T', ' ') + ":00";
+        hours = Timestamp.valueOf(d);
+        System.out.println(hours);
 
-        if ((hours >= 0 && hours < 7) || (hours >= 8 && hours < 18)) {
-            List<Integer> id_equipment_data = equipmentService.getEquipmentLampeAutomatic("ON");
-            for (int i = 0; i < id_equipment_data.size(); i++) {
-                equipmentService.updateStatutAutomaticLight(id_equipment_data.get(i), "OFF", 0);
 
+        if ((hours.after(Timestamp.valueOf("2022-05-31 00:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 07:00:00")))) {
+            // recupère la liste des équipements dont le statut est ON (valeur sensor comprise entre 50 et 100) = presence = false
+            List<Integer> id_equipment_data_false = equipmentService.getEquipmentAutomaticPresenceFalse("ON", "capteur de présence");
+
+            // recupère la liste des équipements dont le statut est ON (valeur sensor comprise entre 0 et 50) = presence = true
+
+            List<Integer> id_equipment_data_true = equipmentService.getEquipmentAutomaticPresenceTrue("OFF", "capteur de présence");
+            System.out.println(id_equipment_data_true.size() + "true");
+            // mise à jour des lampes ou la présence est false
+            for (int i = 0; i < id_equipment_data_false.size(); i++) {
+                equipmentService.updateStatutAutomaticLight(id_equipment_data_false.get(i), "OFF", 0);
             }
 
-        } else if ((hours >= 7 && hours < 8) || (hours >= 18 && hours <= 23)) {
-            List<Integer> id_equipment_data = equipmentService.getEquipmentLampeAutomatic("OFF");
-            for (int i = 0; i < id_equipment_data.size(); i++) {
-                if ((hours >= 18 && hours <= 23)) {
-                    equipmentService.updateStatutAutomaticLight(id_equipment_data.get(i), "ON", 10);
-                } else {
-                    equipmentService.updateStatutAutomaticLight(id_equipment_data.get(i), "ON", 5);
-                }
+
+            //mise à jour des lampes ou la présence est vrai
+            for (int i = 0; i < id_equipment_data_true.size(); i++) {
+                equipmentService.updateStatutAutomaticLight(id_equipment_data_true.get(i), "ON", 5);
             }
+
         }
+//        else if(hours.after(Timestamp.valueOf("2022-05-31 08:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 18:00:00"))) {
+//
+//        }
 
-        if ((hours >= 0 && hours < 9) || (hours >= 13 && hours < 20)) {
-            System.out.println("en début");
-            List<Integer> listId = equipmentService.getEquipmentScreenAutomaticF("ON");
-            for (int i = 0; i < listId.size(); i++) {
-                equipmentService.updateStatutAutomaticScreen(listId.get(i), "OFF", 0);
-                System.out.println(listId.get(i) + "liste 0h et 9h F");
-            }
 
-        } else if ((hours >= 9 && hours < 13) || (hours >= 20 && hours <= 23)) {
-            System.out.println("au milieu");
-            List<Integer> listIdl = equipmentService.getEquipmentScreenAutomaticF("OFF");
-            for (int i = 0; i < listIdl.size(); i++) {
-                equipmentService.updateStatutAutomaticScreen(listIdl.get(i), "ON", 1);
-                System.out.println(listIdl.get(i) + "TTT");
-            }
-        }
 
-//        else if((hours >= 0 && hours < 9) || (hours >= 13 && hours < 20)) {
-//            System.out.println("en fin");
-//            List<Integer> listId = equipmentService.getEquipmentScreenAutomaticF("OFF");
+
+
+//        else if ((hours.after(Timestamp.valueOf("2022-05-31 07:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 08:00:00"))) || (hours.after(Timestamp.valueOf("2022-05-31 18:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 23:00:00")))) {
+//            List<Integer> id_equipment_data = equipmentService.getEquipmentAutomatic("OFF", "capteur de presence", 0, 49);
+//            for (int i = 0; i < id_equipment_data.size(); i++) {
+//                if ((hours.after(Timestamp.valueOf("2022-05-31 18:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 23:00:00")))) {
+//                    equipmentService.updateStatutAutomaticLight(id_equipment_data.get(i), "ON", 10);
+//                } else {
+//                    equipmentService.updateStatutAutomaticLight(id_equipment_data.get(i), "ON", 5);
+//                }
+//            }
+//        }
+//
+//        if ((hours.after(Timestamp.valueOf("2022-05-31 00:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 09:00:00"))) || (hours.after(Timestamp.valueOf("2022-05-31 13:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 20:00:00")))) {
+//            System.out.println("en début");
+//            List<Integer> listId = equipmentService.getEquipmentScreenAutomaticF("ON");
 //            for (int i = 0; i < listId.size(); i++) {
-//                equipmentService.updateStatutAutomaticScreen(listId.get(i), "ON", 1);
-//                System.out.println(listId.get(i) + "FFF");
+//                equipmentService.updateStatutAutomaticScreen(listId.get(i), "OFF", 0);
+//
 //            }
-//        }
-//        else if((hours >= 9 && hours < 13) || (hours >= 20 && hours <= 23)) {
-//            List<Integer> listIdl = equipmentService.getEquipmentScreenAutomaticT("ON");
+//
+//        } else if ((hours.after(Timestamp.valueOf("2022-05-31 09:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 13:00:00"))) || (hours.after(Timestamp.valueOf("2022-05-31 20:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 23:00:00")))) {
+//
+//            List<Integer> listIdl = equipmentService.getEquipmentScreenAutomaticF("OFF");
 //            for (int i = 0; i < listIdl.size(); i++) {
-//                equipmentService.updateStatutAutomaticScreen(listIdl.get(i), "OFF", 0);
-//                System.out.println(listIdl.get(i) + "TTT");
+//                equipmentService.updateStatutAutomaticScreen(listIdl.get(i), "ON", 1);
+//
 //            }
 //        }
-
-
-        hours++;
-        if (hours == 25) {
-            hours = 0;
-        }
+//
+//        // gestion déclenchement automatique radiateur et climatisateur
+//
+//        if (hours.after(Timestamp.valueOf("2022-05-31 00:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 12:00:00"))) {
+//            System.out.println("début hiver matin entre 0h et 12h ");
+//            List<Integer> listIdRadiator = equipmentService.getEquipmentRadiatorAutomaticWinter("OFF");
+//            List<Integer> listIdAirconditioner = equipmentService.getEquipmentAirconditionerAutomaticWinter("ON");
+//
+//            System.out.println(listIdRadiator.size() + " size");
+//            for (int i = 0; i < listIdRadiator.size(); i++) {
+//                equipmentService.updateStatutAutomaticScreen(listIdRadiator.get(i), "ON", 1);
+//                System.out.println(listIdRadiator.get(i));
+//            }
+//
+//            for (int i = 0; i < listIdAirconditioner.size(); i++) {
+//                equipmentService.updateStatutAutomaticScreen(listIdAirconditioner.get(i), "OFF", 0);
+//                System.out.println(listIdRadiator.get(i));
+//            }
+//
+//        } else if (hours.after(Timestamp.valueOf("2022-05-31 21:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 23:00:00"))) {
+//            System.out.println("début hiver soirée entre 21h et 23h");
+//            List<Integer> listIdRadiator = equipmentService.getEquipmentRadiatorAutomaticWinter("OFF");
+//            List<Integer> listIdAirconditioner = equipmentService.getEquipmentAirconditionerAutomaticWinter("ON");
+//
+//
+//            for (int i = 0; i < listIdRadiator.size(); i++) {
+//                equipmentService.updateStatutAutomaticScreen(listIdRadiator.get(i), "ON", 4);
+//
+//            }
+//
+//            for (int i = 0; i < listIdAirconditioner.size(); i++) {
+//                equipmentService.updateStatutAutomaticScreen(listIdAirconditioner.get(i), "OFF", 0);
+//                System.out.println(listIdAirconditioner.get(i));
+//            }
+//        } else if (hours.after(Timestamp.valueOf("2022-05-31 12:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 21:00:00"))) {
+//            System.out.println("début été dans l'après midi");
+//            List<Integer> listIdRadiator = equipmentService.getEquipmentRadiatorAutomaticSummer("ON");
+//            List<Integer> listIdAirconditioner = equipmentService.getEquipmentAirconditionerAutomaticSummer("OFF");
+//            for (int i = 0; i < listIdRadiator.size(); i++) {
+//                equipmentService.updateStatutAutomaticScreen(listIdRadiator.get(i), "OFF", 0);
+//                System.out.println(listIdRadiator.get(i));
+//            }
+//
+//            for (int i = 0; i < listIdAirconditioner.size(); i++) {
+//                equipmentService.updateStatutAutomaticScreen(listIdAirconditioner.get(i), "ON", 4);
+//                System.out.println(listIdAirconditioner.get(i));
+//            }
+//
+//        }
+        return meeting_time;
     }
-
-
-
-
-
 
 
     @GetMapping("/EquipmentOrderByConsumption/idb={id_b}")

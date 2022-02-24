@@ -68,9 +68,19 @@ public class EquipmentService {
         return roomHouseRepo.findRoomByFloor(Integer.parseInt(floor));
     }
 
-    public List<Integer> getEquipmentLampeAutomatic (String statut){
-        return equipmentRepo.getEquipmentLampeAutomatic(statut);
+    public List<Integer> getEquipmentAutomaticPresenceFalse (String statut, String sensor){
+        System.out.println(equipmentRepo.getEquipmentAutomaticFalse(statut, sensor) + "service");
+        return equipmentRepo.getEquipmentAutomaticFalse(statut, sensor);
     }
+
+    public List<Integer> getEquipmentAutomaticPresenceTrue (String statut, String sensor){
+        System.out.println(equipmentRepo.getEquipmentAutomaticTrue(statut, sensor) + "servicetrue");
+        return equipmentRepo.getEquipmentAutomaticTrue(statut, sensor);
+    }
+
+
+
+    //pas encore faire -- A faire!!
 
     public List<Integer> getEquipmentScreenAutomaticT (String statut) {
         return equipmentRepo.getEquipmentScreenAutomaticT(statut);
@@ -78,6 +88,22 @@ public class EquipmentService {
 
     public List<Integer> getEquipmentScreenAutomaticF (String statut) {
         return equipmentRepo.getEquipmentScreenAutomaticF(statut);
+    }
+
+    public List<Integer> getEquipmentRadiatorAutomaticWinter(String statut) {
+        return equipmentRepo.getEquipmentRadiatorAutomaticWinter(statut);
+    }
+
+    public List<Integer> getEquipmentRadiatorAutomaticSummer(String statut) {
+        return  equipmentRepo.getEquipmentRadiatorAutomaticSummer(statut);
+    }
+
+    public List<Integer> getEquipmentAirconditionerAutomaticWinter(String statut) {
+        return equipmentRepo.getEquipmentAircontionerAutomaticWinter(statut);
+    }
+
+    public List<Integer> getEquipmentAirconditionerAutomaticSummer(String statut) {
+        return  equipmentRepo.getEquipmentAirconditionerAutomaticSummer(statut);
     }
 
     @Transactional
@@ -94,4 +120,5 @@ public class EquipmentService {
     public void updateStatutAuto (String type_mode,  Integer id_equipment) {
         equipmentRepo.updateStatutAuto(type_mode, id_equipment);
     }
+
 }
