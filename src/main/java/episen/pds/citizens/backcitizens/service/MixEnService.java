@@ -2,10 +2,7 @@ package episen.pds.citizens.backcitizens.service;
 
 
 
-import episen.pds.citizens.backcitizens.model.ChoiceAlgo;
-import episen.pds.citizens.backcitizens.model.MixEn;
-import episen.pds.citizens.backcitizens.model.MixEnBySite;
-import episen.pds.citizens.backcitizens.model.MixEnCapacityBySite;
+import episen.pds.citizens.backcitizens.model.*;
 import episen.pds.citizens.backcitizens.repository.ChoiceAlgoRepo;
 import episen.pds.citizens.backcitizens.repository.CurrentMixBySiteRepo;
 import episen.pds.citizens.backcitizens.repository.CurrentMixRepo;
@@ -80,6 +77,10 @@ public class MixEnService {
     //method : Current Algo Choice
     public ChoiceAlgo getCurrentAlgoChoice(){
         return choiceAlgoRepo.getChoiceAlgo();
+    }
+    //method : Save Algo Choice
+    public ChoiceAlgo saveAlgoChoice(ChoiceAlgo choiceAlgo) {
+        return choiceAlgoRepo.save(choiceAlgo);
     }
 
     //method for algo

@@ -18,17 +18,17 @@ public class ChoiceAlgo {
     @Column(name = "pref3")
     private String pref3;
     @Column(name = "prop1")
-    private float prop1;
+    private int prop1;
     @Column(name = "prop2")
-    private float prop2;
+    private int prop2;
     @Column(name = "prop3")
-    private float prop3;
+    private int prop3;
 
     public ChoiceAlgo(){
 
     }
 
-    public ChoiceAlgo(int id, String choice, String pref1, String pref2, String pref3, float prop1, float prop2, float prop3) {
+    public ChoiceAlgo(int id, String choice, String pref1, String pref2, String pref3, int prop1, int prop2, int prop3) {
         this.id_choice_algo = id;
         this.choice = choice;
         this.pref1 = pref1;
@@ -84,7 +84,7 @@ public class ChoiceAlgo {
         return prop1;
     }
 
-    public void setProp1(float prop1) {
+    public void setProp1(int prop1) {
         this.prop1 = prop1;
     }
 
@@ -92,7 +92,7 @@ public class ChoiceAlgo {
         return prop2;
     }
 
-    public void setProp2(float prop2) {
+    public void setProp2(int prop2) {
         this.prop2 = prop2;
     }
 
@@ -100,7 +100,7 @@ public class ChoiceAlgo {
         return prop3;
     }
 
-    public void setProp3(float prop3) {
+    public void setProp3(int prop3) {
         this.prop3 = prop3;
     }
 }
