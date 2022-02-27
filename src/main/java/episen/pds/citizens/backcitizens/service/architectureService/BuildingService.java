@@ -4,6 +4,7 @@ import episen.pds.citizens.backcitizens.model.architectureModel.Building;
 import episen.pds.citizens.backcitizens.repository.architectureRepository.BuildingRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -24,5 +25,6 @@ public class BuildingService {
     public Optional<Building> getBuilding(Integer id_building) {
         return buildingRepo.findById(id_building);
     }
+
 }
 
