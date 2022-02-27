@@ -1,7 +1,6 @@
 package episen.pds.citizens.backcitizens.service;
 
 import episen.pds.citizens.backcitizens.controller.MessagesController;
-import episen.pds.citizens.backcitizens.model.Equipment;
 import episen.pds.citizens.backcitizens.model.Messages;
 
 import episen.pds.citizens.backcitizens.repository.MessagesRepo;

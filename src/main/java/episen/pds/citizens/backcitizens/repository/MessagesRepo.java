@@ -1,7 +1,6 @@
 package episen.pds.citizens.backcitizens.repository;
 
 import episen.pds.citizens.backcitizens.model.Condition;
-import episen.pds.citizens.backcitizens.model.Equipment;
 import episen.pds.citizens.backcitizens.model.Messages;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.Query;
