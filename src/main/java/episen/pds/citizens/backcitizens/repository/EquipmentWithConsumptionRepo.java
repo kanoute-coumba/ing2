@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 public interface EquipmentWithConsumptionRepo extends CrudRepository<EquipmentWithConsumption,Integer> {
     @Query(value= """
             SELECT equipment.id_equipment,equipment.id_room,equipment.type,c2.value\s
-             , date_time from equipment inner join
+              from equipment inner join
             (SELECT cs.id_equipment, cs.value FROM consumption cs
             WHERE date_time = (SELECT MAX(date_time) FROM consumption cs1
             GROUP BY cs1.id_equipment HAVING cs.id_equipment = cs1.id_equipment))
@@ -19,7 +19,7 @@ public interface EquipmentWithConsumptionRepo extends CrudRepository<EquipmentWi
     Iterable<EquipmentWithConsumption> findEquipmentByConsumptionByBuilding(@Param("idb") int id_b);
     @Query(value = """
             SELECT equipment.id_equipment,equipment.id_room,equipment.type,c2.value\s
-             ,date_time from equipment inner join
+              from equipment inner join
             (SELECT cs.id_equipment, cs.value FROM consumption cs
             WHERE date_time = (SELECT MAX(date_time) FROM consumption cs1
             GROUP BY cs1.id_equipment HAVING cs.id_equipment = cs1.id_equipment))
