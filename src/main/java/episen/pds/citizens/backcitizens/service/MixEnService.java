@@ -77,6 +77,11 @@ public class MixEnService {
 
     }
 
+    //method : Current Algo Choice
+    public ChoiceAlgo getCurrentAlgoChoice(){
+        return choiceAlgoRepo.getChoiceAlgo();
+    }
+
     //method for algo
 
     public List<Integer> getResultAlgoMix(float consumption){

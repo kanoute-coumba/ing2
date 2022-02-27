@@ -1,6 +1,7 @@
 package episen.pds.citizens.backcitizens.controller;
 
 
+import episen.pds.citizens.backcitizens.model.ChoiceAlgo;
 import episen.pds.citizens.backcitizens.model.MixEn;
 import episen.pds.citizens.backcitizens.model.MixEnCapacityBySite;
 import episen.pds.citizens.backcitizens.service.MixEnService;
@@ -22,14 +23,17 @@ public class MixEnController {
 
     @GetMapping("/Mix")
     public Iterable<MixEn> getMixEn() {
-        logger.info("current mix return");
         return mixEnService.getMixEn();
     }
 
     @GetMapping("/MixBySite")
     public Iterable<MixEnCapacityBySite> getMixEnBySite() {
-        logger.info("current mix return");
         return mixEnService.getMixEnBySite();
+    }
+
+    @GetMapping("/CurrentAlgoChoice")
+    public ChoiceAlgo getCurrentAlgoChoice() {
+        return mixEnService.getCurrentAlgoChoice();
     }
 
     @GetMapping("/Algo")
