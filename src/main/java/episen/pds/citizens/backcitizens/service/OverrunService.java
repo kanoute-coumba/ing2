@@ -1,12 +1,10 @@
 package episen.pds.citizens.backcitizens.service;
 
-import episen.pds.citizens.backcitizens.model.Attribution;
-import episen.pds.citizens.backcitizens.model.ConsumptionDay;
-import episen.pds.citizens.backcitizens.model.PeakDay;
-import episen.pds.citizens.backcitizens.model.Test;
+import episen.pds.citizens.backcitizens.model.*;
 import episen.pds.citizens.backcitizens.repository.ConsumptionDayRepo;
 import episen.pds.citizens.backcitizens.repository.AttributionRepo;
 import episen.pds.citizens.backcitizens.repository.PeakDayRepo;
+import episen.pds.citizens.backcitizens.repository.PeakYearRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +17,8 @@ public class OverrunService {
     private AttributionRepo attributionRepo;
     @Autowired
     private PeakDayRepo peakdayRepo;
+    @Autowired
+    private PeakYearRepo peakyearRepo;
 
     public Iterable<ConsumptionDay> getConsumption() {
         return consumptionRepo.findConsoPerDay();
@@ -43,8 +43,8 @@ public class OverrunService {
     //}
 
 
-    public Iterable<PeakDay> getPeak() {
-        return peakdayRepo.getPeak();
+    public Iterable<PeakYear> getPeak() {
+        return peakyearRepo.getPeak();
     }
 
 }

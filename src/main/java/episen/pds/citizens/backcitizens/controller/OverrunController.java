@@ -3,6 +3,7 @@ package episen.pds.citizens.backcitizens.controller;
 import episen.pds.citizens.backcitizens.model.Attribution;
 import episen.pds.citizens.backcitizens.model.ConsumptionDay;
 import episen.pds.citizens.backcitizens.model.PeakDay;
+import episen.pds.citizens.backcitizens.model.PeakYear;
 import episen.pds.citizens.backcitizens.service.OverrunService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -56,7 +57,7 @@ public class OverrunController {
      */
 
     @GetMapping("/statistiques")
-    public Iterable<PeakDay> getPeak() {
+    public Iterable<PeakYear> getPeak() {
         logger.config("Count all peak days in the SmartCity");
         return overrunService.getPeak();
     }
