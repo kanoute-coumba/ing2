@@ -222,17 +222,33 @@ public class MixEnService {
         /*
         // Algo : proportion user choice
         if(choiceAlgo.getChoice().equals("proportionchoice")){
-
+            l.add(choiceAlgo.getProp1());
+            l.add(choiceAlgo.getProp2());
+            l.add(choiceAlgo.getProp3());
+            return l;
 
         }
 
         // Algo : proportion equity
         if(choiceAlgo.getChoice().equals("proportionequity")){
-
+            l.add(33);
+            l.add(33);
+            l.add(33);
+            return l;
         }
 
         // Algo : proportion weather report
-        if(choiceAlgo.getChoice().equals("proportionweather")){
+        if(choiceAlgo.getChoice().equals("preferenceweather")){
+
+        }
+
+        // Algo : economic
+        if(choiceAlgo.getChoice().equals("economic")){
+
+        }
+
+        // Algo : environmental
+        if(choiceAlgo.getChoice().equals("environmental")){
 
         }
 */
