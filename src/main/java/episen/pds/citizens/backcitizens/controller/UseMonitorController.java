@@ -32,11 +32,11 @@ public class UseMonitorController {
     }
 */
     @GetMapping("/getEquipmentsByRoom/{id}")
-    public Iterable<Equipment> getEquipmentByRoom(@PathVariable("id") int id_room) {
-        for (Equipment row: useMonitorService.getEquipmentByRoom(id_room)) {
+    public Iterable<EquipmentAndData> getEquipmentByRoom(@PathVariable("id") int id_room) {
+        for (EquipmentAndData row: useMonitorService.getEquipmentAndDataByRoom(id_room)) {
             logger.info(row.toString());
         }
-        return  useMonitorService.getEquipmentByRoom(id_room);
+        return  useMonitorService.getEquipmentAndDataByRoom(id_room);
     }
 
     @GetMapping("/getRoomConditions/{id}")
@@ -55,7 +55,7 @@ public class UseMonitorController {
 
     @GetMapping("/getAllRooms")
     public Iterable<Room> getAllRooms() {
-        for (Room row:useMonitorService.getAllRooms()) {
+        for (Room row:useMonitorService.findAllBusinessRoom()) {
             logger.info(row.toString());
         }
         return useMonitorService.getAllRooms();
@@ -92,15 +92,27 @@ public class UseMonitorController {
         useMonitorService.setEquipmentOn(id_equipment);
     }
 
-    @GetMapping("/getLastConditions/{id_room}")
-    public Condition getLastConditions(@PathVariable("id_room") int id_room) {
+    @GetMapping("/getLastBestConditions/{id_room}")
+    public Condition getLastBestConditions(@PathVariable("id_room") int id_room) {
         logger.info("GET_COND: id_room=" + id_room);
-        logger.info(useMonitorService.getLastConditions(id_room).toString());
-        return useMonitorService.getLastConditions(id_room);
+        logger.info(useMonitorService.getLastBestConditions(id_room).toString());
+        return useMonitorService.getLastBestConditions(id_room);
+    }
+
+    @GetMapping("/getLastMeasures/{id_room}")
+    public Condition getMeasuresConditions(@PathVariable("id_room") int id_room) {
+        logger.info("GET_CURRENT_COND: id_room=" + id_room);
+        Condition current_condition = new Condition();
+        current_condition.setId_room(id_room);
+        current_condition.setLuminosity(useMonitorService.getLastLightMeasure(id_room).getValue());
+        current_condition.setTemperature(useMonitorService.getLastTempMeasure(id_room).getValue());
+        logger.info("CURRENT_COND : " + current_condition.toString());
+        return current_condition;
     }
 
     @PostMapping("/setBestConditions/{id_room}")
     public void setBestConditions(@PathVariable("id_room") int id_room, @RequestParam("cond") Condition best_conditions) {
-        useMonitorService.setBestConditions(id_room, best_conditions);
+        best_conditions.setId(id_room);
+        useMonitorService.setBestConditions(best_conditions);
     }
 }
