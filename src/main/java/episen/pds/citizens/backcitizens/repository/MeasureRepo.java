@@ -15,7 +15,7 @@ public interface MeasureRepo extends CrudRepository<Measure,Integer> {
             "            where room.id_room=?1 and sensor.type='capteur de luminosité' " +
             "            and timestamp = (select max(timestamp) from measure inner join sensor on measure.id_sensor=sensor.id_sensor " +
             "            inner join room on sensor.id_room=room.id_room " +
-            "            where room.id_room=?1  and sensor.type='capteur de luminosité')", nativeQuery = true)
+            "            where room.id_room=?1  and sensor.type='capteur de luminosité' limit 1) limit 1", nativeQuery = true)
     Measure getLightStatInRoom(int id_room);
 
     @Query(value = "select measure.* from measure inner join sensor on measure.id_sensor=sensor.id_sensor " +
@@ -23,6 +23,6 @@ public interface MeasureRepo extends CrudRepository<Measure,Integer> {
             "            where room.id_room=?1 and sensor.type='capteur de température' " +
             "            and timestamp = (select max(timestamp) from measure inner join sensor on measure.id_sensor=sensor.id_sensor " +
             "            inner join room on sensor.id_room=room.id_room " +
-            "            where room.id_room=?1  and sensor.type='capteur de température')", nativeQuery = true)
+            "            where room.id_room=?1  and sensor.type='capteur de température' limit 1) limit 1", nativeQuery = true)
     Measure getTempStatInRoom(int id_room);
 }

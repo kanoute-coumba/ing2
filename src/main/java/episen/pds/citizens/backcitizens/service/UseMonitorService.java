@@ -39,9 +39,6 @@ public class UseMonitorService {
     public Optional<Room> getRoomById(int id_room) {
         return roomRepo.findById(id_room);
     }
-    public Iterable<Room> getAllRooms() {
-        return roomRepo.findAll();
-    }
     public void saveRoom(Room room) {
         roomRepo.save(room);
     }

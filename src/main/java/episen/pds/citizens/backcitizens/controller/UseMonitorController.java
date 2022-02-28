@@ -5,7 +5,6 @@ import episen.pds.citizens.backcitizens.service.UseMonitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.function.Supplier;
 import java.util.logging.Logger;
 
 @RestController
@@ -58,7 +57,7 @@ public class UseMonitorController {
         for (Room row:useMonitorService.findAllBusinessRoom()) {
             logger.info(row.toString());
         }
-        return useMonitorService.getAllRooms();
+        return useMonitorService.findAllBusinessRoom();
     }
 
     @PostMapping("/setEquipment/{id}/{value}")
@@ -71,7 +70,6 @@ public class UseMonitorController {
     public void setEquipmentAuto(@PathVariable("id") int id_equipment) {
         logger.info("SET_AUTO: id_equipment=" + id_equipment);
         useMonitorService.setEquipmentAuto(id_equipment);
-        useMonitorService.autoAdjustOneEquipment(id_equipment);
     }
 
     @PostMapping("/setEquipmentManu/{id}")
