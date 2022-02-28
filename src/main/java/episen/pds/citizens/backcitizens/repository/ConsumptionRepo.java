@@ -6,9 +6,10 @@ import episen.pds.citizens.backcitizens.model.ConsumptionByRoom;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import java.util.ArrayList;
 
 @Repository
 @PropertySource("classpath:sql_queries.properties")
@@ -26,51 +27,83 @@ public interface ConsumptionRepo extends CrudRepository<Consumption, Integer> {
     @Query(value = "select getConsumptionAllBuildings();", nativeQuery = true)
     Iterable<ConsumptionByBuilding> findConsumptionAllBuilding();
 
-    @Query(value = "select consumption.* from consumption " +
-            "inner join equipment on consumption.id_equipment = equipment.id_equipment " +
-            "inner join room on equipment.id_room = room.id_room " +
-            "Where room.id_room = ?1 " +
-            "and consumption.date_time > current_date - INTEGER '1';", nativeQuery = true)
-    Iterable<Consumption> getConsumptionByRoomFromYesterday(int id_room);
+    @Query(value = "Select consumption.id_consumption, equipment.id_equipment,consumption.value" +
+            "  ,date_time from equipment inner join consumption on" +
+            " equipment.id_equipment=consumption.id_equipment" +
+            " Where equipment.id_equipment=:id_equip order by date_time",nativeQuery = true)
+    Iterable<Consumption> findHistoryConsumptionByIdEquipment(@Param("id_equip") int id_equip);
+    @Query(value = "Select consumption.id_consumption, equipment.id_equipment,consumption.value" +
+            "  ,date_time from equipment inner join consumption on" +
+            " equipment.id_equipment=consumption.id_equipment" +
+            " Where equipment.id_equipment=:id_equip and " +
+            "date_time<:date_end and date_time>:date_begin order by date_time",nativeQuery = true)
+    Iterable<Consumption> findHistoryConsumptionByIdEquipmentBetweenTwoDate(@Param("id_equip") int id_equip,
+                                                                                @Param("date_begin") long date_begin,
+                                                                                @Param("date_end") long date_end);
+    @Query(value = "Select consumption.id_consumption, equipment.id_equipment,consumption.value" +
+            "  ,date_time from equipment inner join consumption on" +
+            " equipment.id_equipment=consumption.id_equipment" +
+            " Where equipment.id_room=:id_room and " +
+            "date_time<:date_end and date_time>:date_begin order by date_time",nativeQuery = true)
+    ArrayList<Consumption> findHistoryConsumptionByIdRoomBetweenTwoDate(@Param("id_room") int id_room,
+                                                                        @Param("date_begin") long date_begin,
+                                                                        @Param("date_end") long date_end);
 
-    @Query(value = "select consumption.* from consumption " +
-            "inner join equipment on consumption.id_equipment = equipment.id_equipment " +
-            "inner join room on equipment.id_room = room.id_room " +
-            "Where room.id_room = ?1 " +
-            "and consumption.date_time >= date_trunc('month', current_date - interval '1' month); ", nativeQuery = true)
-    Iterable<Consumption> getConsumptionByRoomFromLastMonth(int id_room);
-    @Query(value = "select consumption.* from consumption\n" +
-            "inner join equipment on consumption.id_equipment = equipment.id_equipment\n" +
-            "inner join room on equipment.id_room = room.id_room\n" +
-            "Where room.id_room = 1\n" +
-            "and consumption.date_time >= date_trunc('month', current_date - interval '1' year)", nativeQuery = true)
-    Iterable<Consumption> getConsumptionByRoomFromLastYear(int id_room);
+    @Query(value = """
+            SELECT c2.id_equipment,c2.value\s
+             ,c2.date_time, c2.id_consumption from equipment inner join
+            (SELECT * FROM consumption cs
+            WHERE date_time = (SELECT MAX(date_time) FROM consumption cs1
+            Where date_time <= :dBegin 
+            GROUP BY cs1.id_equipment  
+            HAVING cs.id_equipment = cs1.id_equipment))
+            as c2 on equipment.id_equipment=c2.id_equipment
+            where id_room=:id_r order by c2.date_time""", nativeQuery = true)
+    ArrayList<Consumption> findEquipmentWithConsumptionByRoomBefore(@Param("id_r") int id_r, @Param("dBegin") long dBegin);
+    @Query(value = "Select consumption.id_consumption, equipment.id_equipment,consumption.value" +
+            "  ,date_time from equipment inner join consumption on" +
+            " equipment.id_equipment=consumption.id_equipment " +
+            "inner join room on room.id_room=equipment.id_room " +
+            " Where room.id_floor=:idFloor and " +
+            "date_time<:date_end and date_time>:date_begin order by date_time",nativeQuery = true)
+    ArrayList<Consumption> findHistoryConsumptionByIdFloorBetweenTwoDate(@Param("idFloor") int id_floor,
+                                                                        @Param("date_begin") long date_begin,
+                                                                        @Param("date_end") long date_end);
+    @Query(value = """
+            SELECT c2.id_equipment,c2.value\s
+             ,c2.date_time, c2.id_consumption from equipment inner join
+            (SELECT * FROM consumption cs
+            WHERE date_time = (SELECT MAX(date_time) FROM consumption cs1
+            Where date_time <= :dBegin 
+            GROUP BY cs1.id_equipment  
+            HAVING cs.id_equipment = cs1.id_equipment))
+            as c2 on equipment.id_equipment=c2.id_equipment
+            inner join room on room.id_room=equipment.id_room
+            where id_floor=:id_f order by c2.date_time""", nativeQuery = true)
+    ArrayList<Consumption> findEquipmentWithConsumptionByFloorBefore(@Param("id_f") int id_f, @Param("dBegin") long dBegin);
 
+    @Query(value = "Select consumption.id_consumption, equipment.id_equipment,consumption.value" +
+            "  ,date_time from equipment inner join consumption on" +
+            " equipment.id_equipment=consumption.id_equipment " +
+            "inner join room on room.id_room=equipment.id_room " +
+            "inner join floor on floor.id_floor=room.id_floor " +
+            " Where floor.id_building=:idBuilding and " +
+            "date_time<:date_end and date_time>:date_begin order by date_time",nativeQuery = true)
+    ArrayList<Consumption> findHistoryConsumptionByIdBuildingBetweenTwoDate(@Param("idBuilding") int id_building,
+                                                                         @Param("date_begin") long date_begin,
+                                                                         @Param("date_end") long date_end);
 
-    @Query(value = "select consumption.* from consumption\n" +
-            "inner join equipment on consumption.id_equipment = equipment.id_equipment\n" +
-            "inner join room on equipment.id_room = room.id_room\n" +
-            "inner join floor_dwp on room.id_floor = floor_dwp.id_floor\n" +
-            "inner join company on floor_dwp.id_company = company.id_company\n" +
-            "where company.id_company = ?1\n" +
-            "and consumption.date_time >= date_trunc('month', current_date - interval '1' year);", nativeQuery = true)
-    Iterable<Consumption> getConsumptionByCompanyFromLastYear(int id_room);
-
-    @Query(value = "select consumption.* from consumption\n" +
-            "inner join equipment on consumption.id_equipment = equipment.id_equipment\n" +
-            "inner join room on equipment.id_room = room.id_room\n" +
-            "inner join floor_dwp on room.id_floor = floor_dwp.id_floor\n" +
-            "inner join company on floor_dwp.id_company = company.id_company\n" +
-            "where company.id_company = ?1\n" +
-            "and consumption.date_time >= date_trunc('month', current_date - interval '1' month);", nativeQuery = true)
-    Iterable<Consumption> getConsumptionByCompanyFromLastMonth(int id_room);
-
-    @Query(value = "select consumption.* from consumption\n" +
-            "inner join equipment on consumption.id_equipment = equipment.id_equipment\n" +
-            "inner join room on equipment.id_room = room.id_room\n" +
-            "inner join floor_dwp on room.id_floor = floor_dwp.id_floor\n" +
-            "inner join company on floor_dwp.id_company = company.id_company\n" +
-            "where company.id_company = ?1\n" +
-            "and consumption.date_time > current_date - INTEGER '1';", nativeQuery = true)
-    Iterable<Consumption> getConsumptionByCompanyFromYesterday(int id_room);
+    @Query(value = """
+            SELECT c2.id_equipment,c2.value\s
+             ,c2.date_time, c2.id_consumption from equipment inner join
+            (SELECT * FROM consumption cs
+            WHERE date_time = (SELECT MAX(date_time) FROM consumption cs1
+            Where date_time <= :dBegin 
+            GROUP BY cs1.id_equipment  
+            HAVING cs.id_equipment = cs1.id_equipment))
+            as c2 on equipment.id_equipment=c2.id_equipment
+            inner join room on room.id_room=equipment.id_room
+            inner join floor on floor.id_floor=room.id_floor
+            where id_building=:id_b order by c2.date_time""", nativeQuery = true)
+    ArrayList<Consumption> findEquipmentWithConsumptionByBuildingBefore(@Param("id_b") int id_b, @Param("dBegin") long dBegin);
 }

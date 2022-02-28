@@ -13,7 +13,7 @@ public class MixEnBySite {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "name_building")
+    @Column(name = "type_building")
     private String name_building;
 
     @Column(name = "active_equip")

@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class BuildingController {
     @Autowired
-    private BuildingServicePatch buildingService;
+    private BuildingServicePatch buildingServicePatch;
 
-    @GetMapping("/buildings")
+    @GetMapping("/buildingsPatch")
     public Iterable<BuildingPatch> getBuildings() {
-        return buildingService.getBuildings();
+        return buildingServicePatch.getBuildings();
     }
 }
