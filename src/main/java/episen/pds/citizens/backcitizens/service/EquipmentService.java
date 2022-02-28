@@ -26,7 +26,7 @@ public class EquipmentService {
     RoomHouseRepo roomHouseRepo;
 
 
-    public Iterable<Equipment> getEquipmentBYRoom(Integer idr) {
+    public Iterable<Equipments> getEquipmentBYRoom(Integer idr) {
         return equipmentRepo.findEquipmentByRoom(idr);
     }
 

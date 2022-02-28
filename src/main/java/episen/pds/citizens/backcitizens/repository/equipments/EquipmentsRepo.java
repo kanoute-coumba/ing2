@@ -1,20 +1,19 @@
 package episen.pds.citizens.backcitizens.repository.equipments;
 
-import episen.pds.citizens.backcitizens.model.equipments.Equipment;
+import episen.pds.citizens.backcitizens.model.equipments.Equipments;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 @Repository
 @PropertySource("classpath:sql_queries.properties")
-public interface EquipmentsRepo extends CrudRepository<Equipment, Integer> {
+public interface EquipmentsRepo extends CrudRepository<Equipments, Integer> {
 
     @Query(value = "select * from equipments.equipment eq inner join equipments.equipment_data e on eq.id_equipment=e.id_equipment_data where id_room =:idr", nativeQuery = true)
-    Iterable<Equipment> findEquipmentByRoom(@Param("idr") Integer idr);
+    Iterable<Equipments> findEquipmentByRoom(@Param("idr") Integer idr);
 
     @Modifying
     @Query(value = "update equipments.equipment_data set statut =:chooseStatut, type_mode =:type_mode where id_equipment_data =:id_equipment", nativeQuery = true)
@@ -30,10 +29,10 @@ public interface EquipmentsRepo extends CrudRepository<Equipment, Integer> {
     String NameEquipment(@Param("id_equipment") Integer id_equipment);
 
     @Query(value = "select * from equipments.equipment where id_room=? order by id_equipment", nativeQuery = true)
-    Iterable<Equipment> findEquipmentByRoom(int id_room);
+    Iterable<Equipments> findEquipmentByRoom(int id_room);
 
     @Query(value = "select * from equipments.equipment order by id_room", nativeQuery = true)
-    Iterable<Equipment> findEquipmentOrderByRoom();
+    Iterable<Equipments> findEquipmentOrderByRoom();
 
     @Modifying
     @Query(value = "update equipments.equipment_data set value =:valueEquipment where id_equipment_data =:id_equipment", nativeQuery = true)
