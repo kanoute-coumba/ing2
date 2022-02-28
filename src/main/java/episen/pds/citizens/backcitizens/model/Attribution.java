@@ -4,62 +4,39 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @Table(name = "Attribution")
 public class Attribution {
     @Id
-    @Column(name = "id_attribution")
-    private int Id;
-
-    @Column(name = "date_time")
-    private Date date_time;
+    @Column(name = "date")
+    private Date date;
 
     @Column(name = "value")
-    private Double value;
+    private int value;
 
-    @Column(name = "id_building")
-    private int id_building;
+    public Attribution() {
 
-    public Attribution() {}
-
-    public Attribution(int id, Date date_time, Double value, int id_building) {
-        Id = id;
-        this.date_time = date_time;
+    }
+    public Attribution(Date date, int value) {
+        this.date = date;
         this.value = value;
-        this.id_building = id_building;
     }
 
-    public int getId() {
-        return Id;
+    public Date getDate() {
+        return date;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public Date getDate_time() {
-        return date_time;
-    }
-
-    public void setDate_time(Date date_time) {
-        this.date_time = date_time;
-    }
-
-    public Double getValue() {
+    public int getValue() {
         return value;
     }
 
-    public void setValue(Double value) {
+    public void setValue(int value) {
         this.value = value;
-    }
-
-    public int getId_building() {
-        return id_building;
-    }
-
-    public void setId_building(int id_building) {
-        this.id_building = id_building;
     }
 }
