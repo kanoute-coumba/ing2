@@ -7,7 +7,22 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BuildingRepoPatch extends CrudRepository<BuildingPatch, Integer> {
-
-    @Query(value = "SELECT building.*, consumption, production FROM building FULL JOIN (SELECT id_building, SUM(consumptionByFloor) as consumption FROM floor FULL JOIN (SELECT id_floor, SUM(consumptionByRoom) as consumptionByFloor FROM room FULL JOIN (SELECT id_room, SUM(consumptionByEquipment) as consumptionByRoom FROM equipment FULL JOIN (SELECT id_equipment, SUM(value) as consumptionByEquipment FROM consumption GROUP BY id_equipment) as c1 on c1.id_equipment = equipment.id_equipment GROUP BY id_room) as c2 on c2.id_room = room.id_room GROUP BY id_floor) as c3 on c3.id_floor = floor.id_floor GROUP BY id_building) as c4 on c4.id_building = building.id_building FULL JOIN (SELECT id_building, SUM(productionByCentral) as production FROM central FUll JOIN (SELECT id_central, SUM(value) as productionByCentral FROM production GROUP BY id_central) as c5 on c5.id_central = central.id_central GROUP BY id_building) as c6 on c6.id_building = building.id_building ORDER BY building.id_building", nativeQuery = true)
+    @Query(value = "SELECT bu.*, SUM(cs.value) as consumption, SUM(pr.value) as production\n" +
+            "FROM consumption cs, equipment eq, room ro, floor fl, building bu, production pr, central ce\n" +
+            "WHERE cs.date_time = (SELECT MAX(date_time)\n" +
+            "                   FROM consumption cs1\n" +
+            "                   GROUP BY cs1.id_equipment\n" +
+            "                   HAVING cs.id_equipment = cs1.id_equipment)\n" +
+            "AND pr.date_time = (SELECT MAX(date_time)\n" +
+            "               FROM production pr1\n" +
+            "               GROUP BY pr1.id_central\n" +
+            "               HAVING pr.id_central = pr1.id_central)\n" +
+            "AND cs.id_equipment = eq.id_equipment\n" +
+            "AND eq.id_room = ro.id_room\n" +
+            "AND ro.id_floor = fl.id_floor\n" +
+            "AND fl.id_building = bu.id_building\n" +
+            "AND pr.id_central = ce.id_central\n" +
+            "AND ce.id_building = bu.id_building\n" +
+            "GROUP BY bu.id_building;", nativeQuery = true)
     public Iterable<BuildingPatch> findAll();
 }
