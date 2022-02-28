@@ -21,8 +21,8 @@ public interface ConsumptionDayRepo extends CrudRepository<ConsumptionDay, Date>
             " in (select id_room from room where id_floor " +
             " in (select id_floor from floor where id_building " +
             " in (select id_building from building))))) " +
-            " select to_timestamp(date_time)\\:\\:date as date, sum(value) as consoday " +
-            " from A group by (date) order by date", nativeQuery=true)
+            " select to_timestamp(date_time)\\:\\:date as date, sum(value)*86400 as consoday " +
+            " from A group by (date_time) order by date", nativeQuery=true)
 
     public Iterable<ConsumptionDay> findConsoPerDay();
 
