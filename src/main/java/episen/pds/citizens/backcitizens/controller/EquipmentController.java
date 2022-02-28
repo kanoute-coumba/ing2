@@ -7,9 +7,11 @@ import episen.pds.citizens.backcitizens.model.equipments.FloorHouse;
 import episen.pds.citizens.backcitizens.model.equipments.House;
 import episen.pds.citizens.backcitizens.model.equipments.RoomHouse;
 import episen.pds.citizens.backcitizens.service.EnergyService;
+import org.springframework.web.bind.annotation.*;
+
 import episen.pds.citizens.backcitizens.service.EquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 import java.util.logging.Logger;
