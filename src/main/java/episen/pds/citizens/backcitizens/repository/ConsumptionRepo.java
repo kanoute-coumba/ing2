@@ -3,17 +3,13 @@ package episen.pds.citizens.backcitizens.repository;
 import episen.pds.citizens.backcitizens.model.Consumption;
 import episen.pds.citizens.backcitizens.model.ConsumptionByBuilding;
 import episen.pds.citizens.backcitizens.model.ConsumptionByRoom;
-import episen.pds.citizens.backcitizens.model.EquipmentWithConsumption;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Optional;
 
 @Repository
 @PropertySource("classpath:sql_queries.properties")

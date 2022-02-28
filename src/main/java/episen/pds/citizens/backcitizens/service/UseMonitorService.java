@@ -1,11 +1,16 @@
 package episen.pds.citizens.backcitizens.service;
 
-import episen.pds.citizens.backcitizens.model.*;
-import episen.pds.citizens.backcitizens.repository.*;
+import episen.pds.citizens.backcitizens.model.Condition;
+import episen.pds.citizens.backcitizens.model.Consumption;
+import episen.pds.citizens.backcitizens.model.Room;
+import episen.pds.citizens.backcitizens.model.equipments.Equipment;
+import episen.pds.citizens.backcitizens.repository.ConditionRepo;
+import episen.pds.citizens.backcitizens.repository.ConsumptionRepo;
+import episen.pds.citizens.backcitizens.repository.EquipmentRepo;
+import episen.pds.citizens.backcitizens.repository.RoomRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
 import java.util.Optional;
 
 @Service
