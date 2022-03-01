@@ -1,7 +1,5 @@
 package episen.pds.citizens.backcitizens.model;
 
-import org.springframework.data.jpa.repository.Query;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,10 +15,10 @@ public class PeakDay {
     private Date date;
 
     @Column(name = "consoday")
-    private int consoday;
+    private Double consoday;
 
     @Column(name = "value")
-    private int value;
+    private Double value;
 
     @Column(name = "numberofpeak")
     private int numberofpeak;
@@ -28,7 +26,7 @@ public class PeakDay {
     public PeakDay() {
     }
 
-    public PeakDay(Date date, int consoday, int value, int numberofpeak) {
+    public PeakDay(Date date, Double consoday, Double value, int numberofpeak) {
         this.date = date;
         this.consoday = consoday;
         this.value = value;
@@ -43,19 +41,19 @@ public class PeakDay {
         this.date = date;
     }
 
-    public int getConsoday() {
+    public Double getConsoday() {
         return consoday;
     }
 
-    public void setConsoday(int consoday) {
+    public void setConsoday(Double consoday) {
         this.consoday = consoday;
     }
 
-    public int getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 
