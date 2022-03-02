@@ -29,7 +29,10 @@ public class EquipmentService {
     RoomHouseRepo roomHouseRepo;
 
 
+
     public Iterable<Map<String, String>> getEquipmentBYRoom(Integer idr) {
+
+
         return equipmentRepo.findEquipmentByRoom(idr);
     }
 
