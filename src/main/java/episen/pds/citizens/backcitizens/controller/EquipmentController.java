@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.logging.Logger;
 
 @RestController
@@ -79,11 +80,39 @@ public class EquipmentController {
     }
 
 
-
     @PutMapping("/updateAuto")
     public void updateStatutAuto(@RequestParam("type_mode") String type_mode, @RequestParam("id_equipment") Integer id_equipment) {
         equipmentService.updateStatutAuto(type_mode, id_equipment);
 
+    }
+
+    @GetMapping("/value")
+    public Map<String, String> valuesensor(@RequestParam("date1") String date1, @RequestParam("date2") String date2) {
+        return equipmentService.valuesensor(date1, date2);
+    }
+
+
+
+    public int generatehighrandom() {
+        int min = 50;
+        int max = 100;
+
+        //Generate random int value from 50 to 100
+        System.out.println("Random value in int from "+min+" to "+max+ ":");
+        int random_int = (int)Math.floor(Math.random()*(max-min+1)+min);
+        System.out.println(random_int);
+        return random_int;
+    }
+
+    public int generatelowrandom() {
+        int min = 0;
+        int max = 50;
+
+        //Generate random int value from 50 to 100
+        System.out.println("Random value in int from "+min+" to "+max+ ":");
+        int random_int = (int)Math.floor(Math.random()*(max-min+1)+min);
+        System.out.println(random_int);
+        return random_int;
     }
 
 
@@ -92,36 +121,37 @@ public class EquipmentController {
 
         String d = meeting_time.replace('T', ' ') + ":00";
         hours = Timestamp.valueOf(d);
-        System.out.println(hours);
+        int random1 =  generatehighrandom();
+        int random2 = generatelowrandom();
 
 
-        if ((hours.after(Timestamp.valueOf("2022-05-31 00:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 07:00:00")))) {
+
+        if ((hours.after(Timestamp.valueOf("2022-01-01 00:01:00")) && hours.before(Timestamp.valueOf("2022-01-01 01:00:00")))) {
             // recupère la liste des équipements dont le statut est ON (valeur sensor comprise entre 50 et 100) = presence = false
             List<Integer> id_equipment_data_false = equipmentService.getEquipmentAutomaticPresenceFalse("ON", "capteur de présence");
+            System.out.println(id_equipment_data_false.size() + "false");
 
             // recupère la liste des équipements dont le statut est ON (valeur sensor comprise entre 0 et 50) = presence = true
             List<Integer> id_equipment_data_true = equipmentService.getEquipmentAutomaticPresenceTrue("OFF", "capteur de présence");
+            System.out.println(id_equipment_data_true.size() + "true");
 
             // mise à jour des lampes ou la présence est false
             for (int i = 0; i < id_equipment_data_false.size(); i++) {
                 equipmentService.updateStatutAutomaticLight(id_equipment_data_false.get(i), "OFF", 0);
-                equipmentService.updateLowValuesensor(16, "capteur de présence");
+                equipmentService.updateLowValuesensor(random2, "capteur de présence");
             }
 
 
             //mise à jour des lampes ou la présence est vrai
             for (int i = 0; i < id_equipment_data_true.size(); i++) {
                 equipmentService.updateStatutAutomaticLight(id_equipment_data_true.get(i), "ON", 5);
-                equipmentService.updateHighValuesensor(73, "capteur de présence");
+                equipmentService.updateHighValuesensor(random1, "capteur de présence");
             }
 
         }
 //        else if(hours.after(Timestamp.valueOf("2022-05-31 08:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 18:00:00"))) {
 //
 //        }
-
-
-
 
 
 //        else if ((hours.after(Timestamp.valueOf("2022-05-31 07:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 08:00:00"))) || (hours.after(Timestamp.valueOf("2022-05-31 18:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 23:00:00")))) {

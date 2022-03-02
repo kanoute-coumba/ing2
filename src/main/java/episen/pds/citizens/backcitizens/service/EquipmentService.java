@@ -88,6 +88,10 @@ public class EquipmentService {
         equipmentRepo.updateLowValue(value, sensor);
     }
 
+    public Map<String, String> valuesensor(String date1, String date2) {
+        return equipmentRepo.valueSensor(date1, date2);
+    }
+
 
 
     //pas encore faire -- A faire!!
