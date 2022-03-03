@@ -1,9 +1,10 @@
 package episen.pds.citizens.backcitizens.service;
 
+import episen.pds.citizens.backcitizens.model.equipments.Equipment;
 import episen.pds.citizens.backcitizens.model.equipments.FloorHouse;
 import episen.pds.citizens.backcitizens.model.equipments.House;
-import episen.pds.citizens.backcitizens.model.equipments.*;
-import episen.pds.citizens.backcitizens.repository.equipments.EquipmentsRepo;
+import episen.pds.citizens.backcitizens.model.equipments.RoomHouse;
+import episen.pds.citizens.backcitizens.repository.EquipmentRepo;
 import episen.pds.citizens.backcitizens.repository.FloorHouseRepo;
 import episen.pds.citizens.backcitizens.repository.HouseRepo;
 import episen.pds.citizens.backcitizens.repository.RoomHouseRepo;
@@ -17,7 +18,7 @@ import java.util.List;
 public class EquipmentService {
 
     @Autowired
-    private EquipmentsRepo equipmentRepo;
+    private EquipmentRepo equipmentRepo;
     @Autowired
     HouseRepo houseRepo;
     @Autowired
@@ -26,7 +27,7 @@ public class EquipmentService {
     RoomHouseRepo roomHouseRepo;
 
 
-    public Iterable<Equipments> getEquipmentBYRoom(Integer idr) {
+    public Iterable<Equipment> getEquipmentBYRoom(Integer idr) {
         return equipmentRepo.findEquipmentByRoom(idr);
     }
 

@@ -14,6 +14,16 @@ public class Condition {
     @Column(name = "luminosity")
     private double luminosity;
 
+    @Override
+    public String toString() {
+        return "Condition{" +
+                "Id=" + id_room +
+                ", luminosity=" + luminosity +
+                ", temperature=" + temperature +
+                ", begin_time='" + begin_time + '\'' +
+                '}';
+    }
+
     @Column(name = "temperature")
     private double temperature;
 
@@ -22,6 +32,8 @@ public class Condition {
 
     @Column(name = "end_time")
     private String end_time;
+
+    private int room;
 
     public int getId() {
         return id_room;
@@ -53,32 +65,5 @@ public class Condition {
 
     public void setBegin_time(String begin_time) {
         this.begin_time = begin_time;
-    }
-
-    public int getId_room() {
-        return id_room;
-    }
-
-    public void setId_room(int id_room) {
-        this.id_room = id_room;
-    }
-
-    public String getEnd_time() {
-        return end_time;
-    }
-
-    public void setEnd_time(String end_time) {
-        this.end_time = end_time;
-    }
-
-    @Override
-    public String toString() {
-        return "Condition{" +
-                "id_room=" + id_room +
-                ", luminosity=" + luminosity +
-                ", temperature=" + temperature +
-                ", begin_time='" + begin_time + '\'' +
-                ", end_time='" + end_time + '\'' +
-                '}';
     }
 }
