@@ -2,7 +2,7 @@ package episen.pds.citizens.backcitizens.controller;
 
 import episen.pds.citizens.backcitizens.model.CentralWithProduction;
 import episen.pds.citizens.backcitizens.model.EquipmentWithConsumption;
-import episen.pds.citizens.backcitizens.model.equipments.Equipments;
+import episen.pds.citizens.backcitizens.model.equipments.Equipment;
 import episen.pds.citizens.backcitizens.model.equipments.FloorHouse;
 import episen.pds.citizens.backcitizens.model.equipments.House;
 import episen.pds.citizens.backcitizens.model.equipments.RoomHouse;
@@ -29,7 +29,7 @@ public class EquipmentController {
 
 
     @GetMapping("/equipmentBYRoom/{idr}")
-    public Iterable<Equipments> getEquipmentBYRoom(@PathVariable("idr") String idr) {
+    public Iterable<Equipment> getEquipmentBYRoom(@PathVariable("idr") String idr) {
         return equipmentService.getEquipmentBYRoom(Integer.parseInt(idr));
     }
 
