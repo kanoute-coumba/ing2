@@ -4,11 +4,10 @@ import episen.pds.citizens.backcitizens.model.CentralWithProduction;
 import episen.pds.citizens.backcitizens.model.EquipmentWithConsumption;
 import episen.pds.citizens.backcitizens.model.architectureModel.Building;
 import episen.pds.citizens.backcitizens.model.architectureModel.Floor;
-import episen.pds.citizens.backcitizens.model.equipments.*;
+import episen.pds.citizens.backcitizens.model.equipments.Room;
 import episen.pds.citizens.backcitizens.service.EnergyService;
 import episen.pds.citizens.backcitizens.service.EquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
@@ -95,7 +94,7 @@ public class EquipmentController {
         System.out.println(hours);
 
 
-        if ((hours.after(Timestamp.valueOf("2022-05-31 00:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 07:00:00")))) {
+        if ((hours.after(Timestamp.valueOf("2022-01-01 00:01:00")) && hours.before(Timestamp.valueOf("2022-01-01 01:00:00")))) {
             // recupère la liste des équipements dont le statut est ON (valeur sensor comprise entre 50 et 100) = presence = false
             List<Integer> id_equipment_data_false = equipmentService.getEquipmentAutomaticPresenceFalse("ON", "capteur de présence");
 
