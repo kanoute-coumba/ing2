@@ -59,8 +59,8 @@ public class EquipmentController {
 
     @GetMapping("/house")
     public List<Building> getHouses(@RequestParam("email") String email) {
-
         System.out.println(email + " kkkkkk");
+        System.out.println(equipmentService.getHouseByEmail(email));
         return equipmentService.getHouseByEmail(email);
     }
 
