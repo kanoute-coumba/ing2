@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "consumption")
 public class Consumption {
@@ -16,7 +17,7 @@ public class Consumption {
     private double value;
 
     @Column(name = "date_time")
-    private String date_time;
+    private long date_time;
 
     @Column(name = "id_equipment")
     private int id_equipment;
@@ -42,15 +43,25 @@ public class Consumption {
         return value;
     }
 
+    public Consumption(int id_consumption, double value, long date_time, int id_equipment) {
+        this.id_consumption = id_consumption;
+        this.value = value;
+        this.date_time = date_time;
+        this.id_equipment = id_equipment;
+    }
+
+    public Consumption() {
+    }
+
     public void setValue(double value) {
         this.value = value;
     }
 
-    public String getDate_time() {
+    public long getDate_time() {
         return date_time;
     }
 
-    public void setDate_time(String date_time) {
+    public void setDate_time(long date_time) {
         this.date_time = date_time;
     }
 

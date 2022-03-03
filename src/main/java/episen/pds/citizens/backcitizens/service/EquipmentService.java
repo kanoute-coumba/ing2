@@ -29,7 +29,10 @@ public class EquipmentService {
     RoomHouseRepo roomHouseRepo;
 
 
+
     public Iterable<Map<String, String>> getEquipmentBYRoom(Integer idr) {
+
+
         return equipmentRepo.findEquipmentByRoom(idr);
     }
 
@@ -86,6 +89,10 @@ public class EquipmentService {
     @Transactional
     public void updateLowValuesensor(Integer value, String sensor) {
         equipmentRepo.updateLowValue(value, sensor);
+    }
+
+    public Map<String, String> valuesensor(String date1, String date2) {
+        return equipmentRepo.valueSensor(date1, date2);
     }
 
 

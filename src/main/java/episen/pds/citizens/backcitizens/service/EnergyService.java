@@ -37,4 +37,5 @@ public class EnergyService {
         logger.info(a.toString());
         return a;
     }
+
 }

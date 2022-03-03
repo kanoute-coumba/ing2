@@ -10,5 +10,6 @@ import java.util.List;
 public interface BuildingRepo extends JpaRepository<Building, Integer> {
     @Query(value = "select * from building WHERE type_building = 'Entreprise'", nativeQuery = true)
     List<Building> getAllBuildings();
+
 }
 

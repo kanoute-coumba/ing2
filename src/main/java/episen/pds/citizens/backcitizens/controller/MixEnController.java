@@ -1,14 +1,15 @@
 package episen.pds.citizens.backcitizens.controller;
 
 
+import episen.pds.citizens.backcitizens.model.ChoiceAlgo;
 import episen.pds.citizens.backcitizens.model.MixEn;
 import episen.pds.citizens.backcitizens.model.MixEnCapacityBySite;
+import episen.pds.citizens.backcitizens.model.Test;
 import episen.pds.citizens.backcitizens.service.MixEnService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 @RestController
@@ -21,13 +22,28 @@ public class MixEnController {
 
     @GetMapping("/Mix")
     public Iterable<MixEn> getMixEn() {
-        logger.info("current mix return");
         return mixEnService.getMixEn();
     }
 
     @GetMapping("/MixBySite")
     public Iterable<MixEnCapacityBySite> getMixEnBySite() {
-        logger.info("current mix return");
         return mixEnService.getMixEnBySite();
+    }
+
+    @GetMapping("/CurrentAlgoChoice")
+    public ChoiceAlgo getCurrentAlgoChoice() {
+        return mixEnService.getCurrentAlgoChoice();
+    }
+
+    @PostMapping("/saveAlgoChoice")
+    public void saveTest(@RequestBody ChoiceAlgo choiceAlgo) {
+        mixEnService.saveAlgoChoice(choiceAlgo);
+    }
+
+    @GetMapping("/Algo")
+    public List<Integer> getAlgo() {
+        logger.info("algo");
+        logger.info(""+mixEnService.getResultAlgoMix(1500));
+        return mixEnService.getResultAlgoMix(1500);
     }
 }
