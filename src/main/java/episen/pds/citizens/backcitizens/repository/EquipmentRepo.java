@@ -1,6 +1,7 @@
 package episen.pds.citizens.backcitizens.repository;
 
-import episen.pds.citizens.backcitizens.model.equipments.Equipment;
+import episen.pds.citizens.backcitizens.model.Equipment;
+
 
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.Modifying;
