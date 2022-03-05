@@ -45,7 +45,7 @@ public class CitizensBackendApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		logger.config("debut de la commande");
 
-		}
+	}
 
 
 

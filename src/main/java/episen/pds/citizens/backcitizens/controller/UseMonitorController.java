@@ -1,9 +1,6 @@
 package episen.pds.citizens.backcitizens.controller;
 
-import episen.pds.citizens.backcitizens.model.Condition;
-import episen.pds.citizens.backcitizens.model.Consumption;
-import episen.pds.citizens.backcitizens.model.Room;
-import episen.pds.citizens.backcitizens.model.equipments.Equipment;
+import episen.pds.citizens.backcitizens.model.*;
 import episen.pds.citizens.backcitizens.service.UseMonitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,34 +21,26 @@ public class UseMonitorController {
         }
         return useMonitorService.getConsumptionByBuilding(id_building);
     }
-/*
-    @GetMapping("/getRoomsWithConsumption")
-    public Iterable<RoomsWithConsumption> getRoomsWithConsumption() {
-        for (RoomsWithConsumption row:useMonitorService.getRoomsWithConsumption()) {
-            logger.info(row.toString());
+    /*
+        @GetMapping("/getRoomsWithConsumption")
+        public Iterable<RoomsWithConsumption> getRoomsWithConsumption() {
+            for (RoomsWithConsumption row:useMonitorService.getRoomsWithConsumption()) {
+                logger.info(row.toString());
+            }
+            return useMonitorService.getRoomsWithConsumption();
         }
-        return useMonitorService.getRoomsWithConsumption();
-    }
-*/
+    */
     @GetMapping("/getEquipmentsByRoom/{id}")
-    public Iterable<Equipment> getEquipmentByRoom(@PathVariable("id") int id_room) {
-        for (Equipment row: useMonitorService.getEquipmentByRoom(id_room)) {
+    public Iterable<EquipmentAndData> getEquipmentByRoom(@PathVariable("id") int id_room) {
+        for (EquipmentAndData row: useMonitorService.getEquipmentAndDataByRoom(id_room)) {
             logger.info(row.toString());
         }
-        return  useMonitorService.getEquipmentByRoom(id_room);
-    }
-
-    @GetMapping("/getRoomConditions/{id}")
-    public Iterable<Condition> getRoomConditions(@PathVariable("id") int id_room) {
-        for (Condition row:useMonitorService.getRoomConditions(id_room)) {
-            logger.info(row.toString());
-        }
-        return useMonitorService.getRoomConditions(id_room);
+        return  useMonitorService.getEquipmentAndDataByRoom(id_room);
     }
 
     @GetMapping("/getAllEquipments")
-    public Iterable<Equipment> getAllEquipments() {
-        for (Equipment row:useMonitorService.findEquipmentOrderByRoom()) {
+    public Iterable<DWP_Equipment> getAllEquipments() {
+        for (DWP_Equipment row:useMonitorService.findEquipmentOrderByRoom()) {
             logger.info(row.toString());
         }
         return useMonitorService.findEquipmentOrderByRoom();
@@ -59,10 +48,10 @@ public class UseMonitorController {
 
     @GetMapping("/getAllRooms")
     public Iterable<Room> getAllRooms() {
-        for (Room row:useMonitorService.getAllRooms()) {
+        for (Room row:useMonitorService.findAllBusinessRoom()) {
             logger.info(row.toString());
         }
-        return useMonitorService.getAllRooms();
+        return useMonitorService.findAllBusinessRoom();
     }
 
     @PostMapping("/setEquipment/{id}/{value}")
@@ -95,4 +84,28 @@ public class UseMonitorController {
         useMonitorService.setEquipmentOn(id_equipment);
     }
 
+    @GetMapping("/getLastBestConditions/{id_room}")
+    public Conditions getLastBestConditions(@PathVariable("id_room") int id_room) {
+        logger.info("GET_COND: id_room=" + id_room);
+        logger.info(useMonitorService.getLastBestConditions(id_room).toString());
+        return useMonitorService.getLastBestConditions(id_room);
+    }
+
+    @GetMapping("/getLastMeasures/{id_room}")
+    public Conditions getMeasuresConditions(@PathVariable("id_room") int id_room) {
+        logger.info("GET_CURRENT_COND: id_room=" + id_room);
+        Conditions current_condition = new Conditions();
+        current_condition.setId_room(id_room);
+        current_condition.setLuminosity(useMonitorService.getLastLightMeasure(id_room).getValue());
+        current_condition.setTemperature(useMonitorService.getLastTempMeasure(id_room).getValue());
+        logger.info("CURRENT_COND : " + current_condition.toString());
+        return current_condition;
+    }
+
+    @PostMapping("/setBestConditions/{id_room}")
+    public void setBestConditions(@PathVariable("id_room") int id_room, @RequestParam("cond") Conditions best_conditions) {
+        best_conditions.setId_room(id_room);
+        useMonitorService.setBestConditions(best_conditions);
+    }
 }
+
