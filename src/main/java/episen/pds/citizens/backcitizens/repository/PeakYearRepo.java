@@ -14,19 +14,4 @@ public interface PeakYearRepo extends CrudRepository<PeakYear, Integer> {
 
     public Iterable<PeakYear> getPeak();
 
-    @Query(value = " select extract(month from date) as mois, count(*) as numberofpeak " +
-            " from peakday where date<='2020-12-31' group by (mois) order by (mois) ",  nativeQuery=true)
-
-    public Iterable<PeakYear> getPeak20();
-
-    @Query(value = " select extract(month from date) as mois, count(*) as numberofpeak " +
-            " from peakday where date<='2021-12-31' group by (mois) order by (mois) ",  nativeQuery=true)
-
-    public Iterable<PeakYear> getPeak21();
-
-    @Query(value = " select extract(month from date) as mois, count(*) as numberofpeak " +
-            " from peakday where date<='2022-12-31' group by (mois) order by (mois) ",  nativeQuery=true)
-
-    public Iterable<PeakYear> getPeak22();
-
 }

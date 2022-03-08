@@ -1,10 +1,7 @@
 package episen.pds.citizens.backcitizens.service;
 
 import episen.pds.citizens.backcitizens.model.*;
-import episen.pds.citizens.backcitizens.repository.ConsumptionDayRepo;
-import episen.pds.citizens.backcitizens.repository.AttributionRepo;
-import episen.pds.citizens.backcitizens.repository.PeakDayRepo;
-import episen.pds.citizens.backcitizens.repository.PeakYearRepo;
+import episen.pds.citizens.backcitizens.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +14,8 @@ public class OverrunService {
     private AttributionRepo attributionRepo;
     @Autowired
     private PeakDayRepo peakdayRepo;
+    @Autowired
+    private PeakMonthRepo peakmonthRepo;
     @Autowired
     private PeakYearRepo peakyearRepo;
 
@@ -42,17 +41,16 @@ public class OverrunService {
     public Iterable<PeakYear> getPeak() {
         return peakyearRepo.getPeak();
     }
-
-    public Iterable<PeakYear> getPeak20() {
-        return peakyearRepo.getPeak20();
+    public Iterable<PeakMonth> getPeak20() {
+        return peakmonthRepo.getPeak20();
     }
 
-    public Iterable<PeakYear> getPeak21() {
-        return peakyearRepo.getPeak21();
+    public Iterable<PeakMonth> getPeak21() {
+        return peakmonthRepo.getPeak21();
     }
 
-    public Iterable<PeakYear> getPeak22() {
-        return peakyearRepo.getPeak22();
+    public Iterable<PeakMonth> getPeak22() {
+        return peakmonthRepo.getPeak22();
     }
 
 }
