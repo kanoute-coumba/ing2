@@ -47,19 +47,28 @@ public class OverrunController {
         return overrunService.getPeakDay();
     }
 
-    /*@RequestMapping("/peak")
-
-    public PeakDay getPeakDay(@RequestBody (required = false)) {
-        logger.config("receiving values");
-        return overrunService.getPeakDay();
-    }
-
-     */
-
     @GetMapping("/statistiques")
     public Iterable<PeakYear> getPeak() {
         logger.config("Count all peak days in the SmartCity");
         return overrunService.getPeak();
+    }
+
+    @GetMapping("/2020")
+    public Iterable<PeakYear> getPeak20() {
+        logger.config("Count peaks by months in 2020");
+        return overrunService.getPeak20();
+    }
+
+    @GetMapping("/2021")
+    public Iterable<PeakYear> getPeak21() {
+        logger.config("Count peaks by months in 2021");
+        return overrunService.getPeak21();
+    }
+
+    @GetMapping("/2022")
+    public Iterable<PeakYear> getPeak22() {
+        logger.config("Count peaks by months in 2022");
+        return overrunService.getPeak22();
     }
 
 }

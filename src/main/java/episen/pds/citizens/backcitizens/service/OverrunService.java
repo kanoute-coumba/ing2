@@ -38,13 +38,21 @@ public class OverrunService {
     public Iterable<PeakDay> getPeakDay() {
         return peakdayRepo.findPeakDay();
     }
-    //public PeakDay getPeakDay(PeakDay peakday) {
-        //return peakdayRepo.save(peakday);
-    //}
-
 
     public Iterable<PeakYear> getPeak() {
         return peakyearRepo.getPeak();
+    }
+
+    public Iterable<PeakYear> getPeak20() {
+        return peakyearRepo.getPeak20();
+    }
+
+    public Iterable<PeakYear> getPeak21() {
+        return peakyearRepo.getPeak21();
+    }
+
+    public Iterable<PeakYear> getPeak22() {
+        return peakyearRepo.getPeak22();
     }
 
 }
