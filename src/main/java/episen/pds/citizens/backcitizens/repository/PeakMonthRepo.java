@@ -11,17 +11,17 @@ import org.springframework.stereotype.Repository;
 public interface PeakMonthRepo extends CrudRepository<PeakMonth, Integer> {
 
     @Query(value = " select extract(month from date) as month, count(*) as numberofpeak " +
-            " from peakday where date<='2020-12-31' group by (month) order by (month) ",  nativeQuery=true)
+            " from peakday where date between '2020-01-01' and '2020-12-31' group by (month) order by (month) ",  nativeQuery=true)
 
     public Iterable<PeakMonth> getPeak20();
 
     @Query(value = " select extract(month from date) as month, count(*) as numberofpeak " +
-            " from peakday where date<='2021-12-31' group by (month) order by (month) ",  nativeQuery=true)
+            " from peakday where date between '2021-01-01' and '2021-12-31' group by (month) order by (month) ",  nativeQuery=true)
 
     public Iterable<PeakMonth> getPeak21();
 
     @Query(value = " select extract(month from date) as month, count(*) as numberofpeak " +
-            " from peakday where date<='2022-12-31' group by (month) order by (month) ",  nativeQuery=true)
+            " from peakday where date between '2022-01-01' and '2022-12-31' group by (month) order by (month) ",  nativeQuery=true)
 
     public Iterable<PeakMonth> getPeak22();
 
