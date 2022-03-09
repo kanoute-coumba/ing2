@@ -9,6 +9,7 @@ import episen.pds.citizens.backcitizens.service.MixEnService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -41,7 +42,7 @@ public class MixEnController {
     }
 
     @GetMapping("/Algo")
-    public List<Integer> getAlgo() {
+    public HashMap<String,List<String>> getAlgo() {
         logger.info("algo");
         logger.info(""+mixEnService.getResultAlgoMix(1500));
         return mixEnService.getResultAlgoMix(1500);
