@@ -45,11 +45,11 @@ public interface EquipmentRepo extends CrudRepository<Equipment, Integer> {
     @Query(value = "update equipment_data set value =:valueEquipment where id_equipment_data =:id_equipment", nativeQuery = true)
     void UpdateValueEquipment(@Param("valueEquipment") Integer valueEquipment, @Param("id_equipment") Integer id_equipment);
 
-    @Query(value = "select e.id_equipment from equipment e inner join equipment_data eq on e.id_equipment = eq.id_equipment_data where id_room in ( select s.id_room from room r inner join sensor s on r.id_room = s.id_room inner join measure m on  m.id_sensor = s.id_sensor where  s.type =:sensor and (m.value > 50) AND (m.value <= 100)) and e.type = 'lampe' and type_mode = 'Automatique' and statut =:statut", nativeQuery = true)
-    List<Integer> getEquipmentAutomaticFalse (@Param("statut") String statut, @Param("sensor") String sensor);
+    @Query(value = "select e.id_equipment from equipment e inner join equipment_data eq on e.id_equipment = eq.id_equipment_data where id_room in ( select s.id_room from room r inner join sensor s on r.id_room = s.id_room inner join measure m on  m.id_sensor = s.id_sensor where  s.type =:sensor and m.value =:valuesensor) and e.type = 'lampe' and type_mode = 'Automatique' and statut =:statut", nativeQuery = true)
+    List<Integer> getEquipmentAutomaticFalse (@Param("statut") String statut, @Param("sensor") String sensor, @Param("valuesensor") Integer valuesensor);
 
-    @Query(value = "select e.id_equipment from equipment e inner join equipment_data eq on e.id_equipment = eq.id_equipment_data where id_room in ( select s.id_room from room r inner join sensor s on r.id_room = s.id_room inner join measure m on  m.id_sensor = s.id_sensor where  s.type =:sensor and (m.value > 0) AND (m.value <= 50)) and e.type = 'lampe' and type_mode = 'Automatique' and statut =:statut", nativeQuery = true)
-    List<Integer> getEquipmentAutomaticTrue (@Param("statut") String statut, @Param("sensor") String sensor);
+    @Query(value = "select e.id_equipment from equipment e inner join equipment_data eq on e.id_equipment = eq.id_equipment_data where id_room in ( select s.id_room from room r inner join sensor s on r.id_room = s.id_room inner join measure m on  m.id_sensor = s.id_sensor where  s.type =:sensor and m.value =:valuesensor) and e.type = 'lampe' and type_mode = 'Automatique' and statut =:statut", nativeQuery = true)
+    List<Integer> getEquipmentAutomaticTrue (@Param("statut") String statut, @Param("sensor") String sensor, @Param("valuesensor") Integer valuesensor);
 
     @Modifying
     @Query(value = "update measure m set value =:value where m.id_sensor in (select s.id_sensor from sensor s inner join measure m on s.id_sensor = m.id_sensor inner join room r on s.id_room = r.id_room inner join equipment e on e.id_room = r.id_room inner join equipment_data eq on e.id_equipment = eq.id_equipment_data where s.type =:sensor and e.type ='lampe' and type_mode = 'Automatique' and (m.value > 0) AND (m.value <= 50))", nativeQuery = true)

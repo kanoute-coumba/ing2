@@ -94,24 +94,24 @@ public class EquipmentController {
         System.out.println(hours);
 
 
-        if ((hours.after(Timestamp.valueOf("2022-01-01 00:01:00")) && hours.before(Timestamp.valueOf("2022-01-01 01:00:00")))) {
-            // recupère la liste des équipements dont le statut est ON (valeur sensor comprise entre 50 et 100) = presence = false
-            List<Integer> id_equipment_data_false = equipmentService.getEquipmentAutomaticPresenceFalse("ON", "capteur de présence");
+        if ((hours.after(Timestamp.valueOf("2022-01-01 00:00:00")) && hours.before(Timestamp.valueOf("2022-01-01 07:00:00")))) {
+            // recupère la liste des équipements dont le statut est ON (si valeur = 0 ) = presence = false
+            List<Integer> id_equipment_data_false = equipmentService.getEquipmentAutomaticPresenceFalse("ON", "capteur de présence", 0);
 
-            // recupère la liste des équipements dont le statut est ON (valeur sensor comprise entre 0 et 50) = presence = true
-            List<Integer> id_equipment_data_true = equipmentService.getEquipmentAutomaticPresenceTrue("OFF", "capteur de présence");
+            // recupère la liste des équipements dont le statut est ON (si valeur = 1) = presence = true
+            List<Integer> id_equipment_data_true = equipmentService.getEquipmentAutomaticPresenceTrue("OFF", "capteur de présence", 1);
 
             // mise à jour des lampes ou la présence est false
             for (int i = 0; i < id_equipment_data_false.size(); i++) {
                 equipmentService.updateStatutAutomaticLight(id_equipment_data_false.get(i), "OFF", 0);
-                equipmentService.updateLowValuesensor(16, "capteur de présence");
+               // equipmentService.updateLowValuesensor(16, "capteur de présence");
             }
 
 
             //mise à jour des lampes ou la présence est vrai
             for (int i = 0; i < id_equipment_data_true.size(); i++) {
                 equipmentService.updateStatutAutomaticLight(id_equipment_data_true.get(i), "ON", 5);
-                equipmentService.updateHighValuesensor(73, "capteur de présence");
+              //  equipmentService.updateHighValuesensor(73, "capteur de présence");
             }
 
         }

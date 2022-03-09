@@ -71,14 +71,14 @@ public class EquipmentService {
         return roomHouseRepo.findRoomByFloor(Integer.parseInt(floor));
     }
 
-    public List<Integer> getEquipmentAutomaticPresenceFalse (String statut, String sensor){
-        System.out.println(equipmentRepo.getEquipmentAutomaticFalse(statut, sensor) + "service");
-        return equipmentRepo.getEquipmentAutomaticFalse(statut, sensor);
+    public List<Integer> getEquipmentAutomaticPresenceFalse (String statut, String sensor, Integer valuesensor){
+        System.out.println(equipmentRepo.getEquipmentAutomaticFalse(statut, sensor , valuesensor) + "service");
+        return equipmentRepo.getEquipmentAutomaticFalse(statut, sensor, valuesensor);
     }
 
-    public List<Integer> getEquipmentAutomaticPresenceTrue (String statut, String sensor){
-        System.out.println(equipmentRepo.getEquipmentAutomaticTrue(statut, sensor) + "servicetrue");
-        return equipmentRepo.getEquipmentAutomaticTrue(statut, sensor);
+    public List<Integer> getEquipmentAutomaticPresenceTrue (String statut, String sensor, Integer valuesensor){
+        System.out.println(equipmentRepo.getEquipmentAutomaticTrue(statut, sensor, valuesensor) + "servicetrue");
+        return equipmentRepo.getEquipmentAutomaticTrue(statut, sensor, valuesensor);
     }
 
     @Transactional
