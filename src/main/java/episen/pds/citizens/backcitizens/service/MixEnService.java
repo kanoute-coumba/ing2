@@ -222,4 +222,36 @@ public class MixEnService {
         }
 
     }
+
+    public HashMap<String,List<Double>> getGraphDataEconomicCost(HashMap<String,String> simu){
+        HashMap<String,List<Double>> graphData = new HashMap<>();
+        float installationSolarYear =0;
+        float installationWindTurbineYear =0;
+        float installationHydraulicYear =0;
+        if(simu.get("solaireAmort").equals("rentable")){installationSolarYear=100;}
+        if(simu.get("eolienneAmort").equals("rentable")){installationWindTurbineYear=100;}
+        if(simu.get("hydrauliqueAmort").equals("rentable")){installationHydraulicYear=100;}
+        FunctionForAlgoMix function = new FunctionForAlgoMix(installationSolarYear,installationWindTurbineYear,installationHydraulicYear);
+
+        List<Double> abs  = new ArrayList<>();
+        for (int i=0; i<=Double.parseDouble(simu.get("conso"))/200;i++){
+            abs.add((double) (200 * i));
+        }
+        List<Double> l1  = new ArrayList<>();
+        List<Double> l2  = new ArrayList<>();
+        List<Double> l3  = new ArrayList<>();
+        for (int i=0; i<=Double.parseDouble(simu.get("conso"))/200;i++){
+            List<Double> economicCost = function.economicCost(200*i);
+            l1.add(economicCost.get(0));
+            l2.add(economicCost.get(1));
+            l3.add(economicCost.get(2));
+        }
+
+        graphData.put("abs",abs);
+        graphData.put("solaire",l1);
+        graphData.put("eolienne",l2);
+        graphData.put("hydraulique",l3);
+
+        return graphData;
+    }
 }

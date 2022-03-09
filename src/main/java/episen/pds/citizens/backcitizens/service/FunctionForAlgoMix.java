@@ -4,6 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FunctionForAlgoMix {
+    private float installationSolarYear = 5;
+    private float installationWindTurbineYear = 5;
+    private float installationHydraulicYear = 10;
+
+    public FunctionForAlgoMix(){}
+
+    public FunctionForAlgoMix(float installationSolarYear, float installationWindTurbineYear, float installationHydraulicYear){
+        this.installationSolarYear = installationSolarYear;
+        this.installationWindTurbineYear = installationWindTurbineYear;
+        this.installationHydraulicYear = installationHydraulicYear;
+    }
 
     // function that returns the economic cost for each energy ([solar,wind turbine, hydraulic]) according to the desired production
 
@@ -22,11 +33,6 @@ public class FunctionForAlgoMix {
         float capacityOneSolarCentral = 1000;
         float capacityOneWindTurbineCentral = 1000;
         float capacityOneHydraulicCentral = 1500;
-
-        // year of installation
-        float installationSolarYear = 5;
-        float installationWindTurbineYear = 5;
-        float installationHydraulicYear = 10;
 
         // amortization
         float amortizationSolarYear = 10;
