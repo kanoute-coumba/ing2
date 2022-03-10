@@ -81,14 +81,9 @@ public class EquipmentService {
         return equipmentRepo.getEquipmentAutomaticTrue(statut, sensor, valuesensor);
     }
 
-    @Transactional
-    public void updateHighValuesensor(Integer value, String sensor) {
-        equipmentRepo.updateHighValue(value, sensor);
-    }
-
-    @Transactional
-    public void updateLowValuesensor(Integer value, String sensor) {
-        equipmentRepo.updateLowValue(value, sensor);
+    public Integer getValueSensor(String nameroom, String typesensor, String date1, String date2) {
+        System.out.println(equipmentRepo.valueSensor(nameroom,typesensor,date1,date2) + " la valeur du capteur de présence actuelle");
+        return equipmentRepo.valueSensor(nameroom,typesensor,date1,date2);
     }
 
 

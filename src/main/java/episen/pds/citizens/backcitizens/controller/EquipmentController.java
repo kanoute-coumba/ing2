@@ -87,7 +87,7 @@ public class EquipmentController {
 
 
     @GetMapping("/updateAutoEquip")
-    public String updateAutomatic(@RequestParam("meeting_time") String meeting_time) {
+    public String updateAutomatic(@RequestParam("meeting_time") String meeting_time, @RequestParam("nameroom") String nameroom, @RequestParam("typesensor") String typesensor, @RequestParam("date1") String date1, @RequestParam("date2") String date2) {
 
         String d = meeting_time.replace('T', ' ') + ":00";
         hours = Timestamp.valueOf(d);
@@ -95,6 +95,8 @@ public class EquipmentController {
 
 
         if ((hours.after(Timestamp.valueOf("2022-01-01 00:00:00")) && hours.before(Timestamp.valueOf("2022-01-01 07:00:00")))) {
+
+            Integer valueSensor = equipmentService.getValueSensor(nameroom,typesensor, date1, date2);
             // recupère la liste des équipements dont le statut est ON (si valeur = 0 ) = presence = false
             List<Integer> id_equipment_data_false = equipmentService.getEquipmentAutomaticPresenceFalse("ON", "capteur de présence", 0);
 
@@ -104,14 +106,14 @@ public class EquipmentController {
             // mise à jour des lampes ou la présence est false
             for (int i = 0; i < id_equipment_data_false.size(); i++) {
                 equipmentService.updateStatutAutomaticLight(id_equipment_data_false.get(i), "OFF", 0);
-               // equipmentService.updateLowValuesensor(16, "capteur de présence");
+
             }
 
 
             //mise à jour des lampes ou la présence est vrai
             for (int i = 0; i < id_equipment_data_true.size(); i++) {
                 equipmentService.updateStatutAutomaticLight(id_equipment_data_true.get(i), "ON", 5);
-              //  equipmentService.updateHighValuesensor(73, "capteur de présence");
+
             }
 
         }
@@ -199,7 +201,7 @@ public class EquipmentController {
 //            }
 //
 //        }
-        return meeting_time;
+        return  equipmentService.getValueSensor(nameroom, typesensor, date1, date2) + "";
     }
 
 
