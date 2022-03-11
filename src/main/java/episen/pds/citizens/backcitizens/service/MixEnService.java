@@ -133,6 +133,13 @@ public class MixEnService {
 
         // Algo : proportion weather report
         if(choiceAlgo.getChoice().equals("preferenceweather")){ //TODO
+            List<String> prefList= new ArrayList<>();
+            //default val
+            prefList.add("solaire");
+            prefList.add("eolienne");
+            prefList.add("hydraulique");
+
+            result.put("pref",prefList);
             return result;
         }
 
