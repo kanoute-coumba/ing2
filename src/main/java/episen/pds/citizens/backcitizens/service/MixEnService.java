@@ -182,7 +182,7 @@ public class MixEnService {
         //if(choiceAlgo.getChoice().equals("environmental"))
         else{
             FunctionForAlgoMix function = new FunctionForAlgoMix();
-            List<Double> environmentalCost = function.environmentalCost(consumption); //TODO
+            List<Double> environmentalCost = function.environmentalCost(consumption);
             Double s = environmentalCost.get(0);
             Double w = environmentalCost.get(1);
             Double h = environmentalCost.get(2);
@@ -245,6 +245,34 @@ public class MixEnService {
             l1.add(economicCost.get(0));
             l2.add(economicCost.get(1));
             l3.add(economicCost.get(2));
+        }
+
+        graphData.put("abs",abs);
+        graphData.put("solaire",l1);
+        graphData.put("eolienne",l2);
+        graphData.put("hydraulique",l3);
+
+        return graphData;
+    }
+
+    //
+    public HashMap<String,List<Double>> getGraphDataEnvironmentalCost(){
+        HashMap<String,List<Double>> graphData = new HashMap<>();
+        float conso = 6000;
+        FunctionForAlgoMix function = new FunctionForAlgoMix();
+
+        List<Double> abs  = new ArrayList<>();
+        for (int i=0; i <= conso/200; i++){
+            abs.add((double) (200 * i));
+        }
+        List<Double> l1  = new ArrayList<>();
+        List<Double> l2  = new ArrayList<>();
+        List<Double> l3  = new ArrayList<>();
+        for (int i=0; i <= conso/200; i++){
+            List<Double> environmentCost = function.environmentalCost(200*i);
+            l1.add(environmentCost.get(0));
+            l2.add(environmentCost.get(1));
+            l3.add(environmentCost.get(2));
         }
 
         graphData.put("abs",abs);

@@ -41,15 +41,20 @@ public class MixEnController {
         mixEnService.saveAlgoChoice(choiceAlgo);
     }
 
-    @GetMapping("/Algo")
-    public HashMap<String,List<String>> getAlgo() {
+    @GetMapping("/Algo/{consumption}")
+    public HashMap<String,List<String>> getAlgo(@PathVariable("consumption") float consumption) {
         logger.info("algo");
-        logger.info(""+mixEnService.getResultAlgoMix(1500));
-        return mixEnService.getResultAlgoMix(1500);
+        logger.info(""+mixEnService.getResultAlgoMix(consumption));
+        return mixEnService.getResultAlgoMix(consumption);
     }
 
     @PostMapping("/simulationEconomicCost")
     public HashMap<String,List<Double>> getGraphDataEconomicCost(@RequestBody HashMap<String,String> simu){
         return mixEnService.getGraphDataEconomicCost(simu);
+    }
+
+    @GetMapping("/graphDataEnvironmentalCost")
+    public HashMap<String,List<Double>> getGraphDataEnvironmentalCost(){
+        return mixEnService.getGraphDataEnvironmentalCost();
     }
 }

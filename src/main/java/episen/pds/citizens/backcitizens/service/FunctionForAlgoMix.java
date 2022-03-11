@@ -61,9 +61,20 @@ public class FunctionForAlgoMix {
         return res;
     }
 
+    // function that returns the environmental cost for each energy ([solar,wind turbine, hydraulic]) according to the desired production
+
     public List<Double> environmentalCost(float consumption){
+        // Life cycle analysis
+        double environmenatalCostSolarWh = 55;
+        double environmenatalCostWindTurbineWh = 12.7;
+        double environmenatalCostHydraulicWh = 6;
+
         //result
         List<Double> res = new ArrayList<>();
+
+        res.add(environmenatalCostSolarWh*consumption/1000);
+        res.add(environmenatalCostWindTurbineWh*consumption/1000);
+        res.add(environmenatalCostHydraulicWh*consumption/1000);
 
         return res;
     }
