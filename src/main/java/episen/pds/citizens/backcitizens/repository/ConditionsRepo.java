@@ -17,10 +17,7 @@ public interface ConditionsRepo extends CrudRepository<Conditions, Integer> {
     Iterable<Conditions> findConditionsByRoom(int id_room);
 
     @Query(value = "select * from conditions where id_room=?1  " +
-            "and current_time between begin_time and end_time;",nativeQuery = true)
+            "and current_time between begin_time and end_time limit 1;",nativeQuery = true)
     Conditions findLastConditionsByRoom(int id_room);
 
 }
-
-
-

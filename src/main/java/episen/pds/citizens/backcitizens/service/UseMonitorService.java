@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 @Service
@@ -81,7 +82,7 @@ public class UseMonitorService {
         return  equipmentRepo.findEquipmentOrderByRoom();
     }
 
-    public void setEquipmentValue(int id_equipment, double value) {
+    public synchronized void setEquipmentValue(int id_equipment, double value) {
         equipmentDataRepo.setEquipmentValue(id_equipment, value);
     }
 
@@ -89,15 +90,15 @@ public class UseMonitorService {
         equipmentDataRepo.setEquipmentAuto(id_equipment);
     }
 
-    public void setEquipmentManu(int id_equipment) {
+    public synchronized void setEquipmentManu(int id_equipment) {
         equipmentDataRepo.setEquipmentManu(id_equipment);
     }
 
-    public void setEquipmentOff(int id_equipment) {
+    public synchronized void setEquipmentOff(int id_equipment) {
         equipmentDataRepo.setEquipmentOff(id_equipment);
     }
 
-    public void setEquipmentOn(int id_equipment) {
+    public synchronized void setEquipmentOn(int id_equipment) {
         equipmentDataRepo.setEquipmentOn(id_equipment);
     }
 
@@ -139,7 +140,7 @@ public class UseMonitorService {
         }
     }
 
-    private void setEquipmentOneUp(int id_equipment) {
+    public synchronized void setEquipmentOneUp(int id_equipment) {
         equipmentDataRepo.setEquipmentOneUp(id_equipment);
     }
 
@@ -166,7 +167,7 @@ public class UseMonitorService {
         }
     }
 
-    private void setEquipmentOneDown(int id_equipment) {
+    public synchronized void  setEquipmentOneDown(int id_equipment) {
         equipmentDataRepo.setEquipmentOneDown(id_equipment);
     }
 
@@ -182,4 +183,5 @@ public class UseMonitorService {
     public Iterable<Room> findAllBusinessRoom() {
         return roomRepo.findAllBusinessRoom();
     }
+
 }

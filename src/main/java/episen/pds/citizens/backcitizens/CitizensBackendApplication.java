@@ -2,6 +2,12 @@ package episen.pds.citizens.backcitizens;
 
 
 import episen.pds.citizens.backcitizens.controller.OverrunController;
+import episen.pds.citizens.backcitizens.model.Room;
+import episen.pds.citizens.backcitizens.repository.ConditionsRepo;
+import episen.pds.citizens.backcitizens.repository.MeasureRepo;
+import episen.pds.citizens.backcitizens.repository.RoomRepo;
+import episen.pds.citizens.backcitizens.service.ConfigAutoDWP;
+import episen.pds.citizens.backcitizens.service.UseMonitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import episen.pds.citizens.backcitizens.controller.MenuController;
@@ -14,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 @Component
@@ -29,6 +36,20 @@ public class CitizensBackendApplication implements CommandLineRunner {
 	@Autowired
 	OverrunController overrunController;
 
+	@Autowired
+	RoomRepo roomRepo;
+
+	@Autowired
+	MeasureRepo measureRepo;
+
+	@Autowired
+	ConditionsRepo conditionsRepo;
+
+	@Autowired
+	UseMonitorService useMonitorService;
+
+	@Autowired
+	ConfigAutoDWP configAutoDWP;
 
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
@@ -43,8 +64,12 @@ public class CitizensBackendApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		logger.config("debut de la commande");
-
+		for (int i = 0; i < 10; i++) {
+			Thread configAuto = new Thread(configAutoDWP);
+			configAuto.start();
+			logger.info("starting config auto thread");
+			Thread.sleep(1000);
+		}
 	}
 
 
