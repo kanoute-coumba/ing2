@@ -1,9 +1,6 @@
 package episen.pds.citizens.backcitizens.controller;
 
-import episen.pds.citizens.backcitizens.model.Attribution;
-import episen.pds.citizens.backcitizens.model.ConsumptionDay;
-import episen.pds.citizens.backcitizens.model.PeakDay;
-import episen.pds.citizens.backcitizens.model.PeakYear;
+import episen.pds.citizens.backcitizens.model.*;
 import episen.pds.citizens.backcitizens.service.OverrunService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -47,19 +44,28 @@ public class OverrunController {
         return overrunService.getPeakDay();
     }
 
-    /*@RequestMapping("/peak")
-
-    public PeakDay getPeakDay(@RequestBody (required = false)) {
-        logger.config("receiving values");
-        return overrunService.getPeakDay();
-    }
-
-     */
-
     @GetMapping("/statistiques")
     public Iterable<PeakYear> getPeak() {
         logger.config("Count all peak days in the SmartCity");
         return overrunService.getPeak();
+    }
+
+    @GetMapping("/2020")
+    public Iterable<PeakMonth> getPeak20() {
+        logger.config("Count peaks by months in 2020");
+        return overrunService.getPeak20();
+    }
+
+    @GetMapping("/2021")
+    public Iterable<PeakMonth> getPeak21() {
+        logger.config("Count peaks by months in 2021");
+        return overrunService.getPeak21();
+    }
+
+    @GetMapping("/2022")
+    public Iterable<PeakMonth> getPeak22() {
+        logger.config("Count peaks by months in 2022");
+        return overrunService.getPeak22();
     }
 
 }

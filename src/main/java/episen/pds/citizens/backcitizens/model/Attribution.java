@@ -14,12 +14,12 @@ public class Attribution {
     private Date date;
 
     @Column(name = "value")
-    private int value;
+    private Double value;
 
     public Attribution() {
 
     }
-    public Attribution(Date date, int value) {
+    public Attribution(Date date, Double value) {
         this.date = date;
         this.value = value;
     }
@@ -32,11 +32,11 @@ public class Attribution {
         this.date = date;
     }
 
-    public int getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 }

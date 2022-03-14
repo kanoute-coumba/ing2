@@ -21,10 +21,13 @@ public class BuildingPatch {
     private String type;
 
     @Column(name = "consumption")
-    private String consumption;
+    private Double consumption;
 
     @Column(name = "production")
-    private String production;
+    private Double production;
+
+    @Column(name = "district")
+    private Integer district;
 
     public int getId() {
         return this.id;
@@ -42,12 +45,24 @@ public class BuildingPatch {
         return this.type;
     }
 
-    public String getConsumption() {
+    public Double getConsumption() {
         return this.consumption;
     }
 
-    public String getProduction() {
+    public Double getProduction() {
         return this.production;
+    }
+
+    public Integer getDistrict() {
+        return district;
+    }
+
+    public void setConsumption(Double consumption) {
+        this.consumption = consumption;
+    }
+
+    public void setProduction(Double production) {
+        this.production = production;
     }
 
     @Override
