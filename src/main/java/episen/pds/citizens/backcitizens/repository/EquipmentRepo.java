@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 @PropertySource("classpath:sql_queries.properties")
 public interface EquipmentRepo extends CrudRepository<Equipment, Integer> {
 
+
     @Query(value = "select * from equipments.equipment eq inner join equipments.equipment_data e on eq.id_equipment=e.id_equipment_data where id_room =:idr", nativeQuery = true)
     Iterable<Equipment> findEquipmentByRoom(@Param("idr") Integer idr);
 
@@ -38,24 +39,4 @@ public interface EquipmentRepo extends CrudRepository<Equipment, Integer> {
     @Modifying
     @Query(value = "update equipments.equipment_data set value =:valueEquipment where id_equipment_data =:id_equipment", nativeQuery = true)
     void UpdateValueEquipment(@Param("valueEquipment") Integer valueEquipment, @Param("id_equipment") Integer id_equipment);
-
-    @Nullable
-    @Query(value = "select cast(setEquipmentValue(?1,?2) as varchar)", nativeQuery = true)
-    void setEquipmentValue(int id_equipment, double value);
-
-    @Nullable
-    @Query(value = "select cast(setEquipmentAuto(?1) as varchar)", nativeQuery = true)
-    void setEquipmentAuto(int id_equipment);
-
-    @Nullable
-    @Query(value = "select cast(setEquipmentManu(?1) as varchar)", nativeQuery = true)
-    void setEquipmentManu(int id_equipment);
-
-    @Nullable
-    @Query(value = "select cast(setEquipmentOff(?1) as varchar)", nativeQuery = true)
-    void setEquipmentOff(int id_equipment);
-
-    @Nullable
-    @Query(value = "select cast(setEquipmentOn(?1) as varchar)", nativeQuery = true)
-    void setEquipmentOn(int id_equipment);
 }
