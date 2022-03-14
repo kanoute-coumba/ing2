@@ -184,4 +184,7 @@ public class UseMonitorService {
         return roomRepo.findAllBusinessRoom();
     }
 
+    public synchronized void setAllEquipmentsOff(int id_room) {
+        equipmentDataRepo.setAllEquipmentsOff(id_room);
+    }
 }
