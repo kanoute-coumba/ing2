@@ -9,7 +9,7 @@ import episen.pds.citizens.backcitizens.repository.CurrentMixRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
+
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -85,7 +85,7 @@ public class MixEnService {
 
     //method for algo
 
-    public List<Integer> getResultAlgoMix(float consumption){
+    public HashMap<String,List<String>> getResultAlgoMix(float consumption){
         //choice of algo in the database
         ChoiceAlgo choiceAlgo = choiceAlgoRepo.getChoiceAlgo();
 
@@ -95,163 +95,198 @@ public class MixEnService {
         float capacityOneWindTurbineCentral = 200;
         float capacityOneHydraulicCentral = 200;
 
-        //number of plant equipment for each type of energy
-        int nbSolarCentral = 0;
-        int nbWindTurbineCentral = 0;
-        int nbHydraulicCentral = 0;
-        Iterable<MixEnBySite> listMixEnBySite = currentMixBySiteRepo.findEnergyProductionBySite();
-        for(MixEnBySite m : listMixEnBySite){
-            if(m.getName_building().equals("solaire")){
-                nbSolarCentral += m.getNumber_equip();
-            }
-            if(m.getName_building().equals("eolienne")){
-                nbWindTurbineCentral += m.getNumber_equip();
-            }
-            if(m.getName_building().equals("hydraulique")){
-                nbHydraulicCentral += m.getNumber_equip();
-            }
-        }
-
-        //the number of central to activate (result)
-        int nbSolarCentralResult = 0;
-        int nbWindTurbineCentralResult = 0;
-        int nbHydraulicCentralResult = 0;
-        List<Integer> l = new ArrayList<>();
-
-        float production =0;
+        // result method
+        HashMap<String, List<String>> result = new HashMap<>();
 
         // the different algorithms
         //Algo : preference
-        //TODO return the result
         if(choiceAlgo.getChoice().equals("preference")){
-            if(choiceAlgo.getPref1().equals("solaire")){
-                while(production<consumption && nbSolarCentralResult<nbSolarCentral){
-                    nbSolarCentralResult+=1;
-                    production+=capacityOneSolarCentral;
-                }
-                if(choiceAlgo.getPref2().equals("eolienne") && production<consumption){
-                    while(production<consumption && nbWindTurbineCentralResult<nbWindTurbineCentral){
-                        nbWindTurbineCentralResult+=1;
-                        production+=capacityOneWindTurbineCentral;
-                    }
-                    while(production<consumption && nbHydraulicCentralResult<nbHydraulicCentral){
-                        nbHydraulicCentralResult+=1;
-                        production+=capacityOneHydraulicCentral;
-                    }
-                }
-                if(choiceAlgo.getPref2().equals("hydraulique") && production<consumption){
-                    while(production<consumption && nbHydraulicCentralResult<nbHydraulicCentral){
-                        nbHydraulicCentralResult+=1;
-                        production+=capacityOneHydraulicCentral;
-                    }
-                    while(production<consumption && nbWindTurbineCentralResult<nbWindTurbineCentral){
-                        nbWindTurbineCentralResult+=1;
-                        production+=capacityOneWindTurbineCentral;
-                    }
-                }
-                //TODO RESULTAT;
-                l.add(nbSolarCentralResult);
-                l.add(nbSolarCentral);
-                l.add(nbWindTurbineCentralResult);
-                l.add(nbWindTurbineCentral);
-                l.add(nbHydraulicCentralResult);
-                l.add(nbHydraulicCentral);
-                return l;
-            }
-
-            if(choiceAlgo.getPref1().equals("eolienne")){
-                while(production<consumption && nbWindTurbineCentralResult<nbWindTurbineCentral){
-                    nbWindTurbineCentralResult+=1;
-                    production+=capacityOneWindTurbineCentral;
-                }
-
-                if(choiceAlgo.getPref2().equals("solaire") && production<consumption){
-                    while(production<consumption && nbSolarCentralResult<nbSolarCentral){
-                        nbSolarCentralResult+=1;
-                        production+=capacityOneSolarCentral;
-                    }
-                    while(production<consumption && nbHydraulicCentralResult<nbHydraulicCentral){
-                        nbHydraulicCentralResult+=1;
-                        production+=capacityOneHydraulicCentral;
-                    }
-                }
-                if(choiceAlgo.getPref2().equals("hydraulique") && production<consumption){
-                    while(production<consumption && nbHydraulicCentralResult<nbHydraulicCentral){
-                        nbHydraulicCentralResult+=1;
-                        production+=capacityOneHydraulicCentral;
-                    }
-                    while(production<consumption && nbSolarCentralResult<nbSolarCentral){
-                        nbSolarCentralResult+=1;
-                        production+=capacityOneSolarCentral;
-                    }
-                }
-                //return RESULTAT;
-            }
-
-            if(choiceAlgo.getPref1().equals("hydraulique")){
-                while(production<consumption && nbHydraulicCentralResult<nbHydraulicCentral){
-                    nbHydraulicCentralResult+=1;
-                    production+=capacityOneHydraulicCentral;
-                }
-
-                if(choiceAlgo.getPref2().equals("eolienne") && production<consumption){
-                    while(production<consumption && nbWindTurbineCentralResult<nbWindTurbineCentral){
-                        nbWindTurbineCentralResult+=1;
-                        production+=capacityOneWindTurbineCentral;
-                    }
-                    while(production<consumption && nbSolarCentralResult<nbSolarCentral){
-                        nbSolarCentralResult+=1;
-                        production+=capacityOneSolarCentral;
-                    }
-                }
-                if(choiceAlgo.getPref2().equals("solaire") && production<consumption){
-                    while(production<consumption && nbSolarCentralResult<nbSolarCentral){
-                        nbSolarCentralResult+=1;
-                        production+=capacityOneSolarCentral;
-                    }
-                    while(production<consumption && nbWindTurbineCentralResult<nbWindTurbineCentral){
-                        nbWindTurbineCentralResult+=1;
-                        production+=capacityOneWindTurbineCentral;
-                    }
-                }
-                //return RESULTAT;
-            }
-
+            List<String> prefList= new ArrayList<>();
+            prefList.add(choiceAlgo.getPref1());
+            prefList.add(choiceAlgo.getPref2());
+            prefList.add(choiceAlgo.getPref3());
+            result.put("pref",prefList);
+            return result;
         }
-        return l;
-        /*
+
+        // /*
         // Algo : proportion user choice
         if(choiceAlgo.getChoice().equals("proportionchoice")){
-            l.add(choiceAlgo.getProp1());
-            l.add(choiceAlgo.getProp2());
-            l.add(choiceAlgo.getProp3());
-            return l;
+            List<String> propList= new ArrayList<>();
+            propList.add(""+choiceAlgo.getProp1());
+            propList.add(""+choiceAlgo.getProp2());
+            propList.add(""+choiceAlgo.getProp3());
+            result.put("prop",propList);
+            return result;
 
         }
 
         // Algo : proportion equity
         if(choiceAlgo.getChoice().equals("proportionequity")){
-            l.add(33);
-            l.add(33);
-            l.add(33);
-            return l;
+            List<String> propList= new ArrayList<>();
+            propList.add("33");
+            propList.add("33");
+            propList.add("33");
+            result.put("prop",propList);
+            return result;
         }
 
         // Algo : proportion weather report
-        if(choiceAlgo.getChoice().equals("preferenceweather")){
+        if(choiceAlgo.getChoice().equals("preferenceweather")){ //TODO
+            List<String> prefList= new ArrayList<>();
+            //default val
+            prefList.add("solaire");
+            prefList.add("eolienne");
+            prefList.add("hydraulique");
 
+            result.put("pref",prefList);
+            return result;
         }
 
         // Algo : economic
         if(choiceAlgo.getChoice().equals("economic")){
-
+            FunctionForAlgoMix function = new FunctionForAlgoMix();
+            List<Double> economicCost = function.economicCost(consumption);
+            Double s = economicCost.get(0);
+            Double w = economicCost.get(1);
+            Double h = economicCost.get(2);
+            List<String> prefList= new ArrayList<>();
+            if(s<=w && s<=h){
+                prefList.add("Solaire");
+                if (w<=h){
+                    prefList.add("Eolienne");
+                    prefList.add("Hydraulique");
+                }else{
+                    prefList.add("Hydraulique");
+                    prefList.add("Eolienne");
+                }
+            }
+            if(w<=s && w<=h){
+                prefList.add("Eolienne");
+                if (s<=h){
+                    prefList.add("Solaire");
+                    prefList.add("Hydraulique");
+                }else{
+                    prefList.add("Hydraulique");
+                    prefList.add("Solaire");
+                }
+            }
+            if(h<=s && h<=w){
+                prefList.add("Hydraulique");
+                if (w<=s){
+                    prefList.add("Eolienne");
+                    prefList.add("Solaire");
+                }else{
+                    prefList.add("Solaire");
+                    prefList.add("Eolienne");
+                }
+            }
+            result.put("pref",prefList);
+            return result;
         }
 
         // Algo : environmental
-        if(choiceAlgo.getChoice().equals("environmental")){
-
+        //if(choiceAlgo.getChoice().equals("environmental"))
+        else{
+            FunctionForAlgoMix function = new FunctionForAlgoMix();
+            List<Double> environmentalCost = function.environmentalCost(consumption);
+            Double s = environmentalCost.get(0);
+            Double w = environmentalCost.get(1);
+            Double h = environmentalCost.get(2);
+            List<String> prefList= new ArrayList<>();
+            if(s<=w && s<=h){
+                prefList.add("Solaire");
+                if (w<=h){
+                    prefList.add("Eolienne");
+                    prefList.add("Hydraulique");
+                }else{
+                    prefList.add("Hydraulique");
+                    prefList.add("Eolienne");
+                }
+            }
+            if(w<=s && w<=h){
+                prefList.add("Eolienne");
+                if (s<=h){
+                    prefList.add("Solaire");
+                    prefList.add("Hydraulique");
+                }else{
+                    prefList.add("Hydraulique");
+                    prefList.add("Solaire");
+                }
+            }
+            if(h<=s && h<=w){
+                prefList.add("Hydraulique");
+                if (w<=s){
+                    prefList.add("Eolienne");
+                    prefList.add("Solaire");
+                }else{
+                    prefList.add("Solaire");
+                    prefList.add("Eolienne");
+                }
+            }
+            result.put("pref",prefList);
+            return result;
         }
-*/
+
     }
 
+    public HashMap<String,List<Double>> getGraphDataEconomicCost(HashMap<String,String> simu){
+        HashMap<String,List<Double>> graphData = new HashMap<>();
+        float installationSolarYear =0;
+        float installationWindTurbineYear =0;
+        float installationHydraulicYear =0;
+        if(simu.get("solaireAmort").equals("rentable")){installationSolarYear=100;}
+        if(simu.get("eolienneAmort").equals("rentable")){installationWindTurbineYear=100;}
+        if(simu.get("hydrauliqueAmort").equals("rentable")){installationHydraulicYear=100;}
+        FunctionForAlgoMix function = new FunctionForAlgoMix(installationSolarYear,installationWindTurbineYear,installationHydraulicYear);
+
+        List<Double> abs  = new ArrayList<>();
+        for (int i=0; i<=Double.parseDouble(simu.get("conso"))/200;i++){
+            abs.add((double) (200 * i));
+        }
+        List<Double> l1  = new ArrayList<>();
+        List<Double> l2  = new ArrayList<>();
+        List<Double> l3  = new ArrayList<>();
+        for (int i=0; i<=Double.parseDouble(simu.get("conso"))/200;i++){
+            List<Double> economicCost = function.economicCost(200*i);
+            l1.add(economicCost.get(0));
+            l2.add(economicCost.get(1));
+            l3.add(economicCost.get(2));
+        }
+
+        graphData.put("abs",abs);
+        graphData.put("solaire",l1);
+        graphData.put("eolienne",l2);
+        graphData.put("hydraulique",l3);
+
+        return graphData;
+    }
+
+    //
+    public HashMap<String,List<Double>> getGraphDataEnvironmentalCost(){
+        HashMap<String,List<Double>> graphData = new HashMap<>();
+        float conso = 6000;
+        FunctionForAlgoMix function = new FunctionForAlgoMix();
+
+        List<Double> abs  = new ArrayList<>();
+        for (int i=0; i <= conso/200; i++){
+            abs.add((double) (200 * i));
+        }
+        List<Double> l1  = new ArrayList<>();
+        List<Double> l2  = new ArrayList<>();
+        List<Double> l3  = new ArrayList<>();
+        for (int i=0; i <= conso/200; i++){
+            List<Double> environmentCost = function.environmentalCost(200*i);
+            l1.add(environmentCost.get(0));
+            l2.add(environmentCost.get(1));
+            l3.add(environmentCost.get(2));
+        }
+
+        graphData.put("abs",abs);
+        graphData.put("solaire",l1);
+        graphData.put("eolienne",l2);
+        graphData.put("hydraulique",l3);
+
+        return graphData;
+    }
 }
