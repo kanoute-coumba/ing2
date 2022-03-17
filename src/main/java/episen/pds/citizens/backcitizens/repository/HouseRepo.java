@@ -1,14 +1,17 @@
 package episen.pds.citizens.backcitizens.repository;
 
-import episen.pds.citizens.backcitizens.model.equipments.House;
+import episen.pds.citizens.backcitizens.model.architectureModel.Building;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Map;
 
-public interface HouseRepo extends JpaRepository<House, Integer> {
-    @Query(value = "select id_house,address,id_owner from house inner join \"user\" u on house.id_owner = u.id_citizen where email=?1", nativeQuery = true)
-    List<House> findHouseByEmail(String email);
+public interface HouseRepo extends JpaRepository<Building, Integer> {
+    @Query(value = "select id_building,address, name_building, type_building, id_owner, district from building inner join \"users\" u on building.id_owner = u.user_id where username=?1", nativeQuery = true)
+    List<Building> findHouseByEmail(String email);
+
 
 
 
