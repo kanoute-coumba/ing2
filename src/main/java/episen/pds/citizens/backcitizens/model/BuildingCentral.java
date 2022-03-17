@@ -26,5 +26,8 @@ public class BuildingCentral {
 
     @Column(name = "capacity")
     private Double capacity;
+
+    @Column(name = "production")
+    private Double production;
 }
 

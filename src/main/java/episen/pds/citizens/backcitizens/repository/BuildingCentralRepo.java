@@ -12,7 +12,8 @@ public interface BuildingCentralRepo extends CrudRepository<BuildingCentral, Int
     @Query(value = """
             SELECT bu.id_building, bu.address, bu.name_building, bu.type_building,
                   SUM(ce.max_capacity) as max_capacity,
-                  SUM(pr.capacity) as capacity
+                  SUM(pr.capacity) as capacity,
+                  SUM(pr.value) as production
            FROM building bu, production pr, central ce
            WHERE bu.type_building IN ( 'solaire', 'eolienne', 'hydraulique', 'thermique')
            AND pr.date_time = (SELECT MAX(date_time)
