@@ -27,7 +27,6 @@ public class SmartGridController {
 
     @GetMapping("/smartgrid")
     public Double smartgrid() {
-        centralService.updateResetStateOfCentral();
         double balance = randomRange(0, 2000);
         HashMap<String, List<String>> mix = mixEnService.getResultAlgoMix((float) balance);
         Optional<String> key = mix.keySet().stream().findFirst();
@@ -96,6 +95,7 @@ public class SmartGridController {
         System.out.println("after wind = " + wind);
         System.out.println("after hydraulic = " + hydraulic);
         System.out.println("after Total = " + solar + wind + hydraulic);
+        centralService.updateResetStateOfCentral();
         centralService.updateStateOfCentral(id);
     }
 }
