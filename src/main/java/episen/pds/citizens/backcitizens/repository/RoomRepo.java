@@ -1,6 +1,6 @@
 package episen.pds.citizens.backcitizens.repository;
 
-import episen.pds.citizens.backcitizens.model.equipments.Room;
+import episen.pds.citizens.backcitizens.model.Room;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
