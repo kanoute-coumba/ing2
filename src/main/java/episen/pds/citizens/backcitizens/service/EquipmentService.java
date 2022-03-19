@@ -1,8 +1,8 @@
 package episen.pds.citizens.backcitizens.service;
 
+import episen.pds.citizens.backcitizens.model.Room;
 import episen.pds.citizens.backcitizens.model.architectureModel.Building;
 import episen.pds.citizens.backcitizens.model.architectureModel.Floor;
-import episen.pds.citizens.backcitizens.model.equipments.*;
 import episen.pds.citizens.backcitizens.repository.EquipmentRepo;
 import episen.pds.citizens.backcitizens.repository.FloorHouseRepo;
 import episen.pds.citizens.backcitizens.repository.HouseRepo;
