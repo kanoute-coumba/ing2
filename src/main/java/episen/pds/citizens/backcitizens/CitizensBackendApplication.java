@@ -1,26 +1,22 @@
 package episen.pds.citizens.backcitizens;
 
-
+import episen.pds.citizens.backcitizens.controller.EquipmentController;
 import episen.pds.citizens.backcitizens.controller.OverrunController;
-import episen.pds.citizens.backcitizens.model.Room;
-import episen.pds.citizens.backcitizens.repository.ConditionsRepo;
-import episen.pds.citizens.backcitizens.repository.MeasureRepo;
-import episen.pds.citizens.backcitizens.repository.RoomRepo;
-import episen.pds.citizens.backcitizens.service.ConfigAutoDWP;
-import episen.pds.citizens.backcitizens.service.UseMonitorService;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import episen.pds.citizens.backcitizens.controller.TestController;
 import episen.pds.citizens.backcitizens.controller.MenuController;
+import episen.pds.citizens.backcitizens.controller.TestController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
-import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 @Component
@@ -36,20 +32,6 @@ public class CitizensBackendApplication implements CommandLineRunner {
 	@Autowired
 	OverrunController overrunController;
 
-	@Autowired
-	RoomRepo roomRepo;
-
-	@Autowired
-	MeasureRepo measureRepo;
-
-	@Autowired
-	ConditionsRepo conditionsRepo;
-
-	@Autowired
-	UseMonitorService useMonitorService;
-
-	@Autowired
-	ConfigAutoDWP configAutoDWP;
 
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
@@ -64,13 +46,9 @@ public class CitizensBackendApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		for (int i = 0; i < 10; i++) {
-			Thread configAuto = new Thread(configAutoDWP);
-			configAuto.start();
-			logger.info("starting config auto thread");
-			Thread.sleep(1000);
+		logger.config("debut de la commande");
+
 		}
-	}
 
 
 

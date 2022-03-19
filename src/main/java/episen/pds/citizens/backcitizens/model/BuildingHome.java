@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class BuildingPatch {
+public class BuildingHome {
     @Id
     @Column(name = "id_building")
     private int id;

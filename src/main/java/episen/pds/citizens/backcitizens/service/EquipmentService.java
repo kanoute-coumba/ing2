@@ -1,9 +1,8 @@
 package episen.pds.citizens.backcitizens.service;
 
-import episen.pds.citizens.backcitizens.model.equipments.Equipment;
-import episen.pds.citizens.backcitizens.model.equipments.FloorHouse;
-import episen.pds.citizens.backcitizens.model.equipments.House;
-import episen.pds.citizens.backcitizens.model.equipments.RoomHouse;
+import episen.pds.citizens.backcitizens.model.architectureModel.Building;
+import episen.pds.citizens.backcitizens.model.architectureModel.Floor;
+import episen.pds.citizens.backcitizens.model.equipments.*;
 import episen.pds.citizens.backcitizens.repository.EquipmentRepo;
 import episen.pds.citizens.backcitizens.repository.FloorHouseRepo;
 import episen.pds.citizens.backcitizens.repository.HouseRepo;
@@ -13,6 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
+
+import static java.lang.Thread.sleep;
 
 @Service
 public class EquipmentService {
@@ -27,7 +29,10 @@ public class EquipmentService {
     RoomHouseRepo roomHouseRepo;
 
 
-    public Iterable<Equipment> getEquipmentBYRoom(Integer idr) {
+
+    public Iterable<Map<String, String>> getEquipmentBYRoom(Integer idr) {
+
+
         return equipmentRepo.findEquipmentByRoom(idr);
     }
 
@@ -52,13 +57,78 @@ public class EquipmentService {
     public Integer getIdRoomByEquipment(Integer id_equipment) {
         return equipmentRepo.findIdRoomByEquipment(id_equipment);
     }
-    public List<House> getHouseByEmail(String email) {
+
+    public List <Building> getHouseByEmail(String email) {
+        System.out.println(houseRepo.findHouseByEmail(email));
         return houseRepo.findHouseByEmail(email);
     }
-    public List<FloorHouse> getFloors(String house) {
+
+    public List<Floor> getFloors(String house) {
         return floorRepo.findFloorByHouse(house);
     }
-    public List<RoomHouse> getRooms(String floor) {
+
+    public List<Room> getRooms(String floor) {
         return roomHouseRepo.findRoomByFloor(Integer.parseInt(floor));
     }
+
+    public List<Integer> getEquipmentAutomaticPresenceFalse (String statut, String sensor, Integer valuesensor){
+        System.out.println(equipmentRepo.getEquipmentAutomaticFalse(statut, sensor , valuesensor) + "service");
+        return equipmentRepo.getEquipmentAutomaticFalse(statut, sensor, valuesensor);
+    }
+
+    public List<Integer> getEquipmentAutomaticPresenceTrue (String statut, String sensor, Integer valuesensor){
+        System.out.println(equipmentRepo.getEquipmentAutomaticTrue(statut, sensor, valuesensor) + "servicetrue");
+        return equipmentRepo.getEquipmentAutomaticTrue(statut, sensor, valuesensor);
+    }
+
+    public Integer getValueSensor(String nameroom, String typesensor, String date1, String date2) {
+        System.out.println(equipmentRepo.valueSensor(nameroom,typesensor,date1,date2) + " la valeur du capteur de présence actuelle");
+        return equipmentRepo.valueSensor(nameroom,typesensor,date1,date2);
+    }
+
+
+
+
+
+    //pas encore faire -- A faire!!
+
+    public List<Integer> getEquipmentScreenAutomaticT (String statut) {
+        return equipmentRepo.getEquipmentScreenAutomaticT(statut);
+    }
+
+    public List<Integer> getEquipmentScreenAutomaticF (String statut) {
+        return equipmentRepo.getEquipmentScreenAutomaticF(statut);
+    }
+
+    public List<Integer> getEquipmentRadiatorAutomaticWinter(String statut) {
+        return equipmentRepo.getEquipmentRadiatorAutomaticWinter(statut);
+    }
+
+    public List<Integer> getEquipmentRadiatorAutomaticSummer(String statut) {
+        return  equipmentRepo.getEquipmentRadiatorAutomaticSummer(statut);
+    }
+
+    public List<Integer> getEquipmentAirconditionerAutomaticWinter(String statut) {
+        return equipmentRepo.getEquipmentAircontionerAutomaticWinter(statut);
+    }
+
+    public List<Integer> getEquipmentAirconditionerAutomaticSummer(String statut) {
+        return  equipmentRepo.getEquipmentAirconditionerAutomaticSummer(statut);
+    }
+
+    @Transactional
+    public void updateStatutAutomaticScreen (Integer id_equipment_data, String statut, Integer value) {
+        equipmentRepo.updateStatutAutomaticScreen(id_equipment_data, statut, value);
+    }
+
+    @Transactional
+    public void updateStatutAutomaticLight (Integer id_equipment_data, String statut, Integer value) {
+        equipmentRepo.updateStatutAutomaticLight(id_equipment_data, statut, value);
+    }
+
+    @Transactional
+    public void updateStatutAuto (String type_mode,  Integer id_equipment) {
+        equipmentRepo.updateStatutAuto(type_mode, id_equipment);
+    }
+
 }
