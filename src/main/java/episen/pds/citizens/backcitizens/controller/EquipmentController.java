@@ -85,6 +85,11 @@ public class EquipmentController {
 
     }
 
+    @GetMapping("/valuepresence")
+    public Integer getCurrentlyValueSensor(@RequestParam("idroom") Integer idroom, @RequestParam("currentdate") String currentdate) {
+        return equipmentService.getCurrentlyValueSensor(idroom, currentdate);
+    }
+
 
     @GetMapping("/updateAutoEquip")
     public String updateAutomatic(@RequestParam("meeting_time") String meeting_time, @RequestParam("nameroom") String nameroom, @RequestParam("typesensor") String typesensor, @RequestParam("date1") String date1, @RequestParam("date2") String date2) {
@@ -106,7 +111,6 @@ public class EquipmentController {
             // mise à jour des lampes ou la présence est false
             for (int i = 0; i < id_equipment_data_false.size(); i++) {
                 equipmentService.updateStatutAutomaticLight(id_equipment_data_false.get(i), "OFF", 0);
-
             }
 
 

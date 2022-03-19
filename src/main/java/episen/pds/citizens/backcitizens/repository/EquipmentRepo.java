@@ -47,14 +47,18 @@ public interface EquipmentRepo extends CrudRepository<Equipment, Integer> {
     @Query(value = "update equipment_data set value =:valueEquipment where id_equipment_data =:id_equipment", nativeQuery = true)
     void UpdateValueEquipment(@Param("valueEquipment") Integer valueEquipment, @Param("id_equipment") Integer id_equipment);
 
-    @Query(value = "select e.id_equipment from equipment e inner join equipment_data eq on e.id_equipment = eq.id_equipment_data where id_room in ( select s.id_room from room r inner join sensor s on r.id_room = s.id_room inner join measure m on  m.id_sensor = s.id_sensor where  s.type =:sensor and m.value =:valuesensor) and e.type = 'lampe' and type_mode = 'Automatique' and statut =:statut", nativeQuery = true)
+    @Query(value = "select e.id_equipment from equipment e inner join equipment_data eq on e.id_equipment = eq.id_equipment_data where id_room in (select distinct s.id_room from room r inner join sensor s on r.id_room = s.id_room inner join measure m on m.id_sensor = s.id_sensor where  s.type =:sensor and m.value =:valuesensor and r.name in ('Cuisine', 'Douche', 'Salon', 'Chambre')) and e.type = 'lampe' and type_mode = 'Automatique' and statut =:statut", nativeQuery = true)
     List<Integer> getEquipmentAutomaticFalse (@Param("statut") String statut, @Param("sensor") String sensor, @Param("valuesensor") Integer valuesensor);
 
-    @Query(value = "select e.id_equipment from equipment e inner join equipment_data eq on e.id_equipment = eq.id_equipment_data where id_room in ( select s.id_room from room r inner join sensor s on r.id_room = s.id_room inner join measure m on  m.id_sensor = s.id_sensor where  s.type =:sensor and m.value =:valuesensor) and e.type = 'lampe' and type_mode = 'Automatique' and statut =:statut", nativeQuery = true)
+    @Query(value = "select e.id_equipment from equipment e inner join equipment_data eq on e.id_equipment = eq.id_equipment_data where id_room in ( select distinct s.id_room from room r inner join sensor s on r.id_room = s.id_room inner join measure m on m.id_sensor = s.id_sensor where  s.type =:sensor and m.value =:valuesensor and r.name in ('Cuisine', 'Douche', 'Salon', 'Chambre')) and e.type = 'lampe' and type_mode = 'Automatique' and statut =:statut", nativeQuery = true)
     List<Integer> getEquipmentAutomaticTrue (@Param("statut") String statut, @Param("sensor") String sensor, @Param("valuesensor") Integer valuesensor);
 
+
+    @Query (value = "select distinct m.value from measure m inner join sensor s on m.id_sensor = s.id_sensor inner join room r on s.id_room = r.id_room where s.id_room =:idroom and cast(timestamp as text) like CONCAT(:currentdate, '%') and type = 'capteur de présence'", nativeQuery = true)
+    Integer currentlyvalueofsensorPresence (@Param("idroom") Integer idroom, @Param("currentdate") String currentdate);
+
 //    @Modifying
-//    @Query(value = "update measure m set value =:value where m.id_sensor in (select s.id_sensor from sensor s inner join measure m on s.id_sensor = m.id_sensor inner join room r on s.id_room = r.id_room inner join equipment e on e.id_room = r.id_room inner join equipment_data eq on e.id_equipment = eq.id_equipment_data where s.type =:sensor and e.type ='lampe' and type_mode = 'Automatique' and (m.value > 0) AND (m.value <= 50))", nativeQuery = true)
+//    @Query(value = "update measure m set value =:value where m.id_sensor in (select s.id_sensor from sensor s inner join measure m on s.id_sensor = m.id_sensor inner join room r on     cast(:date1 as timestamp)      s.id_room = r.id_room inner join equipment e on e.id_room = r.id_room inner join equipment_data eq on e.id_equipment = eq.id_equipment_data where s.type =:sensor and e.type ='lampe' and type_mode = 'Automatique' and (m.value > 0) AND (m.value <= 50))", nativeQuery = true)
 //    void updateHighValue(@Param("value") Integer value, @Param("sensor") String sensor);
 
 //    @Modifying
@@ -64,23 +68,23 @@ public interface EquipmentRepo extends CrudRepository<Equipment, Integer> {
     @Query(value = "select distinct m.value from room r inner join sensor s on r.id_room = s.id_room inner join measure m on m.id_sensor = s.id_sensor where r.name =:nameroom and type =:typesensor and m.timestamp between cast(:date1 as timestamp) and cast(:date2 as timestamp)", nativeQuery = true)
     Integer valueSensor(@Param("nameroom") String nameroom, @Param("typesensor") String typesensor, @Param("date1") String date1, @Param("date2") String date2);
 
-    @Query(value = "select e.id_equipment from equipment e inner join equipment_data eq on e.id_equipment = eq.id_equipment_data where id_room in ( select s.id_room from room r inner join sensor s on r.id_room = s.id_room inner join measure m on  m.id_sensor = s.id_sensor where  s.type = 'capteur de présence' and (m.value > 0) AND (m.value <= 50)) and e.type = 'télévision' and type_mode = 'Automatique' and statut =:statut", nativeQuery = true)
-    List<Integer> getEquipmentScreenAutomaticT (@Param("statut") String statut);
-
-    @Query(value = "select e.id_equipment from equipment e inner join equipment_data eq on e.id_equipment = eq.id_equipment_data where id_room in ( select s.id_room from room r inner join sensor s on r.id_room = s.id_room inner join measure m on  m.id_sensor = s.id_sensor where  s.type = 'capteur de présence' and (m.value > 50) AND (m.value <= 100)) and e.type = 'télévision' and type_mode = 'Automatique' and statut =:statut", nativeQuery = true)
-    List<Integer> getEquipmentScreenAutomaticF (@Param("statut") String statut);
-
-    @Query(value = "select e.id_equipment from equipment e inner join equipment_data eq on e.id_equipment = eq.id_equipment_data where id_room in (select s.id_room from room r inner join sensor s on r.id_room = s.id_room inner join measure m on  m.id_sensor = s.id_sensor where  s.type = 'capteur de temperature' and (m.value > -10) AND (m.value <= 15)) and e.type = 'radiateur' and type_mode = 'Automatique' and statut =:statut", nativeQuery = true)
-    List<Integer> getEquipmentRadiatorAutomaticWinter(@Param("statut") String statut);
-
-    @Query(value = "select e.id_equipment from equipment e inner join equipment_data eq on e.id_equipment = eq.id_equipment_data where id_room in (select s.id_room from room r inner join sensor s on r.id_room = s.id_room inner join measure m on  m.id_sensor = s.id_sensor where  s.type = 'capteur de temperature' and (m.value > 15) AND (m.value <= 40)) and e.type = 'radiateur' and type_mode = 'Automatique' and statut =:statut", nativeQuery = true)
-    List<Integer> getEquipmentRadiatorAutomaticSummer(@Param("statut") String statut);
-
-    @Query(value = "select e.id_equipment from equipment e inner join equipment_data eq on e.id_equipment = eq.id_equipment_data where id_room in (select s.id_room from room r inner join sensor s on r.id_room = s.id_room inner join measure m on  m.id_sensor = s.id_sensor where  s.type = 'capteur de temperature' and (m.value > -10) AND (m.value <= 15)) and e.type = 'climatisation' and type_mode = 'Automatique' and statut =:statut", nativeQuery = true)
-    List<Integer> getEquipmentAircontionerAutomaticWinter(@Param("statut") String statut);
-
-    @Query(value = "select e.id_equipment from equipment e inner join equipment_data eq on e.id_equipment = eq.id_equipment_data where id_room in (select s.id_room from room r inner join sensor s on r.id_room = s.id_room inner join measure m on  m.id_sensor = s.id_sensor where  s.type = 'capteur de temperature' and (m.value > 15) AND (m.value <= 40)) and e.type = 'climatisation' and type_mode = 'Automatique' and statut =:statut", nativeQuery = true)
-    List<Integer> getEquipmentAirconditionerAutomaticSummer(@Param("statut") String statut);
+//    @Query(value = "select e.id_equipment from equipment e inner join equipment_data eq on e.id_equipment = eq.id_equipment_data where id_room in ( select s.id_room from room r inner join sensor s on r.id_room = s.id_room inner join measure m on  m.id_sensor = s.id_sensor where  s.type = 'capteur de présence' and (m.value > 0) AND (m.value <= 50)) and e.type = 'télévision' and type_mode = 'Automatique' and statut =:statut", nativeQuery = true)
+//    List<Integer> getEquipmentScreenAutomaticT (@Param("statut") String statut);
+//
+//    @Query(value = "select e.id_equipment from equipment e inner join equipment_data eq on e.id_equipment = eq.id_equipment_data where id_room in ( select s.id_room from room r inner join sensor s on r.id_room = s.id_room inner join measure m on  m.id_sensor = s.id_sensor where  s.type = 'capteur de présence' and (m.value > 50) AND (m.value <= 100)) and e.type = 'télévision' and type_mode = 'Automatique' and statut =:statut", nativeQuery = true)
+//    List<Integer> getEquipmentScreenAutomaticF (@Param("statut") String statut);
+//
+//    @Query(value = "select e.id_equipment from equipment e inner join equipment_data eq on e.id_equipment = eq.id_equipment_data where id_room in (select s.id_room from room r inner join sensor s on r.id_room = s.id_room inner join measure m on  m.id_sensor = s.id_sensor where  s.type = 'capteur de temperature' and (m.value > -10) AND (m.value <= 15)) and e.type = 'radiateur' and type_mode = 'Automatique' and statut =:statut", nativeQuery = true)
+//    List<Integer> getEquipmentRadiatorAutomaticWinter(@Param("statut") String statut);
+//
+//    @Query(value = "select e.id_equipment from equipment e inner join equipment_data eq on e.id_equipment = eq.id_equipment_data where id_room in (select s.id_room from room r inner join sensor s on r.id_room = s.id_room inner join measure m on  m.id_sensor = s.id_sensor where  s.type = 'capteur de temperature' and (m.value > 15) AND (m.value <= 40)) and e.type = 'radiateur' and type_mode = 'Automatique' and statut =:statut", nativeQuery = true)
+//    List<Integer> getEquipmentRadiatorAutomaticSummer(@Param("statut") String statut);
+//
+//    @Query(value = "select e.id_equipment from equipment e inner join equipment_data eq on e.id_equipment = eq.id_equipment_data where id_room in (select s.id_room from room r inner join sensor s on r.id_room = s.id_room inner join measure m on  m.id_sensor = s.id_sensor where  s.type = 'capteur de temperature' and (m.value > -10) AND (m.value <= 15)) and e.type = 'climatisation' and type_mode = 'Automatique' and statut =:statut", nativeQuery = true)
+//    List<Integer> getEquipmentAircontionerAutomaticWinter(@Param("statut") String statut);
+//
+//    @Query(value = "select e.id_equipment from equipment e inner join equipment_data eq on e.id_equipment = eq.id_equipment_data where id_room in (select s.id_room from room r inner join sensor s on r.id_room = s.id_room inner join measure m on  m.id_sensor = s.id_sensor where  s.type = 'capteur de temperature' and (m.value > 15) AND (m.value <= 40)) and e.type = 'climatisation' and type_mode = 'Automatique' and statut =:statut", nativeQuery = true)
+//    List<Integer> getEquipmentAirconditionerAutomaticSummer(@Param("statut") String statut);
 
     @Modifying
     @Query(value = "update equipment_data set statut =:statut, value=:value where id_equipment_data =:id_equipment_data", nativeQuery = true)

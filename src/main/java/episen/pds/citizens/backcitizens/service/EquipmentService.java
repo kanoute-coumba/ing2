@@ -86,35 +86,39 @@ public class EquipmentService {
         return equipmentRepo.valueSensor(nameroom,typesensor,date1,date2);
     }
 
+    public Integer getCurrentlyValueSensor(Integer idroom, String currentdate) {
+        return equipmentRepo.currentlyvalueofsensorPresence(idroom, currentdate);
+    }
+
 
 
 
 
     //pas encore faire -- A faire!!
 
-    public List<Integer> getEquipmentScreenAutomaticT (String statut) {
-        return equipmentRepo.getEquipmentScreenAutomaticT(statut);
-    }
-
-    public List<Integer> getEquipmentScreenAutomaticF (String statut) {
-        return equipmentRepo.getEquipmentScreenAutomaticF(statut);
-    }
-
-    public List<Integer> getEquipmentRadiatorAutomaticWinter(String statut) {
-        return equipmentRepo.getEquipmentRadiatorAutomaticWinter(statut);
-    }
-
-    public List<Integer> getEquipmentRadiatorAutomaticSummer(String statut) {
-        return  equipmentRepo.getEquipmentRadiatorAutomaticSummer(statut);
-    }
-
-    public List<Integer> getEquipmentAirconditionerAutomaticWinter(String statut) {
-        return equipmentRepo.getEquipmentAircontionerAutomaticWinter(statut);
-    }
-
-    public List<Integer> getEquipmentAirconditionerAutomaticSummer(String statut) {
-        return  equipmentRepo.getEquipmentAirconditionerAutomaticSummer(statut);
-    }
+//    public List<Integer> getEquipmentScreenAutomaticT (String statut) {
+//        return equipmentRepo.getEquipmentScreenAutomaticT(statut);
+//    }
+//
+//    public List<Integer> getEquipmentScreenAutomaticF (String statut) {
+//        return equipmentRepo.getEquipmentScreenAutomaticF(statut);
+//    }
+//
+//    public List<Integer> getEquipmentRadiatorAutomaticWinter(String statut) {
+//        return equipmentRepo.getEquipmentRadiatorAutomaticWinter(statut);
+//    }
+//
+//    public List<Integer> getEquipmentRadiatorAutomaticSummer(String statut) {
+//        return  equipmentRepo.getEquipmentRadiatorAutomaticSummer(statut);
+//    }
+//
+//    public List<Integer> getEquipmentAirconditionerAutomaticWinter(String statut) {
+//        return equipmentRepo.getEquipmentAircontionerAutomaticWinter(statut);
+//    }
+//
+//    public List<Integer> getEquipmentAirconditionerAutomaticSummer(String statut) {
+//        return  equipmentRepo.getEquipmentAirconditionerAutomaticSummer(statut);
+//    }
 
     @Transactional
     public void updateStatutAutomaticScreen (Integer id_equipment_data, String statut, Integer value) {
