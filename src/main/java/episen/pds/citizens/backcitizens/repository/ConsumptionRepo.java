@@ -27,23 +27,23 @@ public interface ConsumptionRepo extends CrudRepository<Consumption, Integer> {
     @Query(value = "select getConsumptionAllBuildings();", nativeQuery = true)
     Iterable<ConsumptionByBuilding> findConsumptionAllBuilding();
 
-    @Query(value = "Select consumption.id_consumption, DWPEquipment.id_equipment,consumption.value" +
-            "  ,date_time from DWPEquipment inner join consumption on" +
-            " DWPEquipment.id_equipment=consumption.id_equipment" +
-            " Where DWPEquipment.id_equipment=:id_equip order by date_time",nativeQuery = true)
+    @Query(value = "Select consumption.id_consumption, equipment.id_equipment,consumption.value" +
+            "  ,date_time from equipment inner join consumption on" +
+            " equipment.id_equipment=consumption.id_equipment" +
+            " Where equipment.id_equipment=:id_equip order by date_time",nativeQuery = true)
     Iterable<Consumption> findHistoryConsumptionByIdEquipment(@Param("id_equip") int id_equip);
-    @Query(value = "Select consumption.id_consumption, DWPEquipment.id_equipment,consumption.value" +
-            "  ,date_time from DWPEquipment inner join consumption on" +
-            " DWPEquipment.id_equipment=consumption.id_equipment" +
-            " Where DWPEquipment.id_equipment=:id_equip and " +
+    @Query(value = "Select consumption.id_consumption, equipment.id_equipment,consumption.value" +
+            "  ,date_time from equipment inner join consumption on" +
+            " equipment.id_equipment=consumption.id_equipment" +
+            " Where equipment.id_equipment=:id_equip and " +
             "date_time<:date_end and date_time>:date_begin order by date_time",nativeQuery = true)
     Iterable<Consumption> findHistoryConsumptionByIdEquipmentBetweenTwoDate(@Param("id_equip") int id_equip,
                                                                                 @Param("date_begin") long date_begin,
                                                                                 @Param("date_end") long date_end);
-    @Query(value = "Select consumption.id_consumption, DWPEquipment.id_equipment,consumption.value" +
-            "  ,date_time from DWPEquipment inner join consumption on" +
-            " DWPEquipment.id_equipment=consumption.id_equipment" +
-            " Where DWPEquipment.id_room=:id_room and " +
+    @Query(value = "Select consumption.id_consumption, equipment.id_equipment,consumption.value" +
+            "  ,date_time from equipment inner join consumption on" +
+            " equipment.id_equipment=consumption.id_equipment" +
+            " Where equipment.id_room=:id_room and " +
             "date_time<:date_end and date_time>:date_begin order by date_time",nativeQuery = true)
     ArrayList<Consumption> findHistoryConsumptionByIdRoomBetweenTwoDate(@Param("id_room") int id_room,
                                                                         @Param("date_begin") long date_begin,
@@ -51,19 +51,19 @@ public interface ConsumptionRepo extends CrudRepository<Consumption, Integer> {
 
     @Query(value = """
             SELECT c2.id_equipment,c2.value\s
-             ,c2.date_time, c2.id_consumption from DWPEquipment inner join
+             ,c2.date_time, c2.id_consumption from equipment inner join
             (SELECT * FROM consumption cs
             WHERE date_time = (SELECT MAX(date_time) FROM consumption cs1
             Where date_time <= :dBegin 
             GROUP BY cs1.id_equipment  
             HAVING cs.id_equipment = cs1.id_equipment))
-            as c2 on DWPEquipment.id_equipment=c2.id_equipment
+            as c2 on equipment.id_equipment=c2.id_equipment
             where id_room=:id_r order by c2.date_time""", nativeQuery = true)
-    ArrayList<Consumption> findEquipmentWithConsumptionByRoomBefore(@Param("id_r") int id_r, @Param("dBegin") long dBegin);
-    @Query(value = "Select consumption.id_consumption, DWPEquipment.id_equipment,consumption.value" +
-            "  ,date_time from DWPEquipment inner join consumption on" +
-            " DWPEquipment.id_equipment=consumption.id_equipment " +
-            "inner join room on room.id_room=DWPEquipment.id_room " +
+    ArrayList<Consumption> findConsumptionByRoomBefore(@Param("id_r") int id_r, @Param("dBegin") long dBegin);
+    @Query(value = "Select consumption.id_consumption, equipment.id_equipment,consumption.value" +
+            "  ,date_time from equipment inner join consumption on" +
+            " equipment.id_equipment=consumption.id_equipment " +
+            "inner join room on room.id_room=equipment.id_room " +
             " Where room.id_floor=:idFloor and " +
             "date_time<:date_end and date_time>:date_begin order by date_time",nativeQuery = true)
     ArrayList<Consumption> findHistoryConsumptionByIdFloorBetweenTwoDate(@Param("idFloor") int id_floor,
@@ -71,21 +71,21 @@ public interface ConsumptionRepo extends CrudRepository<Consumption, Integer> {
                                                                         @Param("date_end") long date_end);
     @Query(value = """
             SELECT c2.id_equipment,c2.value\s
-             ,c2.date_time, c2.id_consumption from DWPEquipment inner join
+             ,c2.date_time, c2.id_consumption from equipment inner join
             (SELECT * FROM consumption cs
             WHERE date_time = (SELECT MAX(date_time) FROM consumption cs1
             Where date_time <= :dBegin 
             GROUP BY cs1.id_equipment  
             HAVING cs.id_equipment = cs1.id_equipment))
-            as c2 on DWPEquipment.id_equipment=c2.id_equipment
-            inner join room on room.id_room=DWPEquipment.id_room
+            as c2 on equipment.id_equipment=c2.id_equipment
+            inner join room on room.id_room=equipment.id_room
             where id_floor=:id_f order by c2.date_time""", nativeQuery = true)
-    ArrayList<Consumption> findEquipmentWithConsumptionByFloorBefore(@Param("id_f") int id_f, @Param("dBegin") long dBegin);
+    ArrayList<Consumption> findConsumptionByFloorBefore(@Param("id_f") int id_f, @Param("dBegin") long dBegin);
 
-    @Query(value = "Select consumption.id_consumption, DWPEquipment.id_equipment,consumption.value" +
-            "  ,date_time from DWPEquipment inner join consumption on" +
-            " DWPEquipment.id_equipment=consumption.id_equipment " +
-            "inner join room on room.id_room=DWPEquipment.id_room " +
+    @Query(value = "Select consumption.id_consumption, equipment.id_equipment,consumption.value" +
+            "  ,date_time from equipment inner join consumption on" +
+            " equipment.id_equipment=consumption.id_equipment " +
+            "inner join room on room.id_room=equipment.id_room " +
             "inner join floor on floor.id_floor=room.id_floor " +
             " Where floor.id_building=:idBuilding and " +
             "date_time<:date_end and date_time>:date_begin order by date_time",nativeQuery = true)
@@ -95,15 +95,15 @@ public interface ConsumptionRepo extends CrudRepository<Consumption, Integer> {
 
     @Query(value = """
             SELECT c2.id_equipment,c2.value\s
-             ,c2.date_time, c2.id_consumption from DWPEquipment inner join
+             ,c2.date_time, c2.id_consumption from equipment inner join
             (SELECT * FROM consumption cs
             WHERE date_time = (SELECT MAX(date_time) FROM consumption cs1
             Where date_time <= :dBegin 
             GROUP BY cs1.id_equipment  
             HAVING cs.id_equipment = cs1.id_equipment))
-            as c2 on DWPEquipment.id_equipment=c2.id_equipment
-            inner join room on room.id_room=DWPEquipment.id_room
+            as c2 on equipment.id_equipment=c2.id_equipment
+            inner join room on room.id_room=equipment.id_room
             inner join floor on floor.id_floor=room.id_floor
             where id_building=:id_b order by c2.date_time""", nativeQuery = true)
-    ArrayList<Consumption> findEquipmentWithConsumptionByBuildingBefore(@Param("id_b") int id_b, @Param("dBegin") long dBegin);
+    ArrayList<Consumption> findConsumptionByBuildingBefore(@Param("id_b") int id_b, @Param("dBegin") long dBegin);
 }

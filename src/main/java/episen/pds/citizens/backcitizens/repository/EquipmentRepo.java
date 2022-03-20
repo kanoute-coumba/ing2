@@ -3,8 +3,7 @@ package episen.pds.citizens.backcitizens.repository;
 
 
 
-import episen.pds.citizens.backcitizens.model.equipments.Equipment;
-import episen.pds.citizens.backcitizens.model.equipments.Equipment;
+import episen.pds.citizens.backcitizens.model.Equipment;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,8 +11,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
-
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 

@@ -3,7 +3,7 @@ package episen.pds.citizens.backcitizens.controller;
 
 import episen.pds.citizens.backcitizens.model.*;
 
-import episen.pds.citizens.backcitizens.model.equipments.Equipment;
+import episen.pds.citizens.backcitizens.model.Equipment;
 import episen.pds.citizens.backcitizens.model.Room;
 import episen.pds.citizens.backcitizens.service.UseMonitorService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,7 +2,7 @@ package episen.pds.citizens.backcitizens.service;
 
 
 import episen.pds.citizens.backcitizens.model.*;
-import episen.pds.citizens.backcitizens.model.equipments.Equipment;
+import episen.pds.citizens.backcitizens.model.Equipment;
 import episen.pds.citizens.backcitizens.model.Room;
 import episen.pds.citizens.backcitizens.repository.*;
 
