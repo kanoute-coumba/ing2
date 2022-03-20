@@ -59,7 +59,7 @@ public interface ConsumptionRepo extends CrudRepository<Consumption, Integer> {
             HAVING cs.id_equipment = cs1.id_equipment))
             as c2 on equipment.id_equipment=c2.id_equipment
             where id_room=:id_r order by c2.date_time""", nativeQuery = true)
-    ArrayList<Consumption> findEquipmentWithConsumptionByRoomBefore(@Param("id_r") int id_r, @Param("dBegin") long dBegin);
+    ArrayList<Consumption> findConsumptionByRoomBefore(@Param("id_r") int id_r, @Param("dBegin") long dBegin);
     @Query(value = "Select consumption.id_consumption, equipment.id_equipment,consumption.value" +
             "  ,date_time from equipment inner join consumption on" +
             " equipment.id_equipment=consumption.id_equipment " +
@@ -80,7 +80,7 @@ public interface ConsumptionRepo extends CrudRepository<Consumption, Integer> {
             as c2 on equipment.id_equipment=c2.id_equipment
             inner join room on room.id_room=equipment.id_room
             where id_floor=:id_f order by c2.date_time""", nativeQuery = true)
-    ArrayList<Consumption> findEquipmentWithConsumptionByFloorBefore(@Param("id_f") int id_f, @Param("dBegin") long dBegin);
+    ArrayList<Consumption> findConsumptionByFloorBefore(@Param("id_f") int id_f, @Param("dBegin") long dBegin);
 
     @Query(value = "Select consumption.id_consumption, equipment.id_equipment,consumption.value" +
             "  ,date_time from equipment inner join consumption on" +
@@ -105,5 +105,5 @@ public interface ConsumptionRepo extends CrudRepository<Consumption, Integer> {
             inner join room on room.id_room=equipment.id_room
             inner join floor on floor.id_floor=room.id_floor
             where id_building=:id_b order by c2.date_time""", nativeQuery = true)
-    ArrayList<Consumption> findEquipmentWithConsumptionByBuildingBefore(@Param("id_b") int id_b, @Param("dBegin") long dBegin);
+    ArrayList<Consumption> findConsumptionByBuildingBefore(@Param("id_b") int id_b, @Param("dBegin") long dBegin);
 }

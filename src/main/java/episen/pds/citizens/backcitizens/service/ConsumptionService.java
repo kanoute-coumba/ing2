@@ -34,7 +34,7 @@ public class ConsumptionService {
                                                                               long dBegin,
                                                                               long dEnd){
         ArrayList<Consumption> consumptionArrayList = consumptionRepo.findHistoryConsumptionByIdRoomBetweenTwoDate(Integer.parseInt(id_r), dBegin,dEnd);
-        ArrayList<Consumption> c = consumptionRepo.findEquipmentWithConsumptionByRoomBefore(Integer.parseInt(id_r),dBegin);
+        ArrayList<Consumption> c = consumptionRepo.findConsumptionByRoomBefore(Integer.parseInt(id_r),dBegin);
         HashMap<Integer,Consumption> hashMap = new HashMap<>();
         ArrayList<Consumption> sortie = new ArrayList<>();
         double somme = 0.0;
@@ -66,7 +66,7 @@ public class ConsumptionService {
                                                                               long dBegin,
                                                                               long dEnd){
         ArrayList<Consumption> consumptionArrayList = consumptionRepo.findHistoryConsumptionByIdFloorBetweenTwoDate(Integer.parseInt(id_f), dBegin,dEnd);
-        ArrayList<Consumption> c = consumptionRepo.findEquipmentWithConsumptionByFloorBefore(Integer.parseInt(id_f),dBegin);
+        ArrayList<Consumption> c = consumptionRepo.findConsumptionByFloorBefore(Integer.parseInt(id_f),dBegin);
         HashMap<Integer,Consumption> hashMap = new HashMap<>();
         ArrayList<Consumption> sortie = new ArrayList<>();
         double somme = 0.0;
@@ -103,7 +103,7 @@ public class ConsumptionService {
                                                                                long dBegin,
                                                                                long dEnd){
         ArrayList<Consumption> consumptionArrayList = consumptionRepo.findHistoryConsumptionByIdBuildingBetweenTwoDate(Integer.parseInt(id_b), dBegin,dEnd);
-        ArrayList<Consumption> c = consumptionRepo.findEquipmentWithConsumptionByBuildingBefore(Integer.parseInt(id_b),dBegin);
+        ArrayList<Consumption> c = consumptionRepo.findConsumptionByBuildingBefore(Integer.parseInt(id_b),dBegin);
         HashMap<Integer,Consumption> hashMap = new HashMap<>();
         ArrayList<Consumption> sortie = new ArrayList<>();
         double somme = 0.0;
