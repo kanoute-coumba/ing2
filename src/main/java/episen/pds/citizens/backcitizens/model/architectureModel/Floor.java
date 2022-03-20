@@ -1,14 +1,14 @@
 package episen.pds.citizens.backcitizens.model.architectureModel;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
+@Table(name = "floor")
 public class Floor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +16,7 @@ public class Floor {
     private String name_floor;
     private Integer id_building;
     private Integer id_design;
+
 
     public Floor() {
     }

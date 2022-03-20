@@ -10,7 +10,6 @@ import java.time.LocalTime;
 @Table(name = "conditions")
 public class Conditions {
 
-    @Id
     @Column(name = "luminosity")
     private int luminosity;
 
@@ -22,6 +21,10 @@ public class Conditions {
 
     @Column(name = "end_time")
     private LocalTime end_time;
+
+    @Id
+    @Column(name = "id_room")
+    private int id_room;
 
     public int getLuminosity() {
         return luminosity;
@@ -53,6 +56,14 @@ public class Conditions {
 
     public void setEnd_time(LocalTime end_time) {
         this.end_time = end_time;
+    }
+
+    public int getId_room() {
+        return id_room;
+    }
+
+    public void setId_room(int id_room) {
+        this.id_room = id_room;
     }
 
     @Override

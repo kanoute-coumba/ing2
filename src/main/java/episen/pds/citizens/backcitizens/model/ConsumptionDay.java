@@ -11,13 +11,13 @@ public class ConsumptionDay {
     private Date date;
 
     @Column(name = "consoday")
-    private int consoday;
+    private Double consoday;
 
     public ConsumptionDay() {
 
     }
 
-    public ConsumptionDay(Date date, int consoday) {
+    public ConsumptionDay(Date date, Double consoday) {
         this.date = date;
         this.consoday = consoday;
     }
@@ -30,11 +30,11 @@ public class ConsumptionDay {
         this.date = date;
     }
 
-    public int getConsoday() {
+    public Double getConsoday() {
         return consoday;
     }
 
-    public void setConsoday(int consoday) {
+    public void setConsoday(Double consoday) {
         this.consoday = consoday;
     }
 }
