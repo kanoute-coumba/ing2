@@ -92,7 +92,7 @@ public class EquipmentController {
 
 
     @GetMapping("/updateAutoEquip")
-    public String updateAutomatic(@RequestParam("meeting_time") String meeting_time, @RequestParam("nameroom") String nameroom, @RequestParam("typesensor") String typesensor, @RequestParam("date1") String date1, @RequestParam("date2") String date2) {
+    public void updateAutomatic(@RequestParam("meeting_time") String meeting_time, @RequestParam("nameroom") String nameroom, @RequestParam("typesensor") String typesensor ) {
 
         String d = meeting_time.replace('T', ' ') + ":00";
         hours = Timestamp.valueOf(d);
@@ -101,7 +101,7 @@ public class EquipmentController {
 
         if ((hours.after(Timestamp.valueOf("2022-01-01 00:00:00")) && hours.before(Timestamp.valueOf("2022-01-01 07:00:00")))) {
 
-            Integer valueSensor = equipmentService.getValueSensor(nameroom,typesensor, date1, date2);
+            //Integer valueSensor = equipmentService.getValueSensor(nameroom,typesensor, date1, date2);
             // recupère la liste des équipements dont le statut est ON (si valeur = 0 ) = presence = false
             List<Integer> id_equipment_data_false = equipmentService.getEquipmentAutomaticPresenceFalse("ON", "capteur de présence", 0);
 
@@ -205,7 +205,7 @@ public class EquipmentController {
 //            }
 //
 //        }
-        return  equipmentService.getValueSensor(nameroom, typesensor, date1, date2) + "";
+
     }
 
 
