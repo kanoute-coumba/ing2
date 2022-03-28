@@ -17,6 +17,17 @@ public class Users {
     @Column(name = "right_layer")
     private int right_layer;
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @Column(name = "type")
+    private String type;
+
     public int getUser_id() {
         return user_id;
     }
