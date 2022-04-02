@@ -74,7 +74,7 @@ public class EquipmentController {
     @GetMapping("/room")
     public List<Room> getRooms(@RequestParam("floor") String floor) {
         System.out.println(floor);
-        return equipmentService.getRooms(floor);
+        return equipmentService.getRoomsByIdFloor(floor);
     }
 
 
