@@ -1,14 +1,8 @@
 package episen.pds.citizens.backcitizens.controller;
 
 
-import episen.pds.citizens.backcitizens.model.architectureModel.Building;
-import episen.pds.citizens.backcitizens.model.architectureModel.Design;
-import episen.pds.citizens.backcitizens.model.architectureModel.Floor;
-import episen.pds.citizens.backcitizens.model.architectureModel.Space;
-import episen.pds.citizens.backcitizens.service.architectureService.BuildingService;
-import episen.pds.citizens.backcitizens.service.architectureService.DesignService;
-import episen.pds.citizens.backcitizens.service.architectureService.FloorService;
-import episen.pds.citizens.backcitizens.service.architectureService.SpaceService;
+import episen.pds.citizens.backcitizens.model.architectureModel.*;
+import episen.pds.citizens.backcitizens.service.architectureService.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,13 +18,15 @@ public class ArchitectureController {
     private final FloorService floorService;
     private final SpaceService spaceService;
     private final DesignService designService;
+    private final ConfigurationService configurationService;
 
     @Autowired
-    public ArchitectureController(BuildingService buildingService, FloorService floorService, SpaceService spaceService, DesignService designService) {
+    public ArchitectureController(BuildingService buildingService, FloorService floorService, SpaceService spaceService, DesignService designService, ConfigurationService configurationService) {
         this.buildingService = buildingService;
         this.floorService = floorService;
         this.spaceService = spaceService;
         this.designService = designService;
+        this.configurationService = configurationService;
     }
 
     // ********************************************* Building Controller ********************************************* //
@@ -106,6 +102,14 @@ public class ArchitectureController {
     @GetMapping("/design_by_name/{name_design}")
     public Optional<Design> getDesignByName(@PathVariable String name_design) {
         return designService.getDesignByName(name_design);
+    }
+
+    // ********************************************* Configuration Controller ********************************************* //
+
+    // Not yet
+    @GetMapping("/configurations")
+    public List<Configuration> getAllConfigurations() {
+        return configurationService.getAllConfigurations();
     }
 
 }
