@@ -81,7 +81,11 @@ public class EquipmentController {
     @PutMapping("/updateAuto")
     public void updateStatutAuto(@RequestParam("type_mode") String type_mode, @RequestParam("id_equipment") Integer id_equipment) {
         equipmentService.updateStatutAuto(type_mode, id_equipment);
+    }
 
+    @GetMapping("/valuepresence")
+    public Integer getCurrentlyValueSensor(@RequestParam("idroom") Integer idroom, @RequestParam("currentdate") String currentdate) {
+        return equipmentService.getCurrentlyValueSensor(idroom, currentdate);
     }
 
 
