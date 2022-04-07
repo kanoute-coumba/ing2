@@ -68,6 +68,7 @@ public class EquipmentService {
     }
 
     public List<Room> getRoomsByIdFloor(String floor) {
+
         return roomHouseRepo.findRoomByFloor(Integer.parseInt(floor));
     }
 
