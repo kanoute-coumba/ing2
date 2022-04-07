@@ -26,5 +26,8 @@ public class BuildingService {
         return buildingRepo.findById(id_building);
     }
 
+    public Iterable<Building> getBuildingByIdUser(int idu){
+        return buildingRepo.getBuildingByIdUser(idu);
+    }
 }
 

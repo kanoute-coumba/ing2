@@ -1,4 +1,4 @@
-package episen.pds.citizens.backcitizens.model.equipments;
+package episen.pds.citizens.backcitizens.model;
 
 
 import lombok.AllArgsConstructor;

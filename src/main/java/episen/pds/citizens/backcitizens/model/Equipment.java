@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 @Entity
 @Table(name = "equipment")
-public class DWP_Equipment {
+public class Equipment {
     @Id
     @Column(name = "id_equipment")
     private int id_equipment;

@@ -1,8 +1,8 @@
 package episen.pds.citizens.backcitizens.service;
 
+import episen.pds.citizens.backcitizens.model.Room;
 import episen.pds.citizens.backcitizens.model.architectureModel.Building;
 import episen.pds.citizens.backcitizens.model.architectureModel.Floor;
-import episen.pds.citizens.backcitizens.model.equipments.*;
 import episen.pds.citizens.backcitizens.repository.EquipmentRepo;
 import episen.pds.citizens.backcitizens.repository.FloorHouseRepo;
 import episen.pds.citizens.backcitizens.repository.HouseRepo;
@@ -67,7 +67,7 @@ public class EquipmentService {
         return floorRepo.findFloorByHouse(house);
     }
 
-    public List<Room> getRooms(String floor) {
+    public List<Room> getRoomsByIdFloor(String floor) {
         return roomHouseRepo.findRoomByFloor(Integer.parseInt(floor));
     }
 

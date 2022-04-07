@@ -14,7 +14,7 @@ public interface ConditionsRepo extends CrudRepository<Conditions, Integer> {
     void findByValueChambre(@Param("valueTemperature") Integer valueTemperature, @Param("id_room") Integer id_room, @Param("id_floor") Integer id_floor );
 
     @Query(value = "select * from conditions where id_room=?1",nativeQuery = true)
-    Iterable<Conditions> findConditionsByRoom(int id_room);
+    Conditions findConditionsByRoom(int id_room);
 
     @Query(value = "select * from conditions where id_room=?1  " +
             "and current_time between begin_time and end_time limit 1;",nativeQuery = true)
