@@ -48,19 +48,24 @@ public class ConfigAutoDWP implements Runnable {
                     try {
                         int difTemp = measureRepo.getTempStatInRoom(room.getId_room()).getValue() - conditionsRepo.findLastConditionsByRoom(room.getId_room()).getTemperature();
                         int difLum = measureRepo.getLightStatInRoom(room.getId_room()).getValue() - conditionsRepo.findLastConditionsByRoom(room.getId_room()).getLuminosity();
+
                         Timestamp current_date = measureRepo.getTimestamp();
                         if (current_date.getHours()<8 || current_date.getHours()>22) {
                             useMonitorService.setAllEquipmentsOff(room.getId_room());
                         } else {
                             while (difLum > 10 || difLum < -10 || difTemp > 3 || difTemp < -3) {
-                                configLightAuto(room.getId_room(), difLum, current_date); configTempAuto(room.getId_room(), difTemp, current_date);
-                                difTemp = measureRepo.getTempStatInRoom(room.getId_room()).getValue() - conditionsRepo.findLastConditionsByRoom(room.getId_room()).getTemperature();
+                                if (difLum > 10 || difLum < -10 )
+                                    configLightAuto(room.getId_room(), difLum, current_date);
+                                if (difTemp > 3 || difTemp < -3)
+                                    configTempAuto(room.getId_room(), difTemp, current_date);
 
+                                difTemp = measureRepo.getTempStatInRoom(room.getId_room()).getValue() - conditionsRepo.findLastConditionsByRoom(room.getId_room()).getTemperature();
                                 difLum = measureRepo.getLightStatInRoom(room.getId_room()).getValue() - conditionsRepo.findLastConditionsByRoom(room.getId_room()).getLuminosity();
                             }
                         }
                     } catch (Exception e) {
                         Thread.sleep(1000);
+
                     }
                 }
             });
