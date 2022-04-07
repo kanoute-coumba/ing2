@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface FloorRepo extends JpaRepository<Floor, Integer> {
-    @Query(value = "select * from floor f JOIN building b on f.id_building = b.id_building WHERE type_building = 'Entreprise' and name_building = ?1", nativeQuery = true)
+    @Query(value = "select * from floor f JOIN building b on f.id_building = b.id_building WHERE type_building = 'Entreprise' and name_building = ?1 ORDER BY f.id_floor", nativeQuery = true)
     List<Floor> getFloorsOfBuilding(String name_building);
 
     @Query(value = "select id_design from floor WHERE name_floor = ?1", nativeQuery = true)
