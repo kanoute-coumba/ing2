@@ -17,5 +17,7 @@ public interface FloorRepo extends JpaRepository<Floor, Integer> {
     @Query(value = "select id_design from floor WHERE name_floor = ?1", nativeQuery = true)
     String getDesignOfFloor(String name_floor);
 
+    @Query(value = "select * from floor where id_building= ?1",nativeQuery = true)
+    Iterable<Floor> getFloorById_building(int idb);
 }
 
