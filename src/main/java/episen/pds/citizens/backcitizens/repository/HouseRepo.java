@@ -9,7 +9,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface HouseRepo extends JpaRepository<Building, Integer> {
-    @Query(value = "select id_building,address, name_building, type_building, id_owner, district from building inner join \"users\" u on building.id_owner = u.user_id where username=?1", nativeQuery = true)
+    @Query(value = "select b.id_building,address, name_building, type_building, district, id_user from building b inner join userbuilding u\n" +
+            "    on b.id_building = u.id_building inner join users us\n" +
+            "        on u.id_user = us.user_id where username=?1", nativeQuery = true)
     List<Building> findHouseByEmail(String email);
 
 

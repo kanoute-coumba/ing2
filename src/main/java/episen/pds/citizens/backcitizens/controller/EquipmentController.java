@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import static java.lang.Thread.sleep;
+
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class EquipmentController {
@@ -59,24 +61,18 @@ public class EquipmentController {
 
     @GetMapping("/house")
     public List<Building> getHouses(@RequestParam("email") String email) {
-        System.out.println(email + " kkkkkk");
-        System.out.println(equipmentService.getHouseByEmail(email));
         return equipmentService.getHouseByEmail(email);
     }
 
     @GetMapping("/floor")
     public List<Floor> getFloors(@RequestParam("house") String house) {
-        System.out.println(house);
-        System.out.println(equipmentService.getFloors(house));
         return equipmentService.getFloors(house);
     }
 
     @GetMapping("/room")
     public List<Room> getRooms(@RequestParam("floor") String floor) {
-        System.out.println(floor);
         return equipmentService.getRooms(floor);
     }
-
 
 
     @PutMapping("/updateAuto")
@@ -92,7 +88,7 @@ public class EquipmentController {
 
 
     @GetMapping("/updateAutoEquip")
-    public String updateAutomatic(@RequestParam("meeting_time") String meeting_time) {
+    public String updateAutomatic(@RequestParam("meeting_time") String meeting_time) throws InterruptedException {
 
 
         hours = Timestamp.valueOf(meeting_time);
@@ -101,111 +97,130 @@ public class EquipmentController {
 
         if ((hours.after(Timestamp.valueOf("2022-01-01 00:00:00")) && hours.before(Timestamp.valueOf("2022-01-01 23:00:00")))) {
 
-            //Integer valueSensor = equipmentService.getValueSensor(nameroom,typesensor, date1, date2);
-            // recupère la liste des équipements dont le statut est ON (si valeur = 0 ) = presence = false
-            List<Integer> id_equipment_data_false = equipmentService.getEquipmentAutomaticPresenceFalse("ON", "capteur de présence", 0);
+            List<Integer> listRoomID = equipmentService.listIdroom("capteur de présence");
+            for (int i = 0; i < listRoomID.size(); i++) {
+                Integer sensorvalue = equipmentService.presenceOrNotPresence(listRoomID.get(i), meeting_time, "capteur de présence");
+                System.out.println("la value du sensor" + sensorvalue);
 
-            // recupère la liste des équipements dont le statut est ON (si valeur = 1) = presence = true
-            List<Integer> id_equipment_data_true = equipmentService.getEquipmentAutomaticPresenceTrue("OFF", "capteur de présence", 1);
+                if (sensorvalue == 0) {
+                    List<Integer> id_equipment_data_false = equipmentService.getEquipmentAutomaticPresenceFalse(listRoomID.get(i), "lampe");
+                    System.out.println("la liste des équipements if: " + id_equipment_data_false);
+                    for (int j = 0; j < id_equipment_data_false.size(); j++) {
+                        equipmentService.updateStatutAutomaticLight(id_equipment_data_false.get(j), "OFF", 0);
+                        System.out.println(id_equipment_data_false.get(j) + "  est passé à OFF et value 0");
+                    }
+                } else if (sensorvalue == 1) {
+                    List<Integer> id_equipment_data_false = equipmentService.getEquipmentAutomaticPresenceFalse(listRoomID.get(i), "lampe");
+                    System.out.println("la liste des équipements else if: " + id_equipment_data_false);
+                    for (int j = 0; j < id_equipment_data_false.size(); j++) {
 
-            // mise à jour des lampes ou la présence est false
-            for (int i = 0; i < id_equipment_data_false.size(); i++) {
-                equipmentService.updateStatutAutomaticLight(id_equipment_data_false.get(i), "OFF", 0);
+                        equipmentService.updateStatutAutomaticLight(id_equipment_data_false.get(j), "ON", 1);
+                        System.out.println(id_equipment_data_false.get(j) + "  est passé à ON et value 1");
+                    }
+                }
+            }
+
+            //Gestion des équipements influencés par le capteur de température
+            List<Integer> listRoomIDForTemp = equipmentService.listIdroom("capteur de température");
+            for (int i = 0; i < listRoomIDForTemp.size(); i++) {
+                Integer sensorvalue = equipmentService.presenceOrNotPresence(listRoomID.get(i), meeting_time, "capteur de température");
+                System.out.println("la value du sensor" + sensorvalue);
+
+                if (sensorvalue <= 10) {
+                    List<Integer> id_equipRadiateur = equipmentService.getEquipmentAutomaticPresenceFalse(listRoomID.get(i), "radiateur");
+                    List<Integer> id_equipClimatiseur = equipmentService.getEquipmentAutomaticPresenceFalse(listRoomID.get(i), "climatisation");
+
+                    for (int j = 0; j < id_equipRadiateur.size(); j++) {
+                        equipmentService.updateStatutAutomaticLight(id_equipRadiateur.get(j), "ON", 1);
+                    }
+
+                    for (int k = 0; k < id_equipClimatiseur.size(); k++) {
+                        equipmentService.updateStatutAutomaticLight(id_equipClimatiseur.get(k), "OFF", 0);
+                    }
+                } else if (sensorvalue > 10 && sensorvalue <= 18) {
+                    List<Integer> id_equipRadiateur = equipmentService.getEquipmentAutomaticPresenceFalse(listRoomID.get(i), "radiateur");
+                    List<Integer> id_equipClimatiseur = equipmentService.getEquipmentAutomaticPresenceFalse(listRoomID.get(i), "climatisation");
+
+                    for (int j = 0; j < id_equipRadiateur.size(); j++) {
+                        equipmentService.updateStatutAutomaticLight(id_equipRadiateur.get(j), "OFF", 0);
+                    }
+
+                    for (int k = 0; k < id_equipClimatiseur.size(); k++) {
+                        equipmentService.updateStatutAutomaticLight(id_equipClimatiseur.get(k), "ON", 1);
+                    }
+                } else if (sensorvalue > 19 && sensorvalue <= 30) {
+                    List<Integer> id_equipRadiateur = equipmentService.getEquipmentAutomaticPresenceFalse(listRoomID.get(i), "radiateur");
+                    List<Integer> id_equipClimatiseur = equipmentService.getEquipmentAutomaticPresenceFalse(listRoomID.get(i), "climatisation");
+
+                    for (int j = 0; j < id_equipRadiateur.size(); j++) {
+                        equipmentService.updateStatutAutomaticLight(id_equipRadiateur.get(j), "OFF", 0);
+                    }
+                    for (int k = 0; k < id_equipClimatiseur.size(); k++) {
+                        equipmentService.updateStatutAutomaticLight(id_equipClimatiseur.get(k), "ON", 2);
+                    }
+                }
+            }
+
+            //Gestion des équipements influencés par le capteur de luminosité
+            List<Integer> listRoomIDForLuminosity = equipmentService.listIdroom("capteur de luminosité");
+            for (int i = 0; i < listRoomIDForLuminosity.size(); i++) {
+                Integer sensorvalue = equipmentService.presenceOrNotPresence(listRoomID.get(i), meeting_time, "capteur de luminosité");
+                System.out.println("la value du sensor" + sensorvalue);
+
+                if (sensorvalue < 0) {
+                    List<Integer> id_equipmentLight = equipmentService.getEquipmentAutomaticPresenceFalse(listRoomID.get(i), "lampe");
+                    for (int j = 0; j < id_equipmentLight.size(); j++) {
+                        equipmentService.updateStatutAutomaticLight(id_equipmentLight.get(j), "ON", 2);
+                        System.out.println(id_equipmentLight.get(j) + "  est passé à OFF et value 0");
+                    }
+
+
+                } else if (sensorvalue > 100 && sensorvalue <= 200) {
+                    List<Integer> id_equipmentStore = equipmentService.getEquipmentAutomaticPresenceFalse(listRoomID.get(i), "store");
+                    List<Integer> id_equipmentFenetre = equipmentService.getEquipmentAutomaticPresenceFalse(listRoomID.get(i), "fenêtre");
+                    for (int j = 0; j < id_equipmentStore.size(); j++) {
+                        equipmentService.updateStatutAutomaticLight(id_equipmentStore.get(j), "ON", 1);
+                        System.out.println(id_equipmentStore.get(j) + "est passé à OFF et value 0");
+                        String statut = equipmentService.verifyStatutEquipment(listRoomID.get(i));
+
+                        if (statut.contains("ON")) {
+                            for (int k = 0; k < id_equipmentFenetre.size(); k++) {
+                                equipmentService.updateStatutAutomaticLight(id_equipmentFenetre.get(k), "ON", 1);
+                            }
+                        }
+                    }
+
+                }
             }
 
 
-            //mise à jour des lampes ou la présence est vrai
-            for (int i = 0; i < id_equipment_data_true.size(); i++) {
-                equipmentService.updateStatutAutomaticLight(id_equipment_data_true.get(i), "ON", 5);
+            //recupère la liste des équipements d'une salle dont le statut est ON  et la presence est non
+//            List<Integer> id_equipment_data_false = equipmentService.getEquipmentAutomaticPresenceFalse( "capteur de présence", 0);
+//            // recupère la liste des équipements d'une salle dont le statut est OFF  et la presence est non
+//            List<Integer> id_equipment_data_false1 = equipmentService.getEquipmentAutomaticPresenceFalse( "capteur de présence", 0);
 
-            }
+//             recupère la liste des équipements dont le statut est ON (si valeur = 1) = presence = true
+//            List<Integer> id_equipment_data_true = equipmentService.getEquipmentAutomaticPresenceTrue("OFF", "capteur de présence", 1);
+
+            //mise à jour des lampes ou la présence est false
+//            for (int i = 0; i < id_equipment_data_false.size(); i++) {
+//                equipmentService.updateStatutAutomaticLight(id_equipment_data_false.get(i), "OFF", 0);
+//                System.out.println("l' équipement : " + id_equipment_data_false.get(i) + "  est passé à OFF et value 0");
+//            }
+//            for (int i = 0; i < id_equipment_data_false1.size(); i++) {
+//                equipmentService.updateStatutAutomaticLight(id_equipment_data_false1.get(i), "OFF", 0);
+//            }
+
+
+//            //mise à jour des lampes ou la présence est vrai
+//            for (int i = 0; i < id_equipment_data_true.size(); i++) {
+//                equipmentService.updateStatutAutomaticLight(id_equipment_data_true.get(i), "ON", 5);
+//
+//            }
 
         }
-//        else if(hours.after(Timestamp.valueOf("2022-05-31 08:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 18:00:00"))) {
-//
-//        }
 
-
-
-
-
-//        else if ((hours.after(Timestamp.valueOf("2022-05-31 07:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 08:00:00"))) || (hours.after(Timestamp.valueOf("2022-05-31 18:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 23:00:00")))) {
-//            List<Integer> id_equipment_data = equipmentService.getEquipmentAutomatic("OFF", "capteur de presence", 0, 49);
-//            for (int i = 0; i < id_equipment_data.size(); i++) {
-//                if ((hours.after(Timestamp.valueOf("2022-05-31 18:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 23:00:00")))) {
-//                    equipmentService.updateStatutAutomaticLight(id_equipment_data.get(i), "ON", 10);
-//                } else {
-//                    equipmentService.updateStatutAutomaticLight(id_equipment_data.get(i), "ON", 5);
-//                }
-//            }
-//        }
-//
-//        if ((hours.after(Timestamp.valueOf("2022-05-31 00:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 09:00:00"))) || (hours.after(Timestamp.valueOf("2022-05-31 13:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 20:00:00")))) {
-//            System.out.println("en début");
-//            List<Integer> listId = equipmentService.getEquipmentScreenAutomaticF("ON");
-//            for (int i = 0; i < listId.size(); i++) {
-//                equipmentService.updateStatutAutomaticScreen(listId.get(i), "OFF", 0);
-//
-//            }
-//
-//        } else if ((hours.after(Timestamp.valueOf("2022-05-31 09:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 13:00:00"))) || (hours.after(Timestamp.valueOf("2022-05-31 20:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 23:00:00")))) {
-//
-//            List<Integer> listIdl = equipmentService.getEquipmentScreenAutomaticF("OFF");
-//            for (int i = 0; i < listIdl.size(); i++) {
-//                equipmentService.updateStatutAutomaticScreen(listIdl.get(i), "ON", 1);
-//
-//            }
-//        }
-//
-//        // gestion déclenchement automatique radiateur et climatisateur
-//
-//        if (hours.after(Timestamp.valueOf("2022-05-31 00:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 12:00:00"))) {
-//            System.out.println("début hiver matin entre 0h et 12h ");
-//            List<Integer> listIdRadiator = equipmentService.getEquipmentRadiatorAutomaticWinter("OFF");
-//            List<Integer> listIdAirconditioner = equipmentService.getEquipmentAirconditionerAutomaticWinter("ON");
-//
-//            System.out.println(listIdRadiator.size() + " size");
-//            for (int i = 0; i < listIdRadiator.size(); i++) {
-//                equipmentService.updateStatutAutomaticScreen(listIdRadiator.get(i), "ON", 1);
-//                System.out.println(listIdRadiator.get(i));
-//            }
-//
-//            for (int i = 0; i < listIdAirconditioner.size(); i++) {
-//                equipmentService.updateStatutAutomaticScreen(listIdAirconditioner.get(i), "OFF", 0);
-//                System.out.println(listIdRadiator.get(i));
-//            }
-//
-//        } else if (hours.after(Timestamp.valueOf("2022-05-31 21:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 23:00:00"))) {
-//            System.out.println("début hiver soirée entre 21h et 23h");
-//            List<Integer> listIdRadiator = equipmentService.getEquipmentRadiatorAutomaticWinter("OFF");
-//            List<Integer> listIdAirconditioner = equipmentService.getEquipmentAirconditionerAutomaticWinter("ON");
-//
-//
-//            for (int i = 0; i < listIdRadiator.size(); i++) {
-//                equipmentService.updateStatutAutomaticScreen(listIdRadiator.get(i), "ON", 4);
-//
-//            }
-//
-//            for (int i = 0; i < listIdAirconditioner.size(); i++) {
-//                equipmentService.updateStatutAutomaticScreen(listIdAirconditioner.get(i), "OFF", 0);
-//                System.out.println(listIdAirconditioner.get(i));
-//            }
-//        } else if (hours.after(Timestamp.valueOf("2022-05-31 12:00:00")) && hours.before(Timestamp.valueOf("2022-05-31 21:00:00"))) {
-//            System.out.println("début été dans l'après midi");
-//            List<Integer> listIdRadiator = equipmentService.getEquipmentRadiatorAutomaticSummer("ON");
-//            List<Integer> listIdAirconditioner = equipmentService.getEquipmentAirconditionerAutomaticSummer("OFF");
-//            for (int i = 0; i < listIdRadiator.size(); i++) {
-//                equipmentService.updateStatutAutomaticScreen(listIdRadiator.get(i), "OFF", 0);
-//                System.out.println(listIdRadiator.get(i));
-//            }
-//
-//            for (int i = 0; i < listIdAirconditioner.size(); i++) {
-//                equipmentService.updateStatutAutomaticScreen(listIdAirconditioner.get(i), "ON", 4);
-//                System.out.println(listIdAirconditioner.get(i));
-//            }
-//
-//        }
-  return meeting_time;
+        return meeting_time;
     }
 
 
