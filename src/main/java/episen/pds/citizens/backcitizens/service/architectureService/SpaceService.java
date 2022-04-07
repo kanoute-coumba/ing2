@@ -19,9 +19,8 @@ public class SpaceService {
         this.spaceRepo = spaceRepo;
     }
 
-    // Not yet
-    public List<Space> getSpacesOfBuilding(String name_building) {
-        return spaceRepo.getSpacesOfBuilding(name_building);
+    public Optional<Space> getSpaceByName(String name_space) {
+        return spaceRepo.getSpaceByName(name_space);
     }
 
     public List<Space> getSpacesOfFloor(String name_floor) {
@@ -30,11 +29,6 @@ public class SpaceService {
 
     public List<Space> getSpacesOfFloorByType(String name_floor, String type_space) {
         return spaceRepo.getSpacesOfFloorByType(name_floor,type_space);
-    }
-
-    // Not yet
-    public Optional<Space> getSpace(Integer id_space) {
-        return spaceRepo.findById(id_space);
     }
 
 }
