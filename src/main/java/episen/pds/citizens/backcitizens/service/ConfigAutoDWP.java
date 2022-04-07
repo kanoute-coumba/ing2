@@ -59,8 +59,8 @@ public class ConfigAutoDWP implements Runnable {
                                 difLum = measureRepo.getLightStatInRoom(room.getId_room()).getValue() - conditionsRepo.findLastConditionsByRoom(room.getId_room()).getLuminosity();
                             }
                         }
-                    } catch (NullPointerException e) {
-                        logger.info(e.getMessage() + " NO MEASURES"); Thread.sleep(1000);
+                    } catch (Exception e) {
+                        Thread.sleep(1000);
                     }
                 }
             });
