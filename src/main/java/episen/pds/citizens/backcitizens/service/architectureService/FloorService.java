@@ -32,5 +32,9 @@ public class FloorService {
         return floorRepo.getDesignOfFloor(name_floor);
     }
 
+    public Iterable<Floor> getFloorByIdBuilding(int idb){
+        return floorRepo.getFloorById_building(idb);
+    }
+
 }
 

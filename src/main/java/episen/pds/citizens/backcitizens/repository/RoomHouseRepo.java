@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface RoomHouseRepo extends JpaRepository<Room, Integer> {
-    @Query(value = "select r.id_room,r.name,r.id_floor from room r inner join floor f on r.id_floor = f.id_floor where r.id_floor=?1", nativeQuery = true)
+    @Query(value = "select r.id_room,r.name,r.id_floor from room r inner join floor f on r.id_floor = f.id_floor where r.id_floor=?1 and r.name IN ('Salon', 'Cuisine', 'Douche', 'Chambre') order by r.name ASC", nativeQuery = true)
     List<Room> findRoomByFloor(Integer floor);
 
 

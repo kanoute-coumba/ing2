@@ -60,7 +60,7 @@ public class ConfigAutoDWP implements Runnable {
                             }
                         }
                     } catch (NullPointerException e) {
-                        logger.info(e.getMessage() + " NO MEASURES"); Thread.sleep(1000);
+                        //logger.info(e.getMessage() + " NO MEASURES"); Thread.sleep(1000);
                     }
                 }
             });
