@@ -43,5 +43,10 @@ public class UsersController {
         //logger.config(Users.toString());
         return usersService.getUserById(id);
     }
-
+    @GetMapping("/usersName={uName}")
+    public Iterable<Users> getUsersByUserName(@PathVariable("uName") String uName) {
+        Iterable<Users> u = usersService.getUserByUserName(uName);
+        logger.info("returning uName "+u.toString());
+        return u;
+    }
 }

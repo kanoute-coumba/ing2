@@ -67,54 +67,35 @@ public class EquipmentService {
         return floorRepo.findFloorByHouse(house);
     }
 
-    public List<Room> getRooms(String floor) {
+    public List<Room> getRoomsByIdFloor(String floor) {
+
         return roomHouseRepo.findRoomByFloor(Integer.parseInt(floor));
     }
 
-    public List<Integer> getEquipmentAutomaticPresenceFalse (String statut, String sensor, Integer valuesensor){
-        System.out.println(equipmentRepo.getEquipmentAutomaticFalse(statut, sensor , valuesensor) + "service");
-        return equipmentRepo.getEquipmentAutomaticFalse(statut, sensor, valuesensor);
+    public List<Integer> getEquipmentAutomaticPresenceFalse (Integer id_room, String nameEquip){
+        return equipmentRepo.getEquipmentAutomaticFalse(id_room, nameEquip);
     }
 
-    public List<Integer> getEquipmentAutomaticPresenceTrue (String statut, String sensor, Integer valuesensor){
-        System.out.println(equipmentRepo.getEquipmentAutomaticTrue(statut, sensor, valuesensor) + "servicetrue");
-        return equipmentRepo.getEquipmentAutomaticTrue(statut, sensor, valuesensor);
+//    public List<Integer> getEquipmentAutomaticPresenceTrue (String statut, String sensor, Integer valuesensor){
+//        return equipmentRepo.getEquipmentAutomaticTrue(statut, sensor, valuesensor);
+//    }
+
+
+    public Integer getCurrentlyValueSensor(Integer idroom, String currentdate) {
+        return equipmentRepo.currentlyvalueofsensorPresence(idroom, currentdate);
     }
 
-    public Integer getValueSensor(String nameroom, String typesensor, String date1, String date2) {
-        System.out.println(equipmentRepo.valueSensor(nameroom,typesensor,date1,date2) + " la valeur du capteur de présence actuelle");
-        return equipmentRepo.valueSensor(nameroom,typesensor,date1,date2);
+    public Integer presenceOrNotPresence(Integer id_room, String date, String typesensor) {
+        return equipmentRepo.presenOrNotPrsence(id_room, date, typesensor);
+    }
+    public List<Integer> listIdroom(String typeSensor) {
+        return equipmentRepo.listIdroom(typeSensor);
     }
 
-
-
-
-
-    //pas encore faire -- A faire!!
-
-    public List<Integer> getEquipmentScreenAutomaticT (String statut) {
-        return equipmentRepo.getEquipmentScreenAutomaticT(statut);
+    public String verifyStatutEquipment(Integer id_room) {
+        return equipmentRepo.getStatutEquipment(id_room);
     }
 
-    public List<Integer> getEquipmentScreenAutomaticF (String statut) {
-        return equipmentRepo.getEquipmentScreenAutomaticF(statut);
-    }
-
-    public List<Integer> getEquipmentRadiatorAutomaticWinter(String statut) {
-        return equipmentRepo.getEquipmentRadiatorAutomaticWinter(statut);
-    }
-
-    public List<Integer> getEquipmentRadiatorAutomaticSummer(String statut) {
-        return  equipmentRepo.getEquipmentRadiatorAutomaticSummer(statut);
-    }
-
-    public List<Integer> getEquipmentAirconditionerAutomaticWinter(String statut) {
-        return equipmentRepo.getEquipmentAircontionerAutomaticWinter(statut);
-    }
-
-    public List<Integer> getEquipmentAirconditionerAutomaticSummer(String statut) {
-        return  equipmentRepo.getEquipmentAirconditionerAutomaticSummer(statut);
-    }
 
     @Transactional
     public void updateStatutAutomaticScreen (Integer id_equipment_data, String statut, Integer value) {

@@ -1,10 +1,7 @@
 package episen.pds.citizens.backcitizens.controller;
 
 
-import episen.pds.citizens.backcitizens.model.ChoiceAlgo;
-import episen.pds.citizens.backcitizens.model.MixEn;
-import episen.pds.citizens.backcitizens.model.MixEnCapacityBySite;
-import episen.pds.citizens.backcitizens.model.Test;
+import episen.pds.citizens.backcitizens.model.*;
 import episen.pds.citizens.backcitizens.service.MixEnService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -57,4 +54,33 @@ public class MixEnController {
     public HashMap<String,List<Double>> getGraphDataEnvironmentalCost(){
         return mixEnService.getGraphDataEnvironmentalCost();
     }
+
+    @GetMapping("/graphDataHistoricalProductionEnergy")
+    public HashMap<String,List<Double>> getGraphDataHistoricalProductionEnergy(){
+        //return mixEnService.getHistoricalProductionByEnergy();
+        HashMap<String,List<Double>> hm = new HashMap<>();
+        hm.put("solaire",mixEnService.solarHisto());
+        hm.put("eolienne",mixEnService.windHisto());
+        hm.put("hydraulique",mixEnService.hydraulicHisto());
+        return hm;
+    }
+
+    @GetMapping("/graphDataHistoricalProductionDate")
+    public List<HistoricalProductionDate> getGraphDataHistoricalProductionDate(){
+        return mixEnService.getHistoricalProductionByDate();
+    }
+
+    @GetMapping("/graphHSolar")
+    public List<Double> test(){
+        return mixEnService.solarHisto();
+    }
+    @GetMapping("/graphHWind")
+    public List<Double> test2(){
+        return mixEnService.windHisto();
+    }
+    @GetMapping("/graphHHydraulic")
+    public List<Double> test3(){
+        return mixEnService.hydraulicHisto();
+    }
+
 }

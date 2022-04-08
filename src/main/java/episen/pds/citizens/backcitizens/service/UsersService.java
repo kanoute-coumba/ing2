@@ -28,7 +28,9 @@ public class UsersService {
         return usersRepo.findAll();
     }
 
-
+    public Iterable<Users> getUserByUserName(String uName){
+        return usersRepo.findUsersByUsername(uName);
+    }
     //public UsersRegistration saveMenuReservation(UsersRegistration usersRegistration) {
     //    logger.config(userRegistration.toString());
     //    return userRegistrationRepo.save(userRegistration);
