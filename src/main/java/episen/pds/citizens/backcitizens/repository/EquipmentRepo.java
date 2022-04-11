@@ -58,20 +58,21 @@ public interface EquipmentRepo extends CrudRepository<Equipment, Integer> {
             "    on m.id_sensor = s.id_sensor inner join room r\n" +
             "        on s.id_room = r.id_room inner join equipment e\n" +
             "            on r.id_room = e.id_room\n" +
-            "where r.name in ('Cuisine', 'Douche', 'Salon', 'Chambre') and r.id_room =:id_room and s.type =:typesensor and m.timestamp =cast(:date as timestamp)",nativeQuery = true)
+            "where r.name in ('Cuisine', 'Douche', 'Salon', 'Chambre') and r.id_room =:id_room and s.type =:typesensor and m.timestamp =cast(:date as timestamp) limit 1",nativeQuery = true)
     Integer presenOrNotPrsence(@Param("id_room") Integer id_room, @Param("date") String date, @Param("typesensor") String typesensor);
 
-    @Query(value = "select distinct r.id_room from room r inner join sensor s\n" +
-            "    on r.id_room = s.id_room inner join measure m\n" +
-            "        on s.id_sensor = m.id_sensor\n" +
-            "where s.type =:typeSensor and r.name in ('Cuisine', 'Douche', 'Salon', 'Chambre')", nativeQuery = true)
+    @Query(value = "select  r.id_room from room r inner join sensor s\n" +
+            "                on r.id_room = s.id_room inner join floor f\n" +
+            "               on r.id_floor = f.id_floor inner join building b\n" +
+            "                   on f.id_building = b.id_building\n" +
+            "         where s.type =:typeSensor and type_building = 'Maison' order by r.id_room", nativeQuery = true)
     List<Integer> listIdroom(@Param("typeSensor") String typeSensor);
 
     @Query(value = "select distinct eq.statut from equipment_data eq inner join equipment e\n" +
             "    on eq.id_equipment_data = e.id_equipment inner join room r\n" +
             "        on e.id_room = r.id_room inner join sensor s\n" +
             "            on r.id_room = s.id_room\n" +
-            "where r.name in ('Cuisine', 'Douche', 'Salon', 'Chambre') and e.type = 'store' and r.id_room =:id_room",nativeQuery = true)
+            "where r.name in ('Cuisine', 'Douche', 'Salon', 'Chambre') and e.type ='fenêtre' and r.id_room =:id_room limit 1",nativeQuery = true)
     String getStatutEquipment(@Param("id_room") Integer id_room);
 
 //    @Modifying
