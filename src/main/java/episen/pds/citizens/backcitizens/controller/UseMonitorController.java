@@ -106,8 +106,10 @@ public class UseMonitorController {
         logger.info("GET_CURRENT_COND: id_room=" + id_room);
         Conditions current_condition = new Conditions();
         current_condition.setId_room(id_room);
-        current_condition.setLuminosity(useMonitorService.getLastLightMeasure(id_room).getValue());
-        current_condition.setTemperature(useMonitorService.getLastTempMeasure(id_room).getValue());
+        try {
+            current_condition.setLuminosity(useMonitorService.getLastLightMeasure(id_room).getValue());
+            current_condition.setTemperature(useMonitorService.getLastTempMeasure(id_room).getValue());
+        } catch (Exception ignored) {}
         logger.info("CURRENT_COND : " + current_condition.toString());
         return current_condition;
     }
