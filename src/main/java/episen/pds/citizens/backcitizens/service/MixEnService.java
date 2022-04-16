@@ -6,6 +6,7 @@ import episen.pds.citizens.backcitizens.model.*;
 import episen.pds.citizens.backcitizens.repository.ChoiceAlgoRepo;
 import episen.pds.citizens.backcitizens.repository.CurrentMixBySiteRepo;
 import episen.pds.citizens.backcitizens.repository.CurrentMixRepo;
+import episen.pds.citizens.backcitizens.repository.HistoricalProductionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,9 @@ public class MixEnService {
     private CurrentMixBySiteRepo currentMixBySiteRepo;
     @Autowired
     private ChoiceAlgoRepo choiceAlgoRepo;
+    @Autowired
+    private HistoricalProductionRepo historicalProductionRepo;
+
     private static final Logger logger = Logger.getLogger(MixEnService.class.getName());
 
     //method for current mix
@@ -288,5 +292,77 @@ public class MixEnService {
         graphData.put("hydraulique",l3);
 
         return graphData;
+    }
+
+    public HashMap<String,List<Double>> getHistoricalProductionByEnergy(){
+        HashMap<String,List<Double>> graphData = new HashMap<>();
+
+        Iterable<HistoricalProduction> listHistoricalProductionForSolar = historicalProductionRepo.findHistoricalProductionForSolar();
+        Iterable<HistoricalProduction> listHistoricalProductionForWind = historicalProductionRepo.findHistoricalProductionForWind();
+        Iterable<HistoricalProduction> listHistoricalProductionForHydraulic = historicalProductionRepo.findHistoricalProductionForHydraulic();
+
+        List<Double> l1  = new ArrayList<>();
+        List<Double> l2  = new ArrayList<>();
+        List<Double> l3  = new ArrayList<>();
+
+        for(HistoricalProduction hp : listHistoricalProductionForSolar){
+            l1.add(hp.getValeur());
+        }
+        for(HistoricalProduction hp2 : listHistoricalProductionForWind){
+            l2.add(hp2.getValeur());
+        }
+        for(HistoricalProduction hp3 : listHistoricalProductionForHydraulic){
+            l3.add(hp3.getValeur());
+        }
+        graphData.put("solaire",l1);
+        graphData.put("eolienne",l2);
+        graphData.put("hydraulique",l3);
+
+        logger.info(""+l1);
+        logger.info(""+l2);
+        logger.info(""+l3);
+
+        return graphData;
+
+    }
+
+    public List<HistoricalProductionDate> getHistoricalProductionByDate(){
+        List<HistoricalProductionDate> date = new ArrayList<>();
+        Iterable<HistoricalProduction> listHistoricalProductionForSolar = historicalProductionRepo.findHistoricalProductionForSolar();
+
+        for(HistoricalProduction hp : listHistoricalProductionForSolar){
+            HistoricalProductionDate d = new HistoricalProductionDate(hp.getMois(),hp.getJour());
+            date.add(d);
+        }
+
+        return date;
+    }
+
+    public List<Double> solarHisto(){
+        Iterable<HistoricalProduction> listHistoricalProductionForSolar = historicalProductionRepo.findHistoricalProductionForSolar();
+        logger.info(""+listHistoricalProductionForSolar);
+        List<Double> l1  = new ArrayList<>();
+        for(HistoricalProduction hp : listHistoricalProductionForSolar){
+            l1.add(hp.getValeur());
+        }
+        return l1;
+    }
+    public List<Double> windHisto(){
+        Iterable<HistoricalProduction> listHistoricalProductionForWind = historicalProductionRepo.findHistoricalProductionForWind();
+        logger.info(""+listHistoricalProductionForWind);
+        List<Double> l2  = new ArrayList<>();
+        for(HistoricalProduction hp : listHistoricalProductionForWind){
+            l2.add(hp.getValeur());
+        }
+        return l2;
+    }
+    public List<Double> hydraulicHisto(){
+        Iterable<HistoricalProduction> listHistoricalProductionForHydraulic = historicalProductionRepo.findHistoricalProductionForHydraulic();
+        logger.info(""+listHistoricalProductionForHydraulic);
+        List<Double> l3  = new ArrayList<>();
+        for(HistoricalProduction hp : listHistoricalProductionForHydraulic){
+            l3.add(hp.getValeur());
+        }
+        return l3;
     }
 }
