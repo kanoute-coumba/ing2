@@ -10,6 +10,10 @@ public interface RoomHouseRepo extends JpaRepository<Room, Integer> {
     @Query(value = "select * from room r  where r.id_floor=?1", nativeQuery = true)
     List<Room> findRoomByFloor(Integer floor);
 
+    @Query(value = "select room from room inner join floor on" +
+            " floor.id_floor=room.id_floor where id_building=?idb", nativeQuery = true)
+    Iterable<Room> findRoomByIdBuilding(int idb);
+
 
 
 
