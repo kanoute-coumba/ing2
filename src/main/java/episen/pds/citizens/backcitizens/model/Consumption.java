@@ -25,9 +25,10 @@ public class Consumption {
     @Override
     public String toString() {
         return "Consumption{" +
-                "Id=" + id_consumption +
+                "id_consumption=" + id_consumption +
                 ", value=" + value +
-                ", date_time='" + date_time  + id_equipment + '\'' +
+                ", date_time=" + date_time +
+                ", id_equipment=" + id_equipment +
                 '}';
     }
 
