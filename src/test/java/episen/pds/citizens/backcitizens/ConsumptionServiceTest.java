@@ -10,8 +10,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,7 +44,6 @@ public class ConsumptionServiceTest extends TestCase {
         // la liste result est le résultat attendu.
         assertEquals(result,consumptionService.cleanList(arrayList));
     }
-
     @Test
     public void testFindHistoryConsumptionByIdBuildingBetweenTwoDate(){
         String id_b = "1";
@@ -80,5 +77,43 @@ public class ConsumptionServiceTest extends TestCase {
         }
         Iterable<Consumption> result = consumptionService.cleanList(sortie);
         assertEquals(result,consumptionService.findHistoryConsumptionByIdBuildingBetweenTwoDate(id_b,dBegin,dEnd));
+    }
+    @Test
+    public void testFindHistoryConsumptionByIdFloorBetweenTwoDate(){
+        String id_f = "1";
+        long dBegin = 0;
+        long dEnd = 2000000000;
+        ArrayList<Consumption> consumptionArrayList = consumptionRepo.findHistoryConsumptionByIdFloorBetweenTwoDate(Integer.parseInt(id_f), dBegin,dEnd);
+        ArrayList<Consumption> c = consumptionRepo.findConsumptionByFloorBefore(Integer.parseInt(id_f),dBegin);
+        HashMap<Integer,Consumption> hashMap = new HashMap<>();
+        ArrayList<Consumption> sortie = new ArrayList<>();
+        double somme = 0.0;
+        if(!c.isEmpty()) {
+            for (Consumption consumption : c) {
+                hashMap.put(consumption.getId_equipment(), consumption);
+                somme += consumption.getValue();
+            }
+
+            sortie.add(new Consumption(0,
+                    somme, c.get(c.size()-1).getDate_time(), 0));
+
+        }
+        for (Consumption consumption : consumptionArrayList) {
+            if (hashMap.containsKey(consumption.getId_equipment())) {
+
+                somme = somme - hashMap.get(consumption.getId_equipment()).getValue() + consumption.getValue();
+                hashMap.replace(consumption.getId_equipment(),consumption);
+            }
+            else {
+
+                hashMap.put(consumption.getId_equipment(),consumption);
+                somme = somme + consumption.getValue();
+            }
+            Consumption consumption1 = new Consumption(consumption.getId_consumption(),
+                    somme, consumption.getDate_time(), consumption.getId_equipment());
+            sortie.add(consumption1);
+
+        }
+        assertEquals(consumptionService.cleanList(sortie),consumptionService.findHistoryConsumptionByIdFloorBetweenTwoDate(id_f,dBegin,dEnd));
     }
 }
