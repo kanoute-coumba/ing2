@@ -15,7 +15,10 @@ public class ConsumptionService {
     private static final Logger logger = Logger.getLogger(ConsumptionService.class.getName());
 
     @Autowired
-    ConsumptionRepo consumptionRepo;
+    public ConsumptionRepo consumptionRepo;
+
+    public ConsumptionService() {
+    }
 
     public Iterable<Consumption> findHistoryConsumptionByIdEquipment(String id_e){
         logger.info("EnergyService findHistoryConsumptionByIdEquipment "+id_e);
