@@ -88,6 +88,11 @@ public class EquipmentController {
         return equipmentService.getCurrentlyValueSensor(idroom, currentdate);
     }
 
+    @GetMapping("/updateHoursBeginAndEnd")
+    public void updateHoursBeginAndEnd(@RequestParam("begin_time") String begin_time, @RequestParam("end_time") String end_time, @RequestParam("id_equipment_data") Integer id_equipment_data) {
+        equipmentService.updateTimeWorkEquipment(begin_time, end_time, id_equipment_data);
+    }
+
 
     @GetMapping("/updateAutoEquip")
     public String updateAutomatic(@RequestParam("meeting_time") String meeting_time) throws InterruptedException {
