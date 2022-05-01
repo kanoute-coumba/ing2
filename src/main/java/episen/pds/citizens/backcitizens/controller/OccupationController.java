@@ -1,6 +1,7 @@
 package episen.pds.citizens.backcitizens.controller;
 
 import episen.pds.citizens.backcitizens.model.Tenant;
+import episen.pds.citizens.backcitizens.model.Workplace;
 import episen.pds.citizens.backcitizens.service.OccupationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,5 +22,11 @@ public class OccupationController {
     public Iterable<Tenant> getTenant() {
         logger.config("returning values");
         return occupationService.getTenant();
+    }
+
+    @GetMapping("/workplace")
+    public Iterable<Workplace> getWorkplace() {
+        logger.config("returning values");
+        return occupationService.getWorkplace();
     }
 }
