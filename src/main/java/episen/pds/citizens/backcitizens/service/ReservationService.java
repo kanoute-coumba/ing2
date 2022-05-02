@@ -37,7 +37,7 @@ public class ReservationService {
      //   return spacesRepo.findAll();
    // }
 
-    public Iterable<Space> getReservedSpace() {
+    public Iterable<RSpace> getReservedSpace() {
         return spacesRepo.findReservedSpaces();
     }
 
