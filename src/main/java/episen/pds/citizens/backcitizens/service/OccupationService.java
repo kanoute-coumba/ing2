@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 public class OccupationService {
     @Autowired
     private TenantRepo tenantRepo;
+    @Autowired
     private WorkplaceRepo workplaceRepo;
 
     public Iterable<Tenant> getTenant() {
