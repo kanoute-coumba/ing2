@@ -31,8 +31,6 @@ public class EquipmentService {
 
 
     public Iterable<Map<String, String>> getEquipmentBYRoom(Integer idr) {
-
-
         return equipmentRepo.findEquipmentByRoom(idr);
     }
 
@@ -100,6 +98,11 @@ public class EquipmentService {
     @Transactional
     public void updateStatutAutomaticScreen (Integer id_equipment_data, String statut, Integer value) {
         equipmentRepo.updateStatutAutomaticScreen(id_equipment_data, statut, value);
+    }
+
+    @Transactional
+    public void updateTimeWorkEquipment(String begin_time, String end_time, Integer id_equipment_data) {
+        equipmentRepo.updateBeginAndEndequipment(begin_time, end_time,id_equipment_data);
     }
 
     @Transactional
