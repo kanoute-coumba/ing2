@@ -14,4 +14,5 @@ public interface WorkplaceRepo extends CrudRepository<Workplace, Integer> {
             "where building.type_building='Entreprise') as a1 " +
             "on space.id_floor=a1.id_floor order by id_space", nativeQuery = true)
     Iterable<Workplace> getWorkplace();
+
 }
