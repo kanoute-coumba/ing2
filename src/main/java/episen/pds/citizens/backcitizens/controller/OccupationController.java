@@ -1,5 +1,6 @@
 package episen.pds.citizens.backcitizens.controller;
 
+import episen.pds.citizens.backcitizens.model.BuildingDWP;
 import episen.pds.citizens.backcitizens.model.Tenant;
 import episen.pds.citizens.backcitizens.model.Workplace;
 import episen.pds.citizens.backcitizens.service.OccupationService;
@@ -28,5 +29,10 @@ public class OccupationController {
     public Iterable<Workplace> getWorkplace() {
         logger.config("returning values");
         return occupationService.getWorkplace();
+    }
+    @GetMapping("/buildings")
+    public Iterable<BuildingDWP> getDWPbuildings() {
+        logger.config("returning values");
+        return occupationService.getDWPbuildings();
     }
 }

@@ -1,7 +1,9 @@
 package episen.pds.citizens.backcitizens.service;
 
+import episen.pds.citizens.backcitizens.model.BuildingDWP;
 import episen.pds.citizens.backcitizens.model.Tenant;
 import episen.pds.citizens.backcitizens.model.Workplace;
+import episen.pds.citizens.backcitizens.repository.BuildingDWPRepo;
 import episen.pds.citizens.backcitizens.repository.TenantRepo;
 import episen.pds.citizens.backcitizens.repository.WorkplaceRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ public class OccupationService {
     private TenantRepo tenantRepo;
     @Autowired
     private WorkplaceRepo workplaceRepo;
+    @Autowired
+    private BuildingDWPRepo buildingDWPRepo;
 
     public Iterable<Tenant> getTenant() {
         return tenantRepo.getTenant();
@@ -20,5 +24,8 @@ public class OccupationService {
 
     public Iterable<Workplace> getWorkplace() {
         return workplaceRepo.getWorkplace();
+    }
+    public Iterable<BuildingDWP> getDWPbuildings() {
+        return buildingDWPRepo.getDWPbuildings();
     }
 }
