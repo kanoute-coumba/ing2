@@ -1,12 +1,10 @@
 package episen.pds.citizens.backcitizens.model;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-public class BuildingDWP {
+@Table(name = "DWPBuildings")
+public class DWPbyBuilding {
 
     @Id
     @Column(name = "id_building")
@@ -14,5 +12,8 @@ public class BuildingDWP {
 
     @Column(name = "name_building")
     private String name_building;
+
+    @Column(name = "nbreDWPs")
+    private int nbreDWPs;
 
 }
