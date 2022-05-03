@@ -14,6 +14,8 @@ public class OccupationService {
     private WorkplaceRepo workplaceRepo;
     @Autowired
     private DWPbyBuildingRepo buildingDWPRepo;
+    //@Autowired
+    //private DWPbyBuildingContainsRepo dwpByBuildingContainsRepo;
     @Autowired
     private RentCounterByYearRepo rentCounterByYearRepo;
     @Autowired
@@ -34,7 +36,7 @@ public class OccupationService {
     public void createWorkplace() {
         workplaceRepo.createWorkplace();
     }
-    public Iterable<episen.pds.citizens.backcitizens.model.DWPbyBuilding> getDWPbuildings() {
+    public Iterable<DWPbyBuilding> getDWPbuildings() {
         return buildingDWPRepo.getDWPbuildings();
     }
 

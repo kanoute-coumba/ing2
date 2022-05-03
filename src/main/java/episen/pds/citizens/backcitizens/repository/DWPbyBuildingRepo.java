@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public interface DWPbyBuildingRepo extends CrudRepository<episen.pds.citizens.backcitizens.model.DWPbyBuilding, Integer> {
+public interface DWPbyBuildingRepo extends CrudRepository<DWPbyBuilding, Integer> {
 
     @Transactional
     @Modifying
@@ -17,6 +17,7 @@ public interface DWPbyBuildingRepo extends CrudRepository<episen.pds.citizens.ba
             "group by building.id_building, building.name_building order by building.name_building)" , nativeQuery = true)
     public void createDWPbuildings();
 
-    @Query(value = " select * from DWPbyBuilding order by id_building" , nativeQuery = true)
-    public Iterable<episen.pds.citizens.backcitizens.model.DWPbyBuilding> getDWPbuildings();
+    @Query(value = " select * from DWPbyBuilding order by name_building" , nativeQuery = true)
+    public Iterable<DWPbyBuilding> getDWPbuildings();
+
 }
