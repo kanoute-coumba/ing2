@@ -3,9 +3,12 @@ package episen.pds.citizens.backcitizens.model;
 import javax.persistence.*;
 
 
-
+@Entity
 public class RSpace {
 
+    @Id
+    @Column(name = "reservation_id")
+    private int  reservation_id;
 
     @Column(name = "user_id")
     private int  user_id;
@@ -26,10 +29,7 @@ public class RSpace {
     private String type_space;
 
     @Column(name = "id_floor")
-    private Integer id_floor;
-
-    @Column(name = "reservation_id")
-    private int  reservation_id;
+    private int id_floor;
 
     @Column(name = "start_time")
     private long start_time;
