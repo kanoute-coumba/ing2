@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-    public interface SpacesRepo extends CrudRepository<Space, Integer> {
+    public interface SpacesRepo extends CrudRepository<RSpace, Integer> {
 
-    @Query(value="select * from space inner join reservation on space.id_space=reservation.id_space inner join users on users.user_id=reservation.user_id;", nativeQuery = true)
-    Iterable<Space> findReservedSpaces();
+    @Query(value="select users.user_id, username, right_layer, type, name_space, type_space, id_floor, reservation_id, start_time, end_time from space inner join reservation on space.id_space=reservation.id_space inner join users on users.user_id=reservation.user_id;", nativeQuery = true)
+    Iterable<RSpace> findReservedSpaces();
 }

@@ -11,6 +11,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
+
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -99,6 +101,15 @@ public interface EquipmentRepo extends CrudRepository<Equipment, Integer> {
     @Modifying
     @Query(value = "update equipment_data set type_mode =:type_mode where id_equipment_data =:id_equipment", nativeQuery = true)
     void updateStatutAuto (@Param("type_mode") String type_mode, @Param("id_equipment") Integer id_equipment);
+
+    @Query(value = "select begin_time from equipment_data where id_equipment_data =:id_equipment_data", nativeQuery = true)
+    Timestamp getBeginTime(@Param("id_equipment_data") Integer id_equipment_data);
+
+    @Query(value = "select end_time from equipment_data where id_equipment_data =:id_equipment_data", nativeQuery = true)
+    Timestamp getEndTime(@Param("id_equipment_data") Integer id_equipment_data);
+
+    @Query(value = "select r.id_room from room r inner join equipment e on r.id_room = e.id_room inner join equipment_data eq on e.id_equipment = eq.id_equipment_data where type =:type_equipment and type_mode =:type_mode", nativeQuery = true)
+    List<Integer> listRoomWithDryerLine (@Param("type_equipment") String type_equipment, @Param("type_mode") String type_mode);
 
 
 
