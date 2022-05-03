@@ -54,8 +54,22 @@ public class OccupationService {
         rateXtractionRepo.getRateXtraction();
     }
 
+    /*
     public Iterable<OccupationRate> getOccupationRate() {
         return occupationRateRepo.getOccupationRate();
+    }
+     */
+
+    public Iterable<OccupationRate> get2020Rate() {
+        return occupationRateRepo.get2020Rate();
+    }
+
+    public Iterable<OccupationRate> get2021Rate() {
+        return occupationRateRepo.get2021Rate();
+    }
+
+    public Iterable<OccupationRate> get2022Rate() {
+        return occupationRateRepo.get2022Rate();
     }
 
 }

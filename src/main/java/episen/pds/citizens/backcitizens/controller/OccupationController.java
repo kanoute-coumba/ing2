@@ -70,9 +70,30 @@ public class OccupationController {
         logger.config("returning values");
         occupationService.getRateXtraction();
     }
+    /*
     @GetMapping("/occupation_rate")
     public Iterable<OccupationRate> getOccupationRate() {
         logger.config("returning values");
         return occupationService.getOccupationRate();
+    }
+
+     */
+
+    @GetMapping("/2020rate")
+    public Iterable<OccupationRate> get2020Rate() {
+        logger.config("returning values");
+        return occupationService.get2020Rate();
+    }
+
+    @GetMapping("/2021rate")
+    public Iterable<OccupationRate> get2021Rate() {
+        logger.config("returning values");
+        return occupationService.get2021Rate();
+    }
+
+    @GetMapping("/2022rate")
+    public Iterable<OccupationRate> get2022Rate() {
+        logger.config("returning values");
+        return occupationService.get2022Rate();
     }
 }
