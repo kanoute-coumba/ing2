@@ -5,6 +5,8 @@ import episen.pds.citizens.backcitizens.repository.ConsumptionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Logger;
@@ -156,5 +158,16 @@ public class ConsumptionService {
             consumptionArrayList.add(c);}
             return consumptionArrayList;
         }
+    }
+
+    public Consumption ConsumptionByIdBuildingNow(int idb){
+        Timestamp timestamp = Timestamp.from(Instant.now());
+        long dBegin = timestamp.getTime()/1000;
+        ArrayList<Consumption> c = consumptionRepo.findConsumptionByFloorBefore(idb,dBegin);
+        double somme = 0.0;
+        for (Consumption consumption : c) {
+            somme += consumption.getValue();
+        }
+        return new Consumption(0, somme, dBegin, 0);
     }
 }

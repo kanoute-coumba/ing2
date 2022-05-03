@@ -31,8 +31,6 @@ public class EquipmentService {
 
 
     public Iterable<Map<String, String>> getEquipmentBYRoom(Integer idr) {
-
-
         return equipmentRepo.findEquipmentByRoom(idr);
     }
 
