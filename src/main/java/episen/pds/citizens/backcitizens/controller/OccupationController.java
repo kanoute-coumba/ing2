@@ -1,13 +1,9 @@
 package episen.pds.citizens.backcitizens.controller;
 
-import episen.pds.citizens.backcitizens.model.BuildingDWP;
-import episen.pds.citizens.backcitizens.model.Tenant;
-import episen.pds.citizens.backcitizens.model.Workplace;
+import episen.pds.citizens.backcitizens.model.*;
 import episen.pds.citizens.backcitizens.service.OccupationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.logging.Logger;
 
@@ -22,17 +18,36 @@ public class OccupationController {
     @GetMapping("/tenant")
     public Iterable<Tenant> getTenant() {
         logger.config("returning values");
-        return occupationService.getTenant();
+        return occupationService.getAllTenant();
     }
 
-    @GetMapping("/workplace")
-    public Iterable<Workplace> getWorkplace() {
-        logger.config("returning values");
-        return occupationService.getWorkplace();
+    @GetMapping("/create_workplace")
+    public void createWorkplace() {
+        logger.config("returning nothing");
+        occupationService.createWorkplace();
+
     }
-    @GetMapping("/buildings")
-    public Iterable<BuildingDWP> getDWPbuildings() {
+    @GetMapping("/create_dwpbybuildings")
+    public void createDWPbuildings() {
+        logger.config("returning nothing");
+        occupationService.createDWPbuildings();
+    }
+    @GetMapping("/dwp_buildings")
+    public Iterable<DWPbyBuilding> getDWPbuildings() {
         logger.config("returning values");
         return occupationService.getDWPbuildings();
+    }
+
+    @GetMapping ("/create_tenantdetails")
+    public void createTenantDetails() {
+        logger.config("returning nothing");
+        occupationService.createTenantDetails();
+        //occupationService.getTenantDetails();
+    }
+
+    @GetMapping("/rentyearcounter")
+    public Iterable<RentCounterByYear> getCounterByYear() {
+        logger.config("returning values");
+        return occupationService.getCounterByYear();
     }
 }

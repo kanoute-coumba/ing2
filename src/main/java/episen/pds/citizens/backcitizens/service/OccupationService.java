@@ -1,11 +1,8 @@
 package episen.pds.citizens.backcitizens.service;
 
-import episen.pds.citizens.backcitizens.model.BuildingDWP;
-import episen.pds.citizens.backcitizens.model.Tenant;
-import episen.pds.citizens.backcitizens.model.Workplace;
-import episen.pds.citizens.backcitizens.repository.BuildingDWPRepo;
-import episen.pds.citizens.backcitizens.repository.TenantRepo;
-import episen.pds.citizens.backcitizens.repository.WorkplaceRepo;
+import episen.pds.citizens.backcitizens.model.*;
+import episen.pds.citizens.backcitizens.repository.*;
+import episen.pds.citizens.backcitizens.repository.DWPbyBuildingRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,16 +13,29 @@ public class OccupationService {
     @Autowired
     private WorkplaceRepo workplaceRepo;
     @Autowired
-    private BuildingDWPRepo buildingDWPRepo;
+    private DWPbyBuildingRepo buildingDWPRepo;
+    @Autowired
+    private RentCounterByYearRepo rentCounterByYearRepo;
+    @Autowired
+    private TenantDetailsRepo tenantDetailsRepo;
 
-    public Iterable<Tenant> getTenant() {
-        return tenantRepo.getTenant();
+    public Iterable<Tenant> getAllTenant() {
+        return tenantRepo.getAllTenant();
     }
-
-    public Iterable<Workplace> getWorkplace() {
-        return workplaceRepo.getWorkplace();
+    public void createTenantDetails() {
+        tenantDetailsRepo.createTenantDetails();
     }
-    public Iterable<BuildingDWP> getDWPbuildings() {
+    public void createDWPbuildings() {
+        buildingDWPRepo.createDWPbuildings();
+    }
+    public Iterable<RentCounterByYear> getCounterByYear() {
+        return rentCounterByYearRepo.getCounterByYear();
+    }
+    public void createWorkplace() {
+        workplaceRepo.createWorkplace();
+    }
+    public Iterable<episen.pds.citizens.backcitizens.model.DWPbyBuilding> getDWPbuildings() {
         return buildingDWPRepo.getDWPbuildings();
     }
+
 }
