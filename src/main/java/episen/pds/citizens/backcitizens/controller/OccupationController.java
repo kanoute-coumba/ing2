@@ -45,6 +45,12 @@ public class OccupationController {
         //occupationService.getTenantDetails();
     }
 
+    @GetMapping("/create_rentcounterbyyear")
+    public void createRentCounterByYear() {
+        logger.config("returning values");
+        occupationService.createRentCounterByYear();
+    }
+
     @GetMapping("/rentyearcounter")
     public Iterable<RentCounterByYear> getCounterByYear() {
         logger.config("returning values");

@@ -30,6 +30,9 @@ public class OccupationService {
     public void createDWPbuildings() {
         buildingDWPRepo.createDWPbuildings();
     }
+    public void createRentCounterByYear() {
+        rentCounterByYearRepo.createRentCounterByYear();}
+
     public Iterable<RentCounterByYear> getCounterByYear() {
         return rentCounterByYearRepo.getCounterByYear();
     }
