@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -74,9 +75,17 @@ public class EquipmentService {
         return equipmentRepo.getEquipmentAutomaticFalse(id_room, nameEquip);
     }
 
-//    public List<Integer> getEquipmentAutomaticPresenceTrue (String statut, String sensor, Integer valuesensor){
-//        return equipmentRepo.getEquipmentAutomaticTrue(statut, sensor, valuesensor);
-//    }
+    public List<Integer> listRoomWithDryerLine(String type_equipment, String type_mode) {
+        return equipmentRepo.listRoomWithDryerLine(type_equipment, type_mode);
+    }
+
+    public Timestamp getBeginTime(Integer id_equipment_data) {
+        return equipmentRepo.getBeginTime(id_equipment_data);
+    }
+
+    public Timestamp getEndTime(Integer id_equipment_data) {
+        return equipmentRepo.getEndTime(id_equipment_data);
+    }
 
 
     public Integer getCurrentlyValueSensor(Integer idroom, String currentdate) {
