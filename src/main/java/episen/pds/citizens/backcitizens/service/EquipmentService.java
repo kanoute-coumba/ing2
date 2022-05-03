@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -31,8 +32,6 @@ public class EquipmentService {
 
 
     public Iterable<Map<String, String>> getEquipmentBYRoom(Integer idr) {
-
-
         return equipmentRepo.findEquipmentByRoom(idr);
     }
 
@@ -76,9 +75,17 @@ public class EquipmentService {
         return equipmentRepo.getEquipmentAutomaticFalse(id_room, nameEquip);
     }
 
-//    public List<Integer> getEquipmentAutomaticPresenceTrue (String statut, String sensor, Integer valuesensor){
-//        return equipmentRepo.getEquipmentAutomaticTrue(statut, sensor, valuesensor);
-//    }
+    public List<Integer> listRoomWithDryerLine(String type_equipment, String type_mode) {
+        return equipmentRepo.listRoomWithDryerLine(type_equipment, type_mode);
+    }
+
+    public Timestamp getBeginTime(Integer id_equipment_data) {
+        return equipmentRepo.getBeginTime(id_equipment_data);
+    }
+
+    public Timestamp getEndTime(Integer id_equipment_data) {
+        return equipmentRepo.getEndTime(id_equipment_data);
+    }
 
 
     public Integer getCurrentlyValueSensor(Integer idroom, String currentdate) {
@@ -100,6 +107,11 @@ public class EquipmentService {
     @Transactional
     public void updateStatutAutomaticScreen (Integer id_equipment_data, String statut, Integer value) {
         equipmentRepo.updateStatutAutomaticScreen(id_equipment_data, statut, value);
+    }
+
+    @Transactional
+    public void updateTimeWorkEquipment(String begin_time, String end_time, Integer id_equipment_data) {
+        equipmentRepo.updateBeginAndEndequipment(begin_time, end_time,id_equipment_data);
     }
 
     @Transactional
