@@ -27,18 +27,20 @@ public class OccupationController {
         occupationService.createWorkplace();
 
     }
+
     @GetMapping("/create_dwpbybuildings")
     public void createDWPbuildings() {
         logger.config("returning nothing");
         occupationService.createDWPbuildings();
     }
+
     @GetMapping("/dwp_buildings")
     public Iterable<DWPbyBuilding> getDWPbuildings() {
         logger.config("returning values");
         return occupationService.getDWPbuildings();
     }
 
-    @GetMapping ("/create_tenantdetails")
+    @GetMapping("/create_tenantdetails")
     public void createTenantDetails() {
         logger.config("returning nothing");
         occupationService.createTenantDetails();
@@ -55,5 +57,22 @@ public class OccupationController {
     public Iterable<RentCounterByYear> getCounterByYear() {
         logger.config("returning values");
         return occupationService.getCounterByYear();
+    }
+
+    @GetMapping("/create_ratextraction")
+    public void createRateXtraction() {
+        logger.config("returning values");
+        occupationService.createRateXtraction();
+    }
+
+    @GetMapping("/ratextraction")
+    public void getRateXtraction() {
+        logger.config("returning values");
+        occupationService.getRateXtraction();
+    }
+    @GetMapping("/occupation_rate")
+    public Iterable<OccupationRate> getOccupationRate() {
+        logger.config("returning values");
+        return occupationService.getOccupationRate();
     }
 }

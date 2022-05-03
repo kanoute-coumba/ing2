@@ -14,15 +14,20 @@ public class OccupationService {
     private WorkplaceRepo workplaceRepo;
     @Autowired
     private DWPbyBuildingRepo buildingDWPRepo;
-    //@Autowired
-    //private DWPbyBuildingContainsRepo dwpByBuildingContainsRepo;
     @Autowired
     private RentCounterByYearRepo rentCounterByYearRepo;
     @Autowired
     private TenantDetailsRepo tenantDetailsRepo;
+    @Autowired
+    private RateXtractionRepo rateXtractionRepo;
+    @Autowired
+    private OccupationRateRepo occupationRateRepo;
 
     public Iterable<Tenant> getAllTenant() {
         return tenantRepo.getAllTenant();
+    }
+    public void createWorkplace() {
+        workplaceRepo.createWorkplace();
     }
     public void createTenantDetails() {
         tenantDetailsRepo.createTenantDetails();
@@ -36,11 +41,21 @@ public class OccupationService {
     public Iterable<RentCounterByYear> getCounterByYear() {
         return rentCounterByYearRepo.getCounterByYear();
     }
-    public void createWorkplace() {
-        workplaceRepo.createWorkplace();
-    }
+
     public Iterable<DWPbyBuilding> getDWPbuildings() {
         return buildingDWPRepo.getDWPbuildings();
+    }
+
+    public void createRateXtraction() {
+        rateXtractionRepo.createRateXtraction();
+    }
+
+    public void getRateXtraction() {
+        rateXtractionRepo.getRateXtraction();
+    }
+
+    public Iterable<OccupationRate> getOccupationRate() {
+        return occupationRateRepo.getOccupationRate();
     }
 
 }
