@@ -168,6 +168,7 @@ public class ConsumptionService {
         for (Consumption consumption : c) {
             somme += consumption.getValue();
         }
+        somme = (int) somme;
         return new Consumption(0, somme, dBegin, 0);
     }
 }
