@@ -3,29 +3,24 @@ package episen.pds.citizens.backcitizens.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "OccupationRate")
-public class OccupationRateByBuilding {
-
+public class RentCounterByYear {
     @Id
-    @Column(name="year")
+    @Column(name = "year")
     private int year;
-
-    @Column(name="name_building")
+    @Column(name = "name_building")
     private String name_building;
+    @Column(name = "counter")
+    private int counter;
 
-    @Column(name="rate")
-    private int rate;
-
-    public OccupationRateByBuilding() {
+    public RentCounterByYear() {
     }
 
-    public OccupationRateByBuilding(int year, String name_building, int rate) {
+    public RentCounterByYear(int year, String name_building, int counter) {
         this.year = year;
         this.name_building = name_building;
-        this.rate = rate;
+        this.counter = counter;
     }
 
     public int getYear() {
@@ -44,11 +39,11 @@ public class OccupationRateByBuilding {
         this.name_building = name_building;
     }
 
-    public int getRate() {
-        return rate;
+    public int getCounter() {
+        return counter;
     }
 
-    public void setRate(int rate) {
-        this.rate = rate;
+    public void setCounter(int counter) {
+        this.counter = counter;
     }
 }
