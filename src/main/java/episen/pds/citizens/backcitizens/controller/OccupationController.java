@@ -52,10 +52,10 @@ public class OccupationController {
         logger.config("returning values");
         return occupationService.getTenantDetails();
     }
-/*
+
     @GetMapping("/create_rentcounterbyyear")
     public void createRentCounterByYear() {
-        logger.config("returning values");
+        logger.config("return nothing");
         occupationService.createRentCounterByYear();
     }
 
@@ -64,16 +64,16 @@ public class OccupationController {
         logger.config("returning values");
         return occupationService.getRentCounterByYear();
     }
-*/
+
     @GetMapping("/create_ratextraction")
     public void createRateXtraction() {
-        logger.config("returning values");
+        logger.config("returning nothing");
         occupationService.createRateXtraction();
     }
 
     @GetMapping("/ratextraction")
     public void getRateXtraction() {
-        logger.config("returning values");
+        logger.config("returning nothing");
         occupationService.getRateXtraction();
     }
 

@@ -14,9 +14,9 @@ public class OccupationService {
     private WorkplaceRepo workplaceRepo;
     @Autowired
     private DWPbyBuildingRepo buildingDWPRepo;
-    /*@Autowired
+    @Autowired
     private RentCounterByYearRepo rentCounterByYearRepo;
-   */ @Autowired
+    @Autowired
     private TenantDetailsRepo tenantDetailsRepo;
     @Autowired
     private RateXtractionRepo rateXtractionRepo;
@@ -37,12 +37,12 @@ public class OccupationService {
     public void createDWPbuildings() {
         buildingDWPRepo.createDWPbuildings();
     }
-  /*  public void createRentCounterByYear() {
+    public void createRentCounterByYear() {
         rentCounterByYearRepo.createRentCounterByYear();}
 
     public Iterable<RentCounterByYear> getRentCounterByYear() {
         return rentCounterByYearRepo.getRentCounterByYear();
-    } */
+    }
 
     public Iterable<DWPbyBuilding> getDWPbuildings() {
         return buildingDWPRepo.getDWPbuildings();
