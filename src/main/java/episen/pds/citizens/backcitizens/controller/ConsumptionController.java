@@ -56,4 +56,8 @@ public class ConsumptionController {
         logger.info("findHistoryConsumptionByIdBuildingBetweenTwoDate");
         return consumptionService.findHistoryConsumptionByIdBuildingBetweenTwoDate(id_b,dBegin,dEnd);
     }
+    @GetMapping("/ConsumptionByIdBuildingNow/{idb}")
+    public Consumption ConsumptionByIdBuildingNow(@PathVariable("idb") int idb){
+        return consumptionService.consumptionByIdBuildingNow(idb);
+    }
 }
