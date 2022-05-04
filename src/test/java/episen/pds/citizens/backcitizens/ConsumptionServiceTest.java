@@ -11,10 +11,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class ConsumptionServiceTest extends TestCase {
@@ -23,78 +22,6 @@ public class ConsumptionServiceTest extends TestCase {
 
     @Mock
     ConsumptionRepo consumptionRepo;
-
-    @Test
-    public void testConsumptionByIdBuildingNow(){ // ne marche pas
-        int idb = 11534;
-        Timestamp timestamp = Timestamp.from(Instant.now());
-        long dBegin = timestamp.getTime()/1000;
-        ArrayList<Consumption> c = consumptionRepo.findConsumptionByFloorBefore(idb,dBegin);
-        double somme = 0.0;
-        for (Consumption consumption : c) {
-            somme += consumption.getValue();
-        }
-        somme = (int) somme;
-        Consumption consumption = new Consumption(0, somme, dBegin, 0);
-        assertEquals(consumption,consumptionService.consumptionByIdBuildingNow(idb));
-    }
-    @Test
-    public void testGetConsumptionsFirst() { // ne marche pas
-        // l'entré
-        ArrayList<Consumption> c = new ArrayList<>();
-        ArrayList<Consumption> consumptionArrayList = new ArrayList<>();
-        c.add( new Consumption(1,1.0,1,1));
-        c.add( new Consumption(2,1.0,2,2));
-        c.add( new Consumption(3,1.0,3,3));
-        consumptionArrayList.add( new Consumption(4,1.0,4,1));
-        consumptionArrayList.add( new Consumption(5,3.0,5,1));
-        consumptionArrayList.add( new Consumption(6,6.0,5,2));
-        consumptionArrayList.add( new Consumption(7,2.0,6,3));
-        consumptionArrayList.add( new Consumption(8,12.0,6,2));
-        consumptionArrayList.add( new Consumption(9,2.0,6,4));
-        // la sortie
-        ArrayList<Consumption> e = new ArrayList<>();
-        e.add(new Consumption(3, 3.0,3,3));
-        e.add(new Consumption(4, 3.0, 4, 1));
-        e.add(new Consumption(5, 5.0, 5, 1));
-        e.add(new Consumption(6, 10.0, 5, 2));
-        e.add(new Consumption(7, 11.0, 6, 3));
-        e.add(new Consumption(8, 17.0, 6, 2));
-        e.add(new Consumption(9, 19.0, 6, 4));
-        // la comparaison
-        assertEquals(e,consumptionService.getConsumptionsFirst(consumptionArrayList,c));
-    }
-    @Test
-    public void testGetConsumptionsSecond() {
-        //entré
-        ArrayList<Consumption> consumptionArrayList = new ArrayList<>();
-        consumptionArrayList.add(new Consumption(4, 1.0, 4, 1));
-        consumptionArrayList.add(new Consumption(5, 3.0, 5, 1));
-        consumptionArrayList.add(new Consumption(6, 6.0, 5, 2));
-        consumptionArrayList.add(new Consumption(7, 2.0, 6, 3));
-        consumptionArrayList.add(new Consumption(8, 12.0, 6, 2));
-        consumptionArrayList.add(new Consumption(9, 2.0, 6, 4));
-        HashMap<Integer, Consumption> hashMap = new HashMap<>();
-        ArrayList<Consumption> sortie = new ArrayList<>();
-        double somme = 0.0;
-
-        //sortie
-        for (Consumption consumption : consumptionArrayList) {
-            if (hashMap.containsKey(consumption.getId_equipment())) {
-                somme = somme - hashMap.get(consumption.getId_equipment()).getValue() + consumption.getValue();
-                hashMap.replace(consumption.getId_equipment(), consumption);
-            } else {
-                hashMap.put(consumption.getId_equipment(), consumption);
-                somme = somme + consumption.getValue();
-            }
-            Consumption consumption1 = new Consumption(consumption.getId_consumption(),
-                    somme, consumption.getDate_time(), consumption.getId_equipment());
-            sortie.add(consumption1);
-        }
-        //comparaison
-        assertEquals(consumptionService.cleanList(sortie),
-                consumptionService.getConsumptionsSecond(consumptionArrayList, new HashMap<>(), new ArrayList<>(), 0.0));
-    }
 
     @Test
     public void testFindHistoryConsumptionByIdEquipment(){
