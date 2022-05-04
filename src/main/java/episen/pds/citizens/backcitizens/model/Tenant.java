@@ -18,7 +18,7 @@ public class Tenant {
     private int id_company;
 
     @Column(name = "id_space")
-    private long id_space;
+    private int id_space;
 
     @Column(name = "date")
     private Date date;
@@ -26,7 +26,7 @@ public class Tenant {
     public Tenant() {
     }
 
-    public Tenant(int id_tenant, int id_company, long id_space, Date date) {
+    public Tenant(int id_tenant, int id_company, int id_space, Date date) {
         this.id_tenant = id_tenant;
         this.id_company = id_company;
         this.id_space = id_space;
@@ -53,7 +53,7 @@ public class Tenant {
         return id_space;
     }
 
-    public void setId_space(long id_space) {
+    public void setId_space(int id_space) {
         this.id_space = id_space;
     }
 

@@ -1,6 +1,5 @@
 package episen.pds.citizens.backcitizens.repository;
 
-import episen.pds.citizens.backcitizens.model.Tenant;
 import episen.pds.citizens.backcitizens.model.TenantDetails;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,5 +19,8 @@ public interface TenantDetailsRepo extends CrudRepository<TenantDetails, Date> {
             "on tenant.id_space=workplace.id_space) as A1 on A1.id_company=company.id_company order by A1.date", nativeQuery = true)
 
     public void createTenantDetails();
+
+    @Query(value = " select * from tenantdetails", nativeQuery = true)
+    public Iterable<TenantDetails> getTenantDetails();
 
 }
