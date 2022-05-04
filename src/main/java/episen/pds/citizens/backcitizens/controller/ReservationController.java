@@ -27,7 +27,7 @@ public class ReservationController {
     }
 
     @GetMapping("/spaces")
-    public Iterable<Space> getSpace() {
+    public Iterable<RSpace> getSpace() {
         logger.config("returning values REEEEEEESAAAAAAAAAAAAA");
         return reservationService.getReservedSpace();
     }
