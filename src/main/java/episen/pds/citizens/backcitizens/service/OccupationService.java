@@ -14,14 +14,16 @@ public class OccupationService {
     private WorkplaceRepo workplaceRepo;
     @Autowired
     private DWPbyBuildingRepo buildingDWPRepo;
-    @Autowired
+    /*@Autowired
     private RentCounterByYearRepo rentCounterByYearRepo;
-    @Autowired
+   */ @Autowired
     private TenantDetailsRepo tenantDetailsRepo;
     @Autowired
     private RateXtractionRepo rateXtractionRepo;
     @Autowired
     private OccupationRateRepo occupationRateRepo;
+    @Autowired
+    private OccupationRateByBuildingRepo occupationRateByBuildingRepo;
 
     public Iterable<Tenant> getAllTenant() {
         return tenantRepo.getAllTenant();
@@ -35,15 +37,19 @@ public class OccupationService {
     public void createDWPbuildings() {
         buildingDWPRepo.createDWPbuildings();
     }
-    public void createRentCounterByYear() {
+  /*  public void createRentCounterByYear() {
         rentCounterByYearRepo.createRentCounterByYear();}
 
-    public Iterable<RentCounterByYear> getCounterByYear() {
-        return rentCounterByYearRepo.getCounterByYear();
-    }
+    public Iterable<RentCounterByYear> getRentCounterByYear() {
+        return rentCounterByYearRepo.getRentCounterByYear();
+    } */
 
     public Iterable<DWPbyBuilding> getDWPbuildings() {
         return buildingDWPRepo.getDWPbuildings();
+    }
+
+    public Iterable<TenantDetails> getTenantDetails() {
+        return tenantDetailsRepo.getTenantDetails();
     }
 
     public void createRateXtraction() {
@@ -54,22 +60,20 @@ public class OccupationService {
         rateXtractionRepo.getRateXtraction();
     }
 
-    /*
     public Iterable<OccupationRate> getOccupationRate() {
         return occupationRateRepo.getOccupationRate();
     }
-     */
 
-    public Iterable<OccupationRate> get2020Rate() {
-        return occupationRateRepo.get2020Rate();
+    public Iterable<OccupationRateByBuilding> get2020Rate() {
+        return occupationRateByBuildingRepo.get2020Rate();
     }
 
-    public Iterable<OccupationRate> get2021Rate() {
-        return occupationRateRepo.get2021Rate();
+    public Iterable<OccupationRateByBuilding> get2021Rate() {
+        return occupationRateByBuildingRepo.get2021Rate();
     }
 
-    public Iterable<OccupationRate> get2022Rate() {
-        return occupationRateRepo.get2022Rate();
+    public Iterable<OccupationRateByBuilding> get2022Rate() {
+        return occupationRateByBuildingRepo.get2022Rate();
     }
 
 }

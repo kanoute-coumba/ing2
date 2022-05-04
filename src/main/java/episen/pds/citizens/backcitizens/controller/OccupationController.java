@@ -47,6 +47,12 @@ public class OccupationController {
         //occupationService.getTenantDetails();
     }
 
+    @GetMapping("/tenantdetails")
+    public Iterable<TenantDetails> getTenantDetails() {
+        logger.config("returning values");
+        return occupationService.getTenantDetails();
+    }
+/*
     @GetMapping("/create_rentcounterbyyear")
     public void createRentCounterByYear() {
         logger.config("returning values");
@@ -54,11 +60,11 @@ public class OccupationController {
     }
 
     @GetMapping("/rentyearcounter")
-    public Iterable<RentCounterByYear> getCounterByYear() {
+    public Iterable<RentCounterByYear> getRentCounterByYear() {
         logger.config("returning values");
-        return occupationService.getCounterByYear();
+        return occupationService.getRentCounterByYear();
     }
-
+*/
     @GetMapping("/create_ratextraction")
     public void createRateXtraction() {
         logger.config("returning values");
@@ -70,29 +76,27 @@ public class OccupationController {
         logger.config("returning values");
         occupationService.getRateXtraction();
     }
-    /*
+
     @GetMapping("/occupation_rate")
     public Iterable<OccupationRate> getOccupationRate() {
         logger.config("returning values");
         return occupationService.getOccupationRate();
     }
 
-     */
-
     @GetMapping("/2020rate")
-    public Iterable<OccupationRate> get2020Rate() {
+    public Iterable<OccupationRateByBuilding> get2020Rate() {
         logger.config("returning values");
         return occupationService.get2020Rate();
     }
 
     @GetMapping("/2021rate")
-    public Iterable<OccupationRate> get2021Rate() {
+    public Iterable<OccupationRateByBuilding> get2021Rate() {
         logger.config("returning values");
         return occupationService.get2021Rate();
     }
 
     @GetMapping("/2022rate")
-    public Iterable<OccupationRate> get2022Rate() {
+    public Iterable<OccupationRateByBuilding> get2022Rate() {
         logger.config("returning values");
         return occupationService.get2022Rate();
     }
