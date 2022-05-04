@@ -5,22 +5,25 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class RentCounterByYear {
-    @Id
-    @Column(name = "year")
-    private int year;
-    @Column(name = "name_building")
-    private String name_building;
-    @Column(name = "counter")
-    private int counter;
+public class OccupationRateByBuilding {
 
-    public RentCounterByYear() {
+    @Id
+    @Column(name="year")
+    private int year;
+
+    @Column(name="name_building")
+    private String name_building;
+
+    @Column(name="rate")
+    private int rate;
+
+    public OccupationRateByBuilding() {
     }
 
-    public RentCounterByYear(int year, String name_building, int counter) {
+    public OccupationRateByBuilding(int year, String name_building, int rate) {
         this.year = year;
         this.name_building = name_building;
-        this.counter = counter;
+        this.rate = rate;
     }
 
     public int getYear() {
@@ -39,11 +42,11 @@ public class RentCounterByYear {
         this.name_building = name_building;
     }
 
-    public int getCounter() {
-        return counter;
+    public int getRate() {
+        return rate;
     }
 
-    public void setCounter(int counter) {
-        this.counter = counter;
+    public void setRate(int rate) {
+        this.rate = rate;
     }
 }

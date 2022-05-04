@@ -11,18 +11,14 @@ public class OccupationRate {
     @Column(name="year")
     private int year;
 
-    @Column(name="name_building")
-    private String name_building;
-
     @Column(name="rate")
-    private int rate;
+    private float rate;
 
     public OccupationRate() {
     }
 
-    public OccupationRate(int year, String name_building, int rate) {
+    public OccupationRate(int year, float rate) {
         this.year = year;
-        this.name_building = name_building;
         this.rate = rate;
     }
 
@@ -34,19 +30,11 @@ public class OccupationRate {
         this.year = year;
     }
 
-    public String getName_building() {
-        return name_building;
-    }
-
-    public void setName_building(String name_building) {
-        this.name_building = name_building;
-    }
-
-    public int getRate() {
+    public float getRate() {
         return rate;
     }
 
-    public void setRate(int rate) {
+    public void setRate(float rate) {
         this.rate = rate;
     }
 }
