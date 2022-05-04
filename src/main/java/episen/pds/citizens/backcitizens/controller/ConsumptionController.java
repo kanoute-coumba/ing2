@@ -58,6 +58,6 @@ public class ConsumptionController {
     }
     @GetMapping("/ConsumptionByIdBuildingNow/{idb}")
     public Consumption ConsumptionByIdBuildingNow(@PathVariable("idb") int idb){
-        return consumptionService.ConsumptionByIdBuildingNow(idb);
+        return consumptionService.consumptionByIdBuildingNow(idb);
     }
 }
