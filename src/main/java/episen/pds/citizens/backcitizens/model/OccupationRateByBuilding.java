@@ -11,13 +11,13 @@ public class OccupationRateByBuilding {
 
     @Id
     @Column(name="year")
-    private String year;
+    private int year;
 
     @Column(name="name_building")
     private String name_building;
 
     @Column(name="rate")
-    private String rate;
+    private int rate;
 
     @Override
     public String toString() {
@@ -31,17 +31,17 @@ public class OccupationRateByBuilding {
     public OccupationRateByBuilding() {
     }
 
-    public OccupationRateByBuilding(String year, String name_building, String rate) {
+    public OccupationRateByBuilding(int year, String name_building, int rate) {
         this.year = year;
         this.name_building = name_building;
         this.rate = rate;
     }
 
-    public String getYear() {
+    public int getYear() {
         return year;
     }
 
-    public void setYear(String year) {
+    public void setYear(int year) {
         this.year = year;
     }
 
@@ -53,11 +53,11 @@ public class OccupationRateByBuilding {
         this.name_building = name_building;
     }
 
-    public String getRate() {
+    public int getRate() {
         return rate;
     }
 
-    public void setRate(String rate) {
+    public void setRate(int rate) {
         this.rate = rate;
     }
 }
