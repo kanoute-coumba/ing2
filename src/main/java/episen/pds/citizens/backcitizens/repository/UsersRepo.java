@@ -12,4 +12,7 @@ import org.springframework.stereotype.Repository;
 
     @Query(value = "select * from users where username=:uName",nativeQuery = true)
     Iterable<Users> findUsersByUsername(@Param("uName") String uName);
+
+    @Query(value = "select * from users where user_id=:id",nativeQuery = true)
+    Users findUsersByUserId(@Param("id") int id);
 }

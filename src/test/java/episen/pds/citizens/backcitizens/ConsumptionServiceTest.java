@@ -14,6 +14,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 @RunWith(MockitoJUnitRunner.class)
 public class ConsumptionServiceTest extends TestCase {
     @InjectMocks
@@ -22,6 +23,35 @@ public class ConsumptionServiceTest extends TestCase {
     @Mock
     ConsumptionRepo consumptionRepo;
 
+    @Test
+    public void testFindHistoryConsumptionByIdEquipment(){
+        String id_e = "1";
+        assertEquals(consumptionRepo.findHistoryConsumptionByIdEquipment(Integer.parseInt(id_e)),
+                consumptionService.findHistoryConsumptionByIdEquipment(id_e));
+    }
+    @Test
+    public void testFindHistoryConsumptionByIdEquipmentBetweenTwoDate(){
+        String id_e = "1";
+        long dBegin = 1;
+        long dEnd= 2000000000;
+
+        assertEquals(consumptionRepo.findHistoryConsumptionByIdEquipmentBetweenTwoDate(
+                Integer.parseInt(id_e), dBegin,dEnd),
+                consumptionService.findHistoryConsumptionByIdEquipmentBetweenTwoDate(id_e,dBegin,dEnd)
+                );
+    }
+    @Test
+    public void testFindHistoryConsumptionByIdRoomBetweenTwoDate(){
+        String id_r = "1";
+        long dBegin = 1;
+        long dEnd= 2000000000;
+
+        ArrayList<Consumption> consumptionArrayList = consumptionRepo.findHistoryConsumptionByIdRoomBetweenTwoDate(Integer.parseInt(id_r), dBegin,dEnd);
+        ArrayList<Consumption> c = consumptionRepo.findConsumptionByRoomBefore(Integer.parseInt(id_r),dBegin);
+
+        assertEquals(consumptionService.getConsumptionsFirst(consumptionArrayList, c),
+                consumptionService.findHistoryConsumptionByIdRoomBetweenTwoDate(id_r,dBegin,dEnd));
+    }
     @Test
     public void testCleanList(){
         ArrayList<Consumption> arrayList = new ArrayList<>();
@@ -116,4 +146,5 @@ public class ConsumptionServiceTest extends TestCase {
         }
         assertEquals(consumptionService.cleanList(sortie),consumptionService.findHistoryConsumptionByIdFloorBetweenTwoDate(id_f,dBegin,dEnd));
     }
+
 }
