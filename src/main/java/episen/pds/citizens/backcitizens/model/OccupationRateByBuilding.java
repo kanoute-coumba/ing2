@@ -9,10 +9,10 @@ import javax.persistence.Table;
 @Table(name = "OccupationRate")
 public class OccupationRateByBuilding {
 
-    @Id
     @Column(name="year")
     private int year;
 
+    @Id
     @Column(name="name_building")
     private String name_building;
 

@@ -66,13 +66,7 @@ public class OccupationService {
 
     public Iterable<OccupationRateByBuilding> get2020Rate() {
 
-        Iterable <OccupationRateByBuilding> iterable = occupationRateByBuildingRepo.get2020Rate();
-
-        System.out.println(iterable);
-        return iterable;
-
-
-       // return occupationRateByBuildingRepo.get2020Rate();
+        return occupationRateByBuildingRepo.get2020Rate();
     }
 
 

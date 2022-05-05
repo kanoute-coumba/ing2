@@ -6,11 +6,12 @@ import javax.persistence.Id;
 
 @Entity
 public class RentCounterByYear {
-    @Id
+
     @Column(name = "year")
     private int year;
     @Column(name = "name_building")
     private String name_building;
+    @Id
     @Column(name = "counter")
     private int counter;
 

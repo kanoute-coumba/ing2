@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface OccupationRateByBuildingRepo extends CrudRepository<OccupationRateByBuilding, Integer> {
+public interface OccupationRateByBuildingRepo extends CrudRepository<OccupationRateByBuilding, String> {
 
     @Query(value = " select year, name_building, rate from OccupationRate where year=2020", nativeQuery=true)
 
