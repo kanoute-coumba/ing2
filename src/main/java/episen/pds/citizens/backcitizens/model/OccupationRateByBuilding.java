@@ -11,28 +11,37 @@ public class OccupationRateByBuilding {
 
     @Id
     @Column(name="year")
-    private int year;
+    private String year;
 
     @Column(name="name_building")
     private String name_building;
 
     @Column(name="rate")
-    private int rate;
+    private String rate;
+
+    @Override
+    public String toString() {
+        return "OccupationRateByBuilding{" +
+                "year=" + year +
+                ", name_building='" + name_building + '\'' +
+                ", rate=" + rate +
+                '}';
+    }
 
     public OccupationRateByBuilding() {
     }
 
-    public OccupationRateByBuilding(int year, String name_building, int rate) {
+    public OccupationRateByBuilding(String year, String name_building, String rate) {
         this.year = year;
         this.name_building = name_building;
         this.rate = rate;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
@@ -44,11 +53,11 @@ public class OccupationRateByBuilding {
         this.name_building = name_building;
     }
 
-    public int getRate() {
+    public String getRate() {
         return rate;
     }
 
-    public void setRate(int rate) {
+    public void setRate(String rate) {
         this.rate = rate;
     }
 }

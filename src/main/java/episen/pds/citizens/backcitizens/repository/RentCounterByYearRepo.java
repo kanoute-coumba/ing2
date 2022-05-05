@@ -18,6 +18,6 @@ public interface RentCounterByYearRepo extends CrudRepository<RentCounterByYear,
             "group by year, workplace.name_building order by year, workplace.name_building)", nativeQuery = true)
     public void createRentCounterByYear();
 
-    @Query(value = " select * from RentCounterByYear ", nativeQuery = true)
+    @Query(value = " select year, name_building, counter from RentCounterByYear ", nativeQuery = true)
     public Iterable<RentCounterByYear> getRentCounterByYear();
 }

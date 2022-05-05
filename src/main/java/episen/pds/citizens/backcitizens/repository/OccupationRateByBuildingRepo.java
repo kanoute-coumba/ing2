@@ -8,11 +8,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OccupationRateByBuildingRepo extends CrudRepository<OccupationRateByBuilding, Integer> {
 
-    @Query(value = " select * from OccupationRate where year=2020", nativeQuery=true)
+    @Query(value = " select year, name_building, rate from OccupationRate where year=2020", nativeQuery=true)
 
     public Iterable<OccupationRateByBuilding> get2020Rate();
 
-    @Query(value = " select * from OccupationRate where year=2021", nativeQuery=true)
+    @Query(value = " select year, name_building, rate from OccupationRate where year=2021", nativeQuery=true)
 
     public Iterable<OccupationRateByBuilding> get2021Rate();
 
