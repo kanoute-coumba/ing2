@@ -15,5 +15,7 @@ public class ProductionService {
     public List<Production> findAllLastProduction() {
         return productionRepo.findAllLastProduction();
     }
+
+
 }
 
