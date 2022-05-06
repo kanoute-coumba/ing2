@@ -5,6 +5,7 @@ import episen.pds.citizens.backcitizens.service.ProductionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -18,5 +19,10 @@ public class ProductionController {
     @GetMapping("/findAllLastProduction")
     public List<Production> findAllLastProduction() {
         return productionService.findAllLastProduction();
+    }
+
+    @GetMapping("/currentProductionByIdBuilding/{idb}")
+    public Production finCurrentProductionByIdBuilding(@PathVariable("idb") int idb){
+        return productionService.findProductionByIdBuilding(idb);
     }
 }
