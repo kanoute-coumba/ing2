@@ -56,12 +56,12 @@ public class UseMonitorController {
         return useMonitorService.findEquipmentOrderByRoom();
     }
 
-    @GetMapping("/getAllRooms")
-    public Iterable<Room> getAllRooms() {
-        for (Room row:useMonitorService.findAllBusinessRoom()) {
+    @GetMapping("/getAllRooms/{id_user}")
+    public Iterable<Room> getAllRooms(@PathVariable("id_user") int id_user) {
+        for (Room row:useMonitorService.findAllBusinessRoom(id_user)) {
             logger.info(row.toString());
         }
-        return useMonitorService.findAllBusinessRoom();
+        return useMonitorService.findAllBusinessRoom(id_user);
     }
 
     @PostMapping("/setEquipment/{id}/{value}")

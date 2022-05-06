@@ -16,10 +16,11 @@ public interface RoomRepo extends CrudRepository<Room, Integer>  {
     Room findRoomByEquipment(int id_equipment);
 
     @Query(value = "select room.* from room " +
+            "inner join userroom on userroom.id_room = room.id_room " +
             "inner join floor on room.id_floor = floor.id_floor " +
             "inner join building on building.id_building = floor.id_building " +
-            "where type_building = 'Entreprise' order by room.id_room desc limit 4", nativeQuery = true)
-    Iterable<Room> findAllBusinessRoom();
+            "where type_building = 'Entreprise' and id_user=?1 order by room.id_room desc", nativeQuery = true)
+    Iterable<Room> findAllBusinessRoom(int id_user);
 
 /*    @Query(value = "${findRooms}", nativeQuery = true)
     Iterable<RoomsWithConsumption> findRoomsWithConsumption();*/
