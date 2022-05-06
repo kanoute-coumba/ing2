@@ -36,7 +36,6 @@ public class ArchitectureController {
         return buildingService.getAllBuildings();
     }
 
-    // Not yet
     @GetMapping(path = "/building/{id_building}")
     public Optional<Building> getBuilding(@PathVariable Integer id_building) {
         return buildingService.getBuilding(id_building);
@@ -49,7 +48,6 @@ public class ArchitectureController {
         return floorService.getFloorsOfBuilding(name_building);
     }
 
-    // Not yet
     @GetMapping(path = "/floor/{id_floor}")
     public Optional<Floor> getFloor(@PathVariable Integer id_floor) {
         return floorService.getFloor(id_floor);
@@ -79,19 +77,16 @@ public class ArchitectureController {
 
     // ********************************************* Design Controller ********************************************* //
 
-    // Not yet
     @GetMapping("/designs")
     public List<Design> getAllDesigns() {
         return designService.getAllDesigns();
     }
 
-    // Not yet
     @GetMapping("/design/{id_design}")
     public Optional<Design> getDesign(@PathVariable Integer id_design) {
         return designService.getDesign(id_design);
     }
 
-    // Not yet
     @GetMapping("/design_by_name/{name_design}")
     public Optional<Design> getDesignByName(@PathVariable String name_design) {
         return designService.getDesignByName(name_design);
@@ -99,10 +94,19 @@ public class ArchitectureController {
 
     // ********************************************* Configuration Controller ********************************************* //
 
-    // Not yet
     @GetMapping("/configurations")
     public List<Configuration> getAllConfigurations() {
         return configurationService.getAllConfigurations();
+    }
+
+    @PostMapping
+    public void addConfiguration(@RequestBody Configuration configuration) {
+        configurationService.addConfiguration(configuration);
+    }
+
+    @DeleteMapping(path = "{configurationId}")
+    public void deleteConfiguration(@PathVariable("configurationId") Integer id_configuration) {
+        configurationService.deleteConfiguration(id_configuration);
     }
 
 }
