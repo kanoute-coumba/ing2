@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
@@ -46,11 +47,11 @@ public class Conditions {
         return begin_time;
     }
 
-    public void setBegin_time(LocalTime begin_time) {
+    public void setBegin_time(LocalDateTime begin_time) {
         this.begin_time = begin_time;
     }
 
-    public LocalTime getEnd_time() {
+    public LocalTime getEnd_time(LocalDateTime of) {
         return end_time;
     }
 
