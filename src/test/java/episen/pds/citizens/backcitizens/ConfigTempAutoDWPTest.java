@@ -1,7 +1,9 @@
 package episen.pds.citizens.backcitizens;
 
 import episen.pds.citizens.backcitizens.model.Conditions;
+import episen.pds.citizens.backcitizens.model.Equipment_Data;
 import episen.pds.citizens.backcitizens.model.Measure;
+import episen.pds.citizens.backcitizens.model.equipments.EquipmentData;
 import episen.pds.citizens.backcitizens.repository.*;
 import episen.pds.citizens.backcitizens.service.UseMonitorService;
 import junit.framework.TestCase;
@@ -28,6 +30,9 @@ public class ConfigTempAutoDWPTest extends TestCase {
     RoomRepo roomRepo;
     @Autowired
     EquipmentAndDataRepo equipmentAndDataRepo;
+
+    @Autowired
+    EquipmentDataRepo equipmentDataRepo;
     @Autowired
     SensorRepo sensorRepo;
 
@@ -70,11 +75,31 @@ public class ConfigTempAutoDWPTest extends TestCase {
 
     @Test
     public void configTempAuto() {
-        // Récupérer l'état des équipements de température de la salle 52740
-        // Mettre difTemp à -100
-        // Voir les équipements de température de la salle 52740 changer
+        // Mettre un radiateur de la salle en mode auto et à 0
 
-        // Mettre difTemp à 100
+        equipmentDataRepo.setEquipmentValue(53735,0);
+        equipmentDataRepo.setEquipmentAuto(53735);
+        // Mettre difTemp à -100 -->  trop froid
+        Conditions c = new Conditions(); c.setId_room(52740);c.setBegin_time(LocalDateTime.of(2023,5,20, 0,0));
+        c.getEnd_time(LocalDateTime.of(2023,6,20, 0,0)); c.setTemperature(50);c.setLuminosity(500);
+        conditionsRepo.save(c);
+        Measure measures = new Measure(); measures.setTimestamp(LocalDateTime.of(2023,5,20, 0,0)); measures.setValue(-50);
+        measures.setId_sensor(sensorRepo.getTempSensorInRoom(52740).getId_sensor());
+        measureRepo.save(measures);
         // Voir les équipements de température de la salle 52740 changer
+        Equipment_Data new_value = equipmentDataRepo.findAllById_equipment_data(53735);
+        assert (new_value.getValue() > 0);
+        // Mettre difTemp à 100
+        equipmentDataRepo.setEquipmentValue(53735,0);
+        equipmentDataRepo.setEquipmentAuto(53735);
+        c = new Conditions(); c.setId_room(52740);c.setBegin_time(LocalDateTime.of(2023,5,20, 0,0));
+        c.getEnd_time(LocalDateTime.of(2023,6,20, 0,0)); c.setTemperature(-50);c.setLuminosity(500);
+        conditionsRepo.save(c);
+        measures = new Measure(); measures.setTimestamp(LocalDateTime.of(2023,5,20, 0,0)); measures.setValue(50);
+        measures.setId_sensor(sensorRepo.getTempSensorInRoom(52740).getId_sensor());
+        measureRepo.save(measures);
+        // Voir les équipements de température de la salle 52740 changer
+        new_value = equipmentDataRepo.findAllById_equipment_data(53735);
+        assert (new_value.getValue() == 0);
     }
 }
