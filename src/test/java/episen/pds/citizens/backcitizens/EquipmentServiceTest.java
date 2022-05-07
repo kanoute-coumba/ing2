@@ -1,10 +1,9 @@
 package episen.pds.citizens.backcitizens;
 
-import episen.pds.citizens.backcitizens.model.Room;
-import episen.pds.citizens.backcitizens.model.architectureModel.Building;
-import episen.pds.citizens.backcitizens.model.architectureModel.Floor;
-import episen.pds.citizens.backcitizens.repository.*;
-import episen.pds.citizens.backcitizens.repository.architectureRepository.FloorRepo;
+import episen.pds.citizens.backcitizens.repository.EquipmentRepo;
+import episen.pds.citizens.backcitizens.repository.FloorHouseRepo;
+import episen.pds.citizens.backcitizens.repository.HouseRepo;
+import episen.pds.citizens.backcitizens.repository.RoomHouseRepo;
 import episen.pds.citizens.backcitizens.service.EquipmentService;
 import junit.framework.TestCase;
 import org.junit.Test;
@@ -12,11 +11,8 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
-
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -69,7 +65,7 @@ public class EquipmentServiceTest extends TestCase {
 
     @Test
     public void testGetFloors(){
-        String house = "2 rue du palais, Paris";
+        Integer house =123;
         assertEquals(floorRepo.findFloorByHouse(house), equipmentService.getFloors(house));
     }
 
@@ -78,6 +74,19 @@ public class EquipmentServiceTest extends TestCase {
         String floor = "1";
         assertEquals(roomHouseRepo.findRoomByFloor(Integer.valueOf(floor)), equipmentService.getRoomsByIdFloor(floor));
     }
+
+    @Test
+    public void testGetEquipmentAutomaticPresenceFalse(){
+        Integer id_room = 1;
+        String nameEquipment = "lampe";
+        assertEquals(equipmentRepo.getEquipmentAutomaticFalse(id_room, nameEquipment), equipmentService.getEquipmentAutomaticPresenceFalse(id_room, nameEquipment));
+
+    }
+
+
+
+
+
 
 
 }

@@ -59,13 +59,13 @@ public class EquipmentController {
 
     @GetMapping("/house")
     public List<Building> getHouses(@RequestParam("email") String email) {
-        System.out.println(email + " kkkkkk");
+        System.out.println(email);
         System.out.println(equipmentService.getHouseByEmail(email));
         return equipmentService.getHouseByEmail(email);
     }
 
     @GetMapping("/floor")
-    public List<Floor> getFloors(@RequestParam("house") String house) {
+    public List<Floor> getFloors(@RequestParam("house") Integer house) {
         System.out.println(house);
         System.out.println(equipmentService.getFloors(house));
         return equipmentService.getFloors(house);
@@ -95,17 +95,18 @@ public class EquipmentController {
 
 
     @GetMapping("/updateAutoEquip")
-    public String updateAutomatic(@RequestParam("meeting_time") String meeting_time) throws InterruptedException {
+    public String updateAutomatic(@RequestParam("meeting_time") String meeting_time, @RequestParam("id_building") Integer id_building) throws InterruptedException {
 
 
         hours = Timestamp.valueOf(meeting_time);
         System.out.println(hours);
 
 
+
         if ((hours.after(Timestamp.valueOf("2022-01-01 00:00:00")) && hours.before(Timestamp.valueOf("2022-01-01 23:00:00")))) {
 
-            List<Integer> listRoomID = equipmentService.listIdroom("capteur de présence");
-            for (int i = 0; i < listRoomID.size() - 22330; i++) {
+            List<Integer> listRoomID = equipmentService.listIdroom("capteur de présence", id_building);
+            for (int i = 0; i < listRoomID.size(); i++) {
 //                System.out.println("id_room:" + listRoomID.get(i));
 //                System.out.println("meeting_time:" + meeting_time);
                 Integer sensorvalue = equipmentService.presenceOrNotPresence(listRoomID.get(i), meeting_time, "capteur de présence");
@@ -130,14 +131,14 @@ public class EquipmentController {
             }
 
             //Gestion des équipements influencés par le capteur de température
-            List<Integer> listRoomIDForTemp = equipmentService.listIdroom("capteur de température");
-            for (int i = 0; i < listRoomIDForTemp.size() - 22330; i++) {
+            List<Integer> listRoomIDForTemp = equipmentService.listIdroom("capteur de température", id_building);
+            for (int i = 0; i < listRoomIDForTemp.size(); i++) {
                 Integer sensorvalue = equipmentService.presenceOrNotPresence(listRoomID.get(i), meeting_time, "capteur de température");
 //                System.out.println("la value du sensor" + sensorvalue + listRoomID.get(i));
 
                 if (sensorvalue <= 10) {
-                    List<Integer> id_equipRadiateur = equipmentService.getEquipmentAutomaticPresenceFalse(listRoomID.get(i), "radiateur");
-                    List<Integer> id_equipClimatiseur = equipmentService.getEquipmentAutomaticPresenceFalse(listRoomID.get(i), "climatisation");
+                    List<Integer> id_equipRadiateur = equipmentService.getEquipmentAutomaticPresenceFalse(listRoomIDForTemp.get(i), "radiateur");
+                    List<Integer> id_equipClimatiseur = equipmentService.getEquipmentAutomaticPresenceFalse(listRoomIDForTemp.get(i), "climatisation");
 
                     for (int j = 0; j < id_equipRadiateur.size(); j++) {
                         equipmentService.updateStatutAutomaticLight(id_equipRadiateur.get(j), "ON", 1);
@@ -147,10 +148,10 @@ public class EquipmentController {
                         equipmentService.updateStatutAutomaticLight(id_equipClimatiseur.get(k), "OFF", 0);
                     }
                 } else if (sensorvalue > 10 && sensorvalue <= 18) {
-                    List<Integer> id_equipRadiateur = equipmentService.getEquipmentAutomaticPresenceFalse(listRoomID.get(i), "radiateur");
-                    List<Integer> id_equipClimatiseur = equipmentService.getEquipmentAutomaticPresenceFalse(listRoomID.get(i), "climatisation");
+                    List<Integer> id_equipRadiateur = equipmentService.getEquipmentAutomaticPresenceFalse(listRoomIDForTemp.get(i), "radiateur");
+                    List<Integer> id_equipClimatiseur = equipmentService.getEquipmentAutomaticPresenceFalse(listRoomIDForTemp.get(i), "climatisation");
 
-                    for (int j = 0; j < id_equipRadiateur.size() - 22330; j++) {
+                    for (int j = 0; j < id_equipRadiateur.size(); j++) {
                         equipmentService.updateStatutAutomaticLight(id_equipRadiateur.get(j), "OFF", 0);
                     }
 
@@ -158,8 +159,8 @@ public class EquipmentController {
                         equipmentService.updateStatutAutomaticLight(id_equipClimatiseur.get(k), "ON", 1);
                     }
                 } else if (sensorvalue > 19 && sensorvalue <= 30) {
-                    List<Integer> id_equipRadiateur = equipmentService.getEquipmentAutomaticPresenceFalse(listRoomID.get(i), "radiateur");
-                    List<Integer> id_equipClimatiseur = equipmentService.getEquipmentAutomaticPresenceFalse(listRoomID.get(i), "climatisation");
+                    List<Integer> id_equipRadiateur = equipmentService.getEquipmentAutomaticPresenceFalse(listRoomIDForTemp.get(i), "radiateur");
+                    List<Integer> id_equipClimatiseur = equipmentService.getEquipmentAutomaticPresenceFalse(listRoomIDForTemp.get(i), "climatisation");
 
                     for (int j = 0; j < id_equipRadiateur.size(); j++) {
                         equipmentService.updateStatutAutomaticLight(id_equipRadiateur.get(j), "OFF", 0);
@@ -171,8 +172,8 @@ public class EquipmentController {
             }
 
             //Gestion des équipements influencés par le capteur de luminosité
-            List<Integer> listRoomIDForLuminosity = equipmentService.listIdroom("capteur de luminosité");
-            for (int i = 0; i < listRoomIDForLuminosity.size() - 22330; i++) {
+            List<Integer> listRoomIDForLuminosity = equipmentService.listIdroom("capteur de luminosité", id_building);
+            for (int i = 0; i < listRoomIDForLuminosity.size(); i++) {
                 Integer sensorvalue = equipmentService.presenceOrNotPresence(listRoomID.get(i), meeting_time, "capteur de luminosité");
 //                System.out.println("la value du sensor" + sensorvalue);
 
@@ -219,8 +220,8 @@ public class EquipmentController {
 
             //Gestion de l'automatisation du lave-linge, sèche-linge
 
-            List<Integer> listRoom = equipmentService.listRoomWithDryerLine("sèche-linge", "Automatique");
-
+            List<Integer> listRoom = equipmentService.listRoomWithDryerLine("sèche-linge", "Automatique", 11534);
+            System.out.println(listRoom);
             for (int i = 0; i < listRoom.size(); i++) {
                 System.out.println(listRoom.get(i));
                 List<Integer> id_equipment_data_false = equipmentService.getEquipmentAutomaticPresenceFalse(listRoom.get(i), "sèche-linge");
