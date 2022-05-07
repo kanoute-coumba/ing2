@@ -41,7 +41,7 @@ public class ConfigurationService {
 
     public void deleteConfiguration(Integer id_configuration) {
         if(!configurationRepo.existsById(id_configuration)) {
-            throw new ConfigurationNotFoundException("La configuration ayant l'id " + id_configuration + " n'existe pas");
+            throw new ConfigurationNotFoundException("La configuration ayant l'Id " + id_configuration + " n'existe pas");
         }
         configurationRepo.deleteById(id_configuration);
     }

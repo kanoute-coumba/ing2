@@ -3,8 +3,6 @@ package episen.pds.citizens.backcitizens.repository.architectureRepository;
 import episen.pds.citizens.backcitizens.model.architectureModel.Configuration;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
-import java.sql.Date;
 import java.util.List;
 
 
