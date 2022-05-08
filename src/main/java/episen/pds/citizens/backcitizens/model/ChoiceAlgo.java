@@ -103,4 +103,18 @@ public class ChoiceAlgo {
     public void setProp3(int prop3) {
         this.prop3 = prop3;
     }
+
+    @Override
+    public String toString() {
+        return "ChoiceAlgo{" +
+                "id_choice_algo=" + id_choice_algo +
+                ", choice='" + choice + '\'' +
+                ", pref1='" + pref1 + '\'' +
+                ", pref2='" + pref2 + '\'' +
+                ", pref3='" + pref3 + '\'' +
+                ", prop1=" + prop1 +
+                ", prop2=" + prop2 +
+                ", prop3=" + prop3 +
+                '}';
+    }
 }

@@ -156,33 +156,33 @@ public class MixEnService {
             Double h = economicCost.get(2);
             List<String> prefList= new ArrayList<>();
             if(s<=w && s<=h){
-                prefList.add("Solaire");
+                prefList.add("solaire");
                 if (w<=h){
-                    prefList.add("Eolienne");
-                    prefList.add("Hydraulique");
+                    prefList.add("eolienne");
+                    prefList.add("hydraulique");
                 }else{
-                    prefList.add("Hydraulique");
-                    prefList.add("Eolienne");
+                    prefList.add("hydraulique");
+                    prefList.add("eolienne");
                 }
             }
             if(w<=s && w<=h){
-                prefList.add("Eolienne");
+                prefList.add("eolienne");
                 if (s<=h){
-                    prefList.add("Solaire");
-                    prefList.add("Hydraulique");
+                    prefList.add("solaire");
+                    prefList.add("hydraulique");
                 }else{
-                    prefList.add("Hydraulique");
-                    prefList.add("Solaire");
+                    prefList.add("hydraulique");
+                    prefList.add("solaire");
                 }
             }
             if(h<=s && h<=w){
-                prefList.add("Hydraulique");
+                prefList.add("hydraulique");
                 if (w<=s){
-                    prefList.add("Eolienne");
-                    prefList.add("Solaire");
+                    prefList.add("eolienne");
+                    prefList.add("solaire");
                 }else{
-                    prefList.add("Solaire");
-                    prefList.add("Eolienne");
+                    prefList.add("solaire");
+                    prefList.add("eolienne");
                 }
             }
             result.put("pref",prefList);
@@ -199,33 +199,33 @@ public class MixEnService {
             Double h = environmentalCost.get(2);
             List<String> prefList= new ArrayList<>();
             if(s<=w && s<=h){
-                prefList.add("Solaire");
+                prefList.add("solaire");
                 if (w<=h){
-                    prefList.add("Eolienne");
-                    prefList.add("Hydraulique");
+                    prefList.add("eolienne");
+                    prefList.add("hydraulique");
                 }else{
-                    prefList.add("Hydraulique");
-                    prefList.add("Eolienne");
+                    prefList.add("hydraulique");
+                    prefList.add("eolienne");
                 }
             }
             if(w<=s && w<=h){
-                prefList.add("Eolienne");
+                prefList.add("eolienne");
                 if (s<=h){
-                    prefList.add("Solaire");
-                    prefList.add("Hydraulique");
+                    prefList.add("solaire");
+                    prefList.add("hydraulique");
                 }else{
-                    prefList.add("Hydraulique");
-                    prefList.add("Solaire");
+                    prefList.add("hydraulique");
+                    prefList.add("solaire");
                 }
             }
             if(h<=s && h<=w){
-                prefList.add("Hydraulique");
+                prefList.add("hydraulique");
                 if (w<=s){
-                    prefList.add("Eolienne");
-                    prefList.add("Solaire");
+                    prefList.add("eolienne");
+                    prefList.add("solaire");
                 }else{
-                    prefList.add("Solaire");
-                    prefList.add("Eolienne");
+                    prefList.add("solaire");
+                    prefList.add("eolienne");
                 }
             }
             result.put("pref",prefList);
