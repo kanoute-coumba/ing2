@@ -106,6 +106,7 @@ public class ConsumptionService {
     }
     public ArrayList<Consumption> cleanList(ArrayList<Consumption> arrayList){
         if (arrayList.size() <3){
+            logger.info(arrayList+"");
             return arrayList;
         }
         else {
@@ -123,6 +124,7 @@ public class ConsumptionService {
             Consumption c = arrayList.get(arrayList.size()-1);
             if (!consumptionArrayList.contains(c)){
             consumptionArrayList.add(c);}
+            logger.info(consumptionArrayList+"");
             return consumptionArrayList;
         }
     }
@@ -130,7 +132,19 @@ public class ConsumptionService {
     public Consumption consumptionByIdBuildingNow(int idb){
         Timestamp timestamp = Timestamp.from(Instant.now());
         long dBegin = timestamp.getTime()/1000;
-        ArrayList<Consumption> c = consumptionRepo.findConsumptionByFloorBefore(idb,dBegin);
+        ArrayList<Consumption> c = consumptionRepo.findConsumptionByBuildingBefore(idb,dBegin);
+        double somme = 0.0;
+        for (Consumption consumption : c) {
+            somme += consumption.getValue();
+        }
+        somme = (int) somme;
+        return new Consumption(0, somme, dBegin, 0);
+    }
+
+    public Consumption consumptionByIdRoomNow(int idr){
+        Timestamp timestamp = Timestamp.from(Instant.now());
+        long dBegin = timestamp.getTime()/1000;
+        ArrayList<Consumption> c = consumptionRepo.findConsumptionByRoomBefore(idr,dBegin);
         double somme = 0.0;
         for (Consumption consumption : c) {
             somme += consumption.getValue();

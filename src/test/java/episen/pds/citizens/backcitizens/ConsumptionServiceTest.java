@@ -106,6 +106,7 @@ public class ConsumptionServiceTest extends TestCase {
             sortie.add(consumption1);
         }
         Iterable<Consumption> result = consumptionService.cleanList(sortie);
+
         assertEquals(result,consumptionService.findHistoryConsumptionByIdBuildingBetweenTwoDate(id_b,dBegin,dEnd));
     }
     @Test
