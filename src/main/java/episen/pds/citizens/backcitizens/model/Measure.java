@@ -1,7 +1,6 @@
 package episen.pds.citizens.backcitizens.model;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -13,7 +12,7 @@ public class Measure {
     private Integer id_measure;
 
     @Column
-    private Timestamp timestamp;
+    private LocalDateTime timestamp;
 
     @Column
     private int value;
@@ -21,7 +20,7 @@ public class Measure {
     @Column
     private int id_sensor;
 
-    public Timestamp getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 

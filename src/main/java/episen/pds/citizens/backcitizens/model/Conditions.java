@@ -18,7 +18,7 @@ public class Conditions {
     private int temperature;
 
     @Column(name = "begin_time")
-    private LocalTime begin_time;
+    private LocalDateTime begin_time;
 
     @Column(name = "end_time")
     private LocalTime end_time;
@@ -43,7 +43,7 @@ public class Conditions {
         this.temperature = temperature;
     }
 
-    public LocalTime getBegin_time() {
+    public LocalDateTime getBegin_time() {
         return begin_time;
     }
 

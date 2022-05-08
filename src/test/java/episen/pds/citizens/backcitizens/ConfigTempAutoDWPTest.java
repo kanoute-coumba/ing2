@@ -5,12 +5,14 @@ import episen.pds.citizens.backcitizens.model.Equipment_Data;
 import episen.pds.citizens.backcitizens.model.Measure;
 import episen.pds.citizens.backcitizens.model.equipments.EquipmentData;
 import episen.pds.citizens.backcitizens.repository.*;
+import episen.pds.citizens.backcitizens.service.ConfigTempAutoDWP;
 import episen.pds.citizens.backcitizens.service.UseMonitorService;
 import junit.framework.TestCase;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
@@ -35,9 +37,11 @@ public class ConfigTempAutoDWPTest extends TestCase {
     EquipmentDataRepo equipmentDataRepo;
     @Autowired
     SensorRepo sensorRepo;
+    @Autowired
+    ConfigTempAutoDWP configTempAutoDWP;
 
     @Test
-    public void configAuto() {
+    public void testConfigAuto() {
         // changer la température de la salle 52740 : 15
         Measure measures = new Measure(); measures.setTimestamp(LocalDateTime.of(2023,5,20, 0,0)); measures.setValue(15);
         measures.setId_sensor(sensorRepo.getTempSensorInRoom(52740).getId_sensor());
@@ -51,8 +55,9 @@ public class ConfigTempAutoDWPTest extends TestCase {
         // Récupérer la température optimale de la salle 52740
         float cond = conditionsRepo.findLastConditionsByRoom(52740).getTemperature();
         // S'assurer que difTemp == -9
+        float result = temp-cond;
         assert (temp - cond == -9);
-        verify(this, atLeastOnce()).configTempAuto();
+       //verify(configTempAutoDWP.configTempAuto(52740, (int) result), atLeastOnce()).configTempAuto();
 
         // changer la température de la salle 52740 : 22
         measures = new Measure(); measures.setTimestamp(LocalDateTime.of(2023,6,20, 0,0)); measures.setValue(22);
@@ -67,14 +72,14 @@ public class ConfigTempAutoDWPTest extends TestCase {
         // Récupérer la température optimale de la salle 52740
         cond = conditionsRepo.findLastConditionsByRoom(52740).getTemperature();
         // S'assurer que difTemp == 2
-        assert (temp - cond == -9);
-        verify(this, never()).configTempAuto();
+        assert (temp - cond == 2);
+        //verify(this, never()).configTempAuto();
     }
 
 
 
     @Test
-    public void configTempAuto() {
+    public void testConfigTempAuto() {
         // Mettre un radiateur de la salle en mode auto et à 0
 
         equipmentDataRepo.setEquipmentValue(53735,0);
