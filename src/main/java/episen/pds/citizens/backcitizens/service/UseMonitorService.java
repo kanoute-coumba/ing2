@@ -138,8 +138,8 @@ public class UseMonitorService {
         return equipmentAndDataRepo.getEquipment_DataByIdRoom(id_room);
     }
 
-    public Iterable<Room> findAllBusinessRoom() {
-        return roomRepo.findAllBusinessRoom();
+    public Iterable<Room> findAllBusinessRoom(int id_user) {
+        return roomRepo.findAllBusinessRoom(id_user);
     }
 
     public synchronized void setAllEquipmentsOff(int id_room) {

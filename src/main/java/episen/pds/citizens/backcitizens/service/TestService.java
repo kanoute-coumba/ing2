@@ -18,9 +18,9 @@ public class TestService {
         return testRepo.findById( id);
     }
 
-    public Iterable<Test> getTest() {
-        return testRepo.findAll();
-    }
+    //public Iterable<Test> getTest() {
+      //  return testRepo.findAll();
+    //}
 
     public void deleteTestId(final int id) { testRepo.deleteById(id); }
 

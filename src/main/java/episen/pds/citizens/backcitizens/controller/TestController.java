@@ -16,9 +16,9 @@ public class TestController {
     private static final Logger logger = Logger.getLogger(TestController.class.getName());
 
     @GetMapping("/Test")
-    public Iterable<Test> getTest() {
+    public void getTest() {
         logger.config("returning values");
-        return testService.getTest();
+      //  return testService.getTest();
     }
 
     @PostMapping("/Form")
