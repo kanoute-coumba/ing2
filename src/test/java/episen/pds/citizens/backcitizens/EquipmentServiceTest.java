@@ -1,10 +1,9 @@
 package episen.pds.citizens.backcitizens;
 
-import episen.pds.citizens.backcitizens.model.Room;
-import episen.pds.citizens.backcitizens.model.architectureModel.Building;
-import episen.pds.citizens.backcitizens.model.architectureModel.Floor;
-import episen.pds.citizens.backcitizens.repository.*;
-import episen.pds.citizens.backcitizens.repository.architectureRepository.FloorRepo;
+import episen.pds.citizens.backcitizens.repository.EquipmentRepo;
+import episen.pds.citizens.backcitizens.repository.FloorHouseRepo;
+import episen.pds.citizens.backcitizens.repository.HouseRepo;
+import episen.pds.citizens.backcitizens.repository.RoomHouseRepo;
 import episen.pds.citizens.backcitizens.service.EquipmentService;
 import junit.framework.TestCase;
 import org.junit.Test;
@@ -12,11 +11,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Map;
-
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -69,7 +63,7 @@ public class EquipmentServiceTest extends TestCase {
 
     @Test
     public void testGetFloors(){
-        String house = "2 rue du palais, Paris";
+        Integer house =123;
         assertEquals(floorRepo.findFloorByHouse(house), equipmentService.getFloors(house));
     }
 
@@ -79,5 +73,59 @@ public class EquipmentServiceTest extends TestCase {
         assertEquals(roomHouseRepo.findRoomByFloor(Integer.valueOf(floor)), equipmentService.getRoomsByIdFloor(floor));
     }
 
+    @Test
+    public void testGetEquipmentAutomaticPresenceFalse(){
+        Integer id_room = 1;
+        String nameEquipment = "lampe";
+        assertEquals(equipmentRepo.getEquipmentAutomaticFalse(id_room, nameEquipment), equipmentService.getEquipmentAutomaticPresenceFalse(id_room, nameEquipment));
+    }
+
+    @Test
+    public void testListRoomWithDryerLine(){
+        String type_equipment = "sèche-linge";
+        String type_mode = "Automatique";
+        Integer id_building = 11534;
+        assertEquals(equipmentRepo.listRoomWithDryerLine(type_equipment, type_mode, id_building), equipmentService.listRoomWithDryerLine(type_equipment, type_mode, id_building));
+    }
+
+    @Test
+    public void testGetBeginTime(){
+        Integer id_equipment_data = 215728;
+        assertEquals(equipmentRepo.getBeginTime(id_equipment_data), equipmentService.getBeginTime(id_equipment_data));
+    }
+
+    @Test
+    public void testGetEndTime(){
+        Integer id_equipment_data = 215728;
+        assertEquals(equipmentRepo.getEndTime(id_equipment_data), equipmentService.getEndTime(id_equipment_data));
+    }
+
+    @Test
+    public void testGetCurrentlyValueSensor(){
+        Integer idroom = 91460;
+        String currentdate = "2022-01-01 09:00:00.0";
+        assertEquals(equipmentRepo.currentlyvalueofsensorPresence(idroom, currentdate), equipmentService.getCurrentlyValueSensor(idroom, currentdate));
+    }
+
+    @Test
+    public void testPresenceOrNotPresence(){
+        Integer idroom = 91460;
+        String date = "2022-01-01 09:00:00.0";
+        String typesensor = "capteur de présence";
+        assertEquals(equipmentRepo.presenOrNotPrsence(idroom, date, typesensor), equipmentService.presenceOrNotPresence(idroom, date, typesensor));
+    }
+
+    @Test
+    public void testListIdroom(){
+        String typesensor = "capteur de présence";
+        Integer id_building = 11534;
+        assertEquals(equipmentRepo.listIdroom(typesensor, id_building), equipmentService.listIdroom(typesensor, id_building));
+    }
+
+    @Test
+    public void testVerifyStatutEquipment(){
+        Integer id_room = 91460;
+        assertEquals(equipmentRepo.getStatutEquipment(id_room), equipmentService.verifyStatutEquipment(id_room));
+    }
 
 }
