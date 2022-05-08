@@ -58,7 +58,6 @@ public class EquipmentService {
     }
 
     public List <Building> getHouseByEmail(String email) {
-        System.out.println(houseRepo.findHouseByEmail(email));
         return houseRepo.findHouseByEmail(email);
     }
 
