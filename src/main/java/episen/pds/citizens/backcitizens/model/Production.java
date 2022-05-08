@@ -15,10 +15,20 @@ public class Production {
     private Timestamp timestamp;
 
     @Column(name = "value")
-    private double value;
+    public double value;
 
     @Column(name = "id_central")
     private int idCentral;
+
+    public Production() {
+    }
+
+    public Production(int id, Timestamp timestamp, double value, int idCentral) {
+        this.id = id;
+        this.timestamp = timestamp;
+        this.value = value;
+        this.idCentral = idCentral;
+    }
 
     public int getId() {
         return id;
