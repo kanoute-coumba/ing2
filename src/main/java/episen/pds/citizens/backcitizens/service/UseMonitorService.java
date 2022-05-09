@@ -19,9 +19,6 @@ public class UseMonitorService {
     private EquipmentRepo equipmentRepo;
 
     @Autowired
-    private ConsumptionRepo consumptionRepo;
-
-    @Autowired
     private RoomRepo roomRepo;
 
     @Autowired
@@ -38,48 +35,6 @@ public class UseMonitorService {
 
     private static final Logger logger = Logger.getLogger(UseMonitorService.class.getName());
 
-    // ROOMS
-
-    public Optional<Room> getRoomById(int id_room) {
-        return roomRepo.findById(id_room);
-    }
-    public void saveRoom(Room room) {
-        roomRepo.save(room);
-    }
-
-    // EQUIPMENTS
-
-    public Optional<Equipment> getEquipmentById(int id_equipment) {
-        return equipmentRepo.findById(id_equipment);
-    }
-    public Iterable<Equipment> getAllEquipments() {
-        return equipmentRepo.findAll();
-    }
-    public void saveEquipment(Equipment equipment) {
-        equipmentRepo.save(equipment);
-    }
-
-    // CONSUMPTION
-
-    public Iterable<Consumption> getAllConsumption() {
-        return consumptionRepo.findAll();
-    }
-
-    public Iterable<Consumption> getConsumptionByBuilding(int id_building) {
-
-        return consumptionRepo.findConsumptionByBuilding(id_building);
-    }
-    public Iterable<Consumption> getConsumptionByRoom(int id_room) {
-        return consumptionRepo.findConsumptionByBuilding(id_room);
-    }
-
-   /*public Iterable<RoomsWithConsumption> getRoomsWithConsumption() {
-       return roomRepo.findRoomsWithConsumption();
-   }
-    */
-    public Iterable<Equipment> getEquipmentByRoom(int id_room) {
-        return  equipmentRepo.findEquipmentByRoom(id_room);
-    }
 
     public Iterable<Equipment> findEquipmentOrderByRoom() {
         return  equipmentRepo.findEquipmentOrderByRoom();
@@ -142,7 +97,7 @@ public class UseMonitorService {
         return roomRepo.findAllBusinessRoom(id_user);
     }
 
-    public synchronized void setAllEquipmentsOff(int id_room) {
-        equipmentDataRepo.setAllEquipmentsOff(id_room);
+    public Equipment_Data findEquipment_DataById_equipment(int id_equipment) {
+        return equipmentDataRepo.findAllById_equipment_data(id_equipment);
     }
 }

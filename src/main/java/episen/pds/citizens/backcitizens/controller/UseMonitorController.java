@@ -18,13 +18,6 @@ public class UseMonitorController {
     private UseMonitorService useMonitorService;
     private static final Logger logger = Logger.getLogger(TestController.class.getName());
 
-    @GetMapping("/getConsumptionByBuilding/{id}")
-    public Iterable<Consumption> getConsumptionByBuilding(@PathVariable("id") int id_building) {
-        for (Consumption row:useMonitorService.getConsumptionByBuilding(id_building)) {
-            logger.info(row.toString());
-        }
-        return useMonitorService.getConsumptionByBuilding(id_building);
-    }
 /*
     @GetMapping("/getRoomsWithConsumption")
     public Iterable<RoomsWithConsumption> getRoomsWithConsumption() {
