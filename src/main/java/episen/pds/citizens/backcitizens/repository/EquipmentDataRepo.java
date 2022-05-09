@@ -67,9 +67,6 @@ public interface EquipmentDataRepo extends CrudRepository<Equipment_Data,Integer
             "and value > 0; update equipment_data set statut = 'OFF' where value = 0;", nativeQuery = true)
     void setEquipmentOneDown(int id_equipment);
 
-    @Query(value = "select * from equipment_data where id_equipment_data=?1", nativeQuery = true)
-    Equipment_Data findEquipment_DataById(int id_equipment);
-
     @Nullable
     @Transactional
     @Modifying

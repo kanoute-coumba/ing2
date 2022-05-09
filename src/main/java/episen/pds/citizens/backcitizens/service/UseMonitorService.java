@@ -96,4 +96,8 @@ public class UseMonitorService {
     public Iterable<Room> findAllBusinessRoom(int id_user) {
         return roomRepo.findAllBusinessRoom(id_user);
     }
+
+    public Equipment_Data findEquipment_DataById_equipment(int id_equipment) {
+        return equipmentDataRepo.findAllById_equipment_data(id_equipment);
+    }
 }
