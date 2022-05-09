@@ -116,6 +116,9 @@ public interface EquipmentRepo extends CrudRepository<Equipment, Integer> {
     List<Integer> listRoomWithDryerLine (@Param("type_equipment") String type_equipment, @Param("type_mode") String type_mode, @Param("id_building") Integer id_building);
 
 
+    @Query(value = "select building.id_building from building inner join floor f on building.id_building = f.id_building inner join room r  on f.id_floor = r.id_floor where id_room =:idroom", nativeQuery = true)
+    Integer getIdBuildingByEachRoom(@Param("idroom") Integer idroom);
+
 
     @Nullable
     @Query(value = "select cast(setEquipmentValue(?1,?2) as varchar)", nativeQuery = true)
