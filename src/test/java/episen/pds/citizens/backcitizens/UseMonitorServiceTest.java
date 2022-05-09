@@ -5,33 +5,35 @@ import episen.pds.citizens.backcitizens.repository.*;
 import episen.pds.citizens.backcitizens.service.UseMonitorService;
 import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-@SpringBootTest
-public class UseMonitorServiceTest {
-    @Autowired
+@RunWith(MockitoJUnitRunner.class)
+public class UseMonitorServiceTest  {
+    @InjectMocks
     UseMonitorService useMonitorService;
-    @Autowired
+    @Mock
     MeasureRepo measureRepo;
 
-    @Autowired
+    @Mock
     ConditionsRepo conditionsRepo;
-    @Autowired
+    @Mock
     RoomRepo roomRepo;
-    @Autowired
+    @Mock
     EquipmentAndDataRepo equipmentAndDataRepo;
 
-    @Autowired
+    @Mock
     EquipmentDataRepo equipmentDataRepo;
-    @Autowired
+    @Mock
     SensorRepo sensorRepo;
 
-    @Autowired
+    @Mock
     EquipmentRepo equipmentRepo;
 
     @Test
@@ -46,32 +48,33 @@ public class UseMonitorServiceTest {
 
     @Test
     public synchronized void testSetEquipmentValue() {
-        equipmentDataRepo.setEquipmentValue(2,2);
-        Assert.assertEquals(equipmentDataRepo.findEquipment_DataById(2).getValue(), 2);
+        equipmentDataRepo.setEquipmentValue(53690,2);
+        Assert.assertEquals(equipmentDataRepo.findEquipment_DataById(53690).getValue(), 2);
     }
 
     @Test
     public synchronized void testSetEquipmentAuto() {
-        equipmentDataRepo.setEquipmentAuto(2);
-        Assert.assertEquals(equipmentDataRepo.findEquipment_DataById(2).getStatut(), "Automatique");
+        equipmentDataRepo.setEquipmentAuto(53690);
+        String statut = equipmentDataRepo.findEquipment_DataById(53690).getStatut();
+        Assert.assertEquals(statut, "Automatique");
     }
 
     @Test
     public synchronized void testSetEquipmentManu() {
         equipmentDataRepo.setEquipmentManu(2);
-        Assert.assertEquals(equipmentDataRepo.findEquipment_DataById(2).getType_mode(), "Manuel");
+        Assert.assertEquals(equipmentDataRepo.findEquipment_DataById(53690).getType_mode(), "Manuel");
     }
 
     @Test
     public synchronized void testSetEquipmentOff() {
         equipmentDataRepo.setEquipmentOff(2);
-        Assert.assertEquals(equipmentDataRepo.findEquipment_DataById(2).getStatut(), "OFF");
+        Assert.assertEquals(equipmentDataRepo.findEquipment_DataById(53690).getStatut(), "OFF");
     }
 
     @Test
     public synchronized void testSetEquipmentOn() {
         equipmentDataRepo.setEquipmentOn(2);
-        Assert.assertEquals(equipmentDataRepo.findEquipment_DataById(2).getStatut(), "ON");
+        Assert.assertEquals(equipmentDataRepo.findEquipment_DataById(53690).getStatut(), "ON");
     }
 
     @Test
@@ -91,17 +94,17 @@ public class UseMonitorServiceTest {
 
     @Test
     public synchronized void testSetEquipmentOneUp() {
-        int cur_value = (int) equipmentDataRepo.findEquipment_DataById(2).getValue();
+        int cur_value = (int) equipmentDataRepo.findEquipment_DataById(53690).getValue();
         equipmentDataRepo.setEquipmentOneUp(2);
-        int new_value = (int) equipmentDataRepo.findEquipment_DataById(2).getValue();
+        int new_value = (int) equipmentDataRepo.findEquipment_DataById(53690).getValue();
         Assert.assertEquals(new_value,cur_value+1);
     }
 
     @Test
     public synchronized void testSetEquipmentOneDown() {
-        int cur_value = (int) equipmentDataRepo.findEquipment_DataById(2).getValue();
+        int cur_value = (int) equipmentDataRepo.findEquipment_DataById(53690).getValue();
         equipmentDataRepo.setEquipmentOneUp(2);
-        int new_value = (int) equipmentDataRepo.findEquipment_DataById(2).getValue();
+        int new_value = (int) equipmentDataRepo.findEquipment_DataById(53690).getValue();
         Assert.assertEquals(new_value,cur_value-1);
     }
 
