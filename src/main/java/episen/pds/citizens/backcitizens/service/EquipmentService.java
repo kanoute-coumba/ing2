@@ -102,6 +102,10 @@ public class EquipmentService {
         return equipmentRepo.getStatutEquipment(id_room);
     }
 
+    public Integer getIdBuildingByEachRoom(Integer idroom) {
+        return  equipmentRepo.getIdBuildingByEachRoom(idroom);
+    }
+
 
     @Transactional
     public void updateStatutAutomaticScreen (Integer id_equipment_data, String statut, Integer value) {
