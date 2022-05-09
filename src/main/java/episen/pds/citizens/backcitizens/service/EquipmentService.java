@@ -58,11 +58,10 @@ public class EquipmentService {
     }
 
     public List <Building> getHouseByEmail(String email) {
-        System.out.println(houseRepo.findHouseByEmail(email));
         return houseRepo.findHouseByEmail(email);
     }
 
-    public List<Floor> getFloors(String house) {
+    public List<Floor> getFloors(Integer house) {
         return floorRepo.findFloorByHouse(house);
     }
 
@@ -75,8 +74,8 @@ public class EquipmentService {
         return equipmentRepo.getEquipmentAutomaticFalse(id_room, nameEquip);
     }
 
-    public List<Integer> listRoomWithDryerLine(String type_equipment, String type_mode) {
-        return equipmentRepo.listRoomWithDryerLine(type_equipment, type_mode);
+    public List<Integer> listRoomWithDryerLine(String type_equipment, String type_mode, Integer id_building) {
+        return equipmentRepo.listRoomWithDryerLine(type_equipment, type_mode, id_building);
     }
 
     public Timestamp getBeginTime(Integer id_equipment_data) {
@@ -95,12 +94,16 @@ public class EquipmentService {
     public Integer presenceOrNotPresence(Integer id_room, String date, String typesensor) {
         return equipmentRepo.presenOrNotPrsence(id_room, date, typesensor);
     }
-    public List<Integer> listIdroom(String typeSensor) {
-        return equipmentRepo.listIdroom(typeSensor);
+    public List<Integer> listIdroom(String typeSensor, Integer id_building) {
+        return equipmentRepo.listIdroom(typeSensor, id_building);
     }
 
     public String verifyStatutEquipment(Integer id_room) {
         return equipmentRepo.getStatutEquipment(id_room);
+    }
+
+    public Integer getIdBuildingByEachRoom(Integer idroom) {
+        return  equipmentRepo.getIdBuildingByEachRoom(idroom);
     }
 
 
