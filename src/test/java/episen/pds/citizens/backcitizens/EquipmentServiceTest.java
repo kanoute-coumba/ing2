@@ -128,4 +128,10 @@ public class EquipmentServiceTest extends TestCase {
         assertEquals(equipmentRepo.getStatutEquipment(id_room), equipmentService.verifyStatutEquipment(id_room));
     }
 
+    @Test
+    public void testGetIdBuildingByEachRoom(){
+        Integer idroom = 91460;
+        assertEquals(equipmentRepo.getIdBuildingByEachRoom(idroom), equipmentService.getIdBuildingByEachRoom(idroom));
+    }
+
 }

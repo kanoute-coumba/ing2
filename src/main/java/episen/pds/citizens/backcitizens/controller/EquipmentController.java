@@ -88,6 +88,11 @@ public class EquipmentController {
         equipmentService.updateTimeWorkEquipment(begin_time, end_time, id_equipment_data);
     }
 
+    @GetMapping("/idbuildingbyRoom")
+    public Integer getIdBuildingByEachRoom(@RequestParam("idroom") Integer idroom) {
+        return equipmentService.getIdBuildingByEachRoom(idroom);
+    }
+
 
     @GetMapping("/updateAutoEquip")
     public String updateAutomatic(@RequestParam("meeting_time") String meeting_time, @RequestParam("id_building") Integer id_building) throws InterruptedException {
