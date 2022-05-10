@@ -41,10 +41,21 @@ public class ReservationService {
         return spacesRepo.findReservedSpaces();
     }
 
+    public Iterable<RSpace> getDispoSpace(long starttime, long endtime, String typespace, int iduser) {
+        return spacesRepo.findDispoSpaces(starttime, endtime, typespace, iduser);
+    }
+
+
 
     public Reservation saveMenuReservation(Reservation reservation) {
         logger.config(reservation.toString());
+        System.out.println("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLl");
         return reservationRepo.save(reservation);
+    }
+
+    public Reservation saveReservation(Reservation reservation2) {
+        logger.config(reservation2.toString());
+        return reservationRepo.save(reservation2);
     }
 
 
