@@ -57,7 +57,7 @@ public class MixEnServiceTest extends TestCase {
      * On doit calculer des pourcentages
      */
     @Test
-    public void listMixEnShouldReturnlistMixEn(){
+    public void testGetMixEn(){
         //GIVEN
         Iterable<MixEn> listMixEn = currentMixRepo.findEnergyProduction();
         int totalProduction = 0;
@@ -82,7 +82,7 @@ public class MixEnServiceTest extends TestCase {
      * On doit calculer des pourcentages
      */
     @Test
-    public void listMixEnBySiteShouldReturnlistMixEnBySite(){
+    public void testGetMixEnBySite(){
         //GIVEN
         Iterable<MixEnBySite> listMixEnBySite = currentMixBySiteRepo.findEnergyProductionBySite();
         int totalProduction = 0;
@@ -105,7 +105,7 @@ public class MixEnServiceTest extends TestCase {
      * Test de la methode getCurrentAlgoChoice() ligne 82 de la classe MixEnService
      */
     @Test
-    public void curentAlgoChoiceShouldReturnCurentAlgoChoice(){
+    public void testGetCurrentAlgoChoice(){
         //GIVEN
         ChoiceAlgo given = choiceAlgoRepo.getChoiceAlgo();
         //WHEN
@@ -118,14 +118,14 @@ public class MixEnServiceTest extends TestCase {
      *Test de la methode saveAlgoChoice(ChoiceAlgo choiceAlgo) ligne 86 de la classe MixEnService
      */
     @Test
-    public void saveAlgoChoiceShouldSave(){
+    public void testSaveAlgoChoice(){
         //On va créer un AlgoChoice et vérifier que l'AlgoChoice en base est bien celui qui a été enregistré
         //GIVEN
         ChoiceAlgo given = new ChoiceAlgo(1,"preference","solaire","eolienne","hydraulique",0,0,0);
         //WHEN
         Mockito.when(choiceAlgoRepo.getChoiceAlgo()).thenReturn(given);
-        ChoiceAlgo test = mixEnService.saveAlgoChoice(given);
-        ChoiceAlgo service = mixEnService.getCurrentAlgoChoice();
+        ChoiceAlgo test = mixEnService.saveAlgoChoice(given); //don't save in the test, but it's working in MixEnService
+        ChoiceAlgo service = mixEnService.getCurrentAlgoChoice(); //pb return null
         //THEN
         assertEquals(given,service);
     }
@@ -134,7 +134,7 @@ public class MixEnServiceTest extends TestCase {
      *Test de la methode getResultAlgoMix(float consumption) ligne 92 de la classe MixEnService
      */
     @Test
-    public void ResultAlgoMixShouldReturnResultAlgoMix(){
+    public void testGetResultAlgoMix(){
         ChoiceAlgo given = new ChoiceAlgo(1,"preference","solaire","eolienne","hydraulique",0,0,0);
         Mockito.when(choiceAlgoRepo.getChoiceAlgo()).thenReturn(given);
         //Test algo preference :
@@ -195,7 +195,7 @@ public class MixEnServiceTest extends TestCase {
      *Test de la methode getGraphDataEconomicCost(HashMap<String,String> simu) ligne 237 de la classe MixEnService
      */
     @Test
-    public void shouldGetGraphDataEconomicCost(){
+    public void testGetGraphDataEconomicCost(){
         HashMap<String,String> simu = new HashMap<>();
         simu.put("solaireAmort","rentable");
         simu.put("eolienneAmort","rentable");
@@ -222,7 +222,7 @@ public class MixEnServiceTest extends TestCase {
      *Test de la methode getGraphDataEnvironmentalCost() ligne 270 de la classe MixEnService
      */
     @Test
-    public void shouldGetGraphDataEnvironmentalCost(){
+    public void testGetGraphDataEnvironmentalCost(){
         List<Double> l1  = new ArrayList<>();
         List<Double> l2  = new ArrayList<>();
         List<Double> l3  = new ArrayList<>();
@@ -242,7 +242,7 @@ public class MixEnServiceTest extends TestCase {
      *Test de la methode getHistoricalProductionByDate() ligne 329 de la classe MixEnService
      */
     @Test
-    public void getHistoricalProductionByDate(){
+    public void testGetHistoricalProductionByDate(){
         //Test non fait pour cette methode
     }
 
@@ -250,7 +250,7 @@ public class MixEnServiceTest extends TestCase {
      *Test de la methode solarHisto() ligne 341 de la classe MixEnService
      */
     @Test
-    public void shouldReturnSolarHisto(){
+    public void testSolarHisto(){
         //Test non fait pour cette methode
     }
 
@@ -258,7 +258,7 @@ public class MixEnServiceTest extends TestCase {
      *Test de la methode windHisto() ligne 350 de la classe MixEnService
      */
     @Test
-    public void shouldReturnWindHisto(){
+    public void testWindHisto(){
         //Test non fait pour cette methode
     }
 
@@ -266,7 +266,7 @@ public class MixEnServiceTest extends TestCase {
      *Test de la methode hydraulicHisto() ligne 359 de la classe MixEnService
      */
     @Test
-    public void shouldReturnHydraulicHisto(){
+    public void testHydraulicHisto(){
         //Test non fait pour cette methode
     }
 }
