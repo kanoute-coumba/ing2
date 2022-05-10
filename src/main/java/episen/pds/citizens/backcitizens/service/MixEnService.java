@@ -150,42 +150,64 @@ public class MixEnService {
         // Algo : economic
         if(choiceAlgo.getChoice().equals("economic")){
             FunctionForAlgoMix function = new FunctionForAlgoMix();
-            List<Double> economicCost = function.economicCost(consumption);
-            Double s = economicCost.get(0);
-            Double w = economicCost.get(1);
-            Double h = economicCost.get(2);
-            List<String> prefList= new ArrayList<>();
-            if(s<=w && s<=h){
-                prefList.add("Solaire");
-                if (w<=h){
-                    prefList.add("Eolienne");
-                    prefList.add("Hydraulique");
-                }else{
-                    prefList.add("Hydraulique");
-                    prefList.add("Eolienne");
+
+            List<Double> res = new ArrayList<>();
+
+            List<MixEn> capacity = currentMixRepo.getCapacityByEn();
+            List<MixEn> nbCentralByEn = currentMixRepo.getNbCentralByEn();
+            int capacitySolar = 9000*nbCentralByEn.get(1).getMix();
+            int capacityWind = 750000*8;
+            int capacityHydraulic = 250000*nbCentralByEn.get(2).getMix();
+
+
+            if(capacity!=null){
+                capacitySolar = capacity.get(2).getMix()*nbCentralByEn.get(1).getMix();
+                capacityWind = capacity.get(0).getMix()*8;
+                capacityHydraulic = capacity.get(1).getMix()*nbCentralByEn.get(2).getMix();
+            }
+
+            double min = function.economicCost(consumption).get(0); // total min cost
+            double minX = consumption; // total production for solar for cost min
+            double minY=0; // total production for wind for cost min
+
+            //limit boucle for
+            int limitSolar = capacitySolar;
+            int limitWind = capacityWind;
+            if(consumption<capacitySolar){limitSolar = Math.round(consumption);}
+            if(consumption<capacityWind){limitWind = Math.round(consumption);}
+            //step for boucle for
+            int step = (int)consumption/100;
+
+            //cas général
+            for(int x=0; x<=limitSolar;x+=step){
+                if(x>consumption){x=Math.round(consumption);}
+
+                int t = (int) (consumption-x-capacityHydraulic);
+                int m = 0;
+                //if(t>0){m=t;}
+                for(int y=0;y<=(limitWind-x);y+=step){
+                    if(y>consumption){y=Math.round(consumption); logger.info(""+y);}
+
+                    double costSolaire =  function.economicCost(x).get(0);
+                    double costWind = function.economicCost(y).get(1);
+                    double costHydraulic = function.economicCost(consumption-x-y).get(2);
+
+                    double cost = costHydraulic+costWind+costSolaire;
+                    if(cost<min && capacityHydraulic>= (consumption-x-y)){
+                        min = cost;
+                        minX = x;
+                        minY = y;
+                        logger.info(""+min +" "+x+" "+y+" "+(consumption-x-y));
+                    }
                 }
             }
-            if(w<=s && w<=h){
-                prefList.add("Eolienne");
-                if (s<=h){
-                    prefList.add("Solaire");
-                    prefList.add("Hydraulique");
-                }else{
-                    prefList.add("Hydraulique");
-                    prefList.add("Solaire");
-                }
-            }
-            if(h<=s && h<=w){
-                prefList.add("Hydraulique");
-                if (w<=s){
-                    prefList.add("Eolienne");
-                    prefList.add("Solaire");
-                }else{
-                    prefList.add("Solaire");
-                    prefList.add("Eolienne");
-                }
-            }
-            result.put("pref",prefList);
+
+            List<String> propList= new ArrayList<>();
+            propList.add(""+ (int) Math.round(minX*100*1.0/consumption));
+            propList.add(""+ (int) Math.round(minY*100*1.0/consumption));
+            propList.add(""+(100-((int) Math.round(minX*100*1.0/consumption))-((int) Math.round(minY*100*1.0/consumption))));
+            result.put("prop",propList);
+
             return result;
         }
 
@@ -199,33 +221,33 @@ public class MixEnService {
             Double h = environmentalCost.get(2);
             List<String> prefList= new ArrayList<>();
             if(s<=w && s<=h){
-                prefList.add("Solaire");
+                prefList.add("solaire");
                 if (w<=h){
-                    prefList.add("Eolienne");
-                    prefList.add("Hydraulique");
+                    prefList.add("eolienne");
+                    prefList.add("hydraulique");
                 }else{
-                    prefList.add("Hydraulique");
-                    prefList.add("Eolienne");
+                    prefList.add("hydraulique");
+                    prefList.add("eolienne");
                 }
             }
             if(w<=s && w<=h){
-                prefList.add("Eolienne");
+                prefList.add("eolienne");
                 if (s<=h){
-                    prefList.add("Solaire");
-                    prefList.add("Hydraulique");
+                    prefList.add("solaire");
+                    prefList.add("hydraulique");
                 }else{
-                    prefList.add("Hydraulique");
-                    prefList.add("Solaire");
+                    prefList.add("hydraulique");
+                    prefList.add("solaire");
                 }
             }
             if(h<=s && h<=w){
-                prefList.add("Hydraulique");
+                prefList.add("hydraulique");
                 if (w<=s){
-                    prefList.add("Eolienne");
-                    prefList.add("Solaire");
+                    prefList.add("eolienne");
+                    prefList.add("solaire");
                 }else{
-                    prefList.add("Solaire");
-                    prefList.add("Eolienne");
+                    prefList.add("solaire");
+                    prefList.add("eolienne");
                 }
             }
             result.put("pref",prefList);
@@ -364,5 +386,57 @@ public class MixEnService {
             l3.add(hp.getValeur());
         }
         return l3;
+    }
+
+    public HashMap<String,List<String>> getResAlgoEco(int consumption, int s, int e, int h){
+        // result method
+        HashMap<String, List<String>> result = new HashMap<>();
+
+        FunctionForAlgoMix function = new FunctionForAlgoMix();
+
+        int capacitySolar = s;
+        int capacityWind = e;
+        int capacityHydraulic = h;
+
+        double min = function.economicCost(consumption).get(0); // total min cost
+        double minX = consumption; // total production for solar for cost min
+        double minY=0; // total production for wind for cost min
+
+        //limit boucle for
+        int limitSolar = capacitySolar;
+        int limitWind = capacityWind;
+        if(consumption<capacitySolar){limitSolar = Math.round(consumption);}
+        if(consumption<capacityWind){limitWind = Math.round(consumption);}
+        //step for boucle for
+        int step = consumption/100;
+
+        //cas général
+        for(int x=0; x<=limitSolar;x+=step){
+            if(x>consumption){x=Math.round(consumption);}
+
+            for(int y=0;y<=(limitWind-x);y+=step){
+                if(y>consumption){y=Math.round(consumption);}
+
+                double costSolaire =  function.economicCost(x).get(0);
+                double costWind = function.economicCost(y).get(1);
+                double costHydraulic = function.economicCost(consumption-x-y).get(2);
+
+                double cost = costHydraulic+costWind+costSolaire;
+                if(cost<min && capacityHydraulic>= (consumption-x-y)){
+                    min = cost;
+                    minX = x;
+                    minY = y;
+                    logger.info(""+min +" "+x+" "+y+" "+(consumption-x-y));
+                }
+            }
+        }
+
+        List<String> propList= new ArrayList<>();
+        propList.add(""+ (int) Math.round(minX*100*1.0/consumption));
+        propList.add(""+ (int) Math.round(minY*100*1.0/consumption));
+        propList.add(""+(100-((int) Math.round(minX*100*1.0/consumption))-((int) Math.round(minY*100*1.0/consumption))));
+        result.put("prop",propList);
+
+        return result;
     }
 }

@@ -83,4 +83,9 @@ public class MixEnController {
         return mixEnService.hydraulicHisto();
     }
 
+    @GetMapping("/algo/{besoin}/{s}/{e}/{h}")
+    public HashMap<String,List<String>> getCapacityByEn(@PathVariable("besoin") int besoin, @PathVariable("s") int s, @PathVariable("e") int e, @PathVariable("h") int h){
+        return mixEnService.getResAlgoEco(besoin,s,e,h);
+    }
+
 }
