@@ -5,64 +5,75 @@ import episen.pds.citizens.backcitizens.repository.*;
 import episen.pds.citizens.backcitizens.service.UseMonitorService;
 import junit.framework.TestCase;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.logging.Logger;
 
-@RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
-public class UseMonitorServiceTest extends TestCase {
-    @InjectMocks
-    UseMonitorService useMonitorService;
-    @Mock
+@ExtendWith(MockitoExtension.class)
+@RunWith(SpringRunner.class)
+public class UseMonitorServiceTest {
+
+    private static Instant startChrono;
+
+    private static final Logger logger = Logger.getLogger(UseMonitorServiceTest.class.getName());
+
+    @Autowired
+    UseMonitorService useMonitorService = new UseMonitorService();
+    @Autowired
     MeasureRepo measureRepo;
 
-    @Mock
+    @Autowired
     ConditionsRepo conditionsRepo;
-    @Mock
+    @Autowired
     RoomRepo roomRepo;
-    @Mock
+    @Autowired
     EquipmentAndDataRepo equipmentAndDataRepo;
 
-    @Mock
+    @Autowired
     EquipmentDataRepo equipmentDataRepo;
 
-    @Mock
+    @Autowired
     EquipmentRepo equipmentRepo;
 
-    @Before
-    public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
+    @BeforeAll
+    public static void initChrono() {
+        logger.info("Debut des tests");
+        startChrono = Instant.now();
     }
 
-    @Test
-    public void testFindEquipmentOrderByRoom() {
-        //given
-        Iterable<Equipment> equipments = equipmentRepo.findEquipmentOrderByRoom();
-        Iterable<Equipment> equipments1 = useMonitorService.findEquipmentOrderByRoom();
-        //when
-        assertNotNull(equipments); assertNotNull(equipments1);
-        //then
-        assertEquals(equipments,equipments1);
+    @AfterAll
+    public static void durationTest() {
+        logger.info("Fin de tous les tests");
+        Instant endChrono = Instant.now();
+        long duration = Duration.between(startChrono, endChrono).toMillis();
+        logger.info("Duree des test : " + duration + "ms");
     }
 
     @Test
     public void testGetRoomConditions() {
         //given
-        Conditions conditions = conditionsRepo.findConditionsByRoom(2);
-        Conditions conditions1 = useMonitorService.getLastBestConditions(2);
+        Conditions conditions = conditionsRepo.findConditionsByRoom(52740);
+        Conditions conditions1 = useMonitorService.getLastBestConditions(52740);
         //when
-        assertNotNull(conditions);assertNotNull(conditions1);
+        Assert.assertNotNull(conditions);
+        Assert.assertNotNull(conditions1);
         //then
-        assertEquals(conditions, conditions1);
+        Assert.assertEquals(conditions.getTemperature(), conditions1.getTemperature());
+        Assert.assertEquals(conditions.getLuminosity(), conditions1.getLuminosity());
     }
 
     @Test
@@ -70,7 +81,7 @@ public class UseMonitorServiceTest extends TestCase {
         //when
         equipmentDataRepo.setEquipmentValue(53690,2);
         //then
-        assertEquals(equipmentDataRepo.findAllById_equipment_data(53690).getValue(), 2);
+        Assert.assertEquals(equipmentDataRepo.findAllById_equipment_data(53690).getValue(), 2);
     }
 
     @Test
@@ -79,7 +90,7 @@ public class UseMonitorServiceTest extends TestCase {
         equipmentDataRepo.setEquipmentAuto(53690);
         //then
         String statut = equipmentDataRepo.findAllById_equipment_data(53690).getStatut();
-        assertEquals(statut, "Automatique");
+        Assert.assertEquals(statut, "Automatique");
     }
 
     @Test
@@ -87,7 +98,7 @@ public class UseMonitorServiceTest extends TestCase {
         //when
         equipmentDataRepo.setEquipmentManu(53690);
         //then
-        assertEquals(equipmentDataRepo.findAllById_equipment_data(53690).getType_mode(), "Manuel");
+        Assert.assertEquals(equipmentDataRepo.findAllById_equipment_data(53690).getType_mode(), "Manuel");
     }
 
     @Test
@@ -95,7 +106,7 @@ public class UseMonitorServiceTest extends TestCase {
         //when
         equipmentDataRepo.setEquipmentOff(53690);
         //then
-        assertEquals(equipmentDataRepo.findAllById_equipment_data(53690).getStatut(), "OFF");
+        Assert.assertEquals(equipmentDataRepo.findAllById_equipment_data(53690).getStatut(), "OFF");
     }
 
     @Test
@@ -103,7 +114,7 @@ public class UseMonitorServiceTest extends TestCase {
         //when
         equipmentDataRepo.setEquipmentOn(53690);
         //then
-        assertEquals(equipmentDataRepo.findAllById_equipment_data(53690).getStatut(), "ON");
+        Assert.assertEquals(equipmentDataRepo.findAllById_equipment_data(53690).getStatut(), "ON");
     }
 
     @Test
@@ -112,31 +123,33 @@ public class UseMonitorServiceTest extends TestCase {
         Measure measure = useMonitorService.getLastLightMeasure(52740);
         Measure measure1 = measureRepo.getLightStatInRoom(52740);
         // when
-        assertNotNull(measure);assertNotNull(measure1);
+        Assert.assertNotNull(measure);
+        Assert.assertNotNull(measure1);
         // then
-        assertEquals(measure,measure1);
+        Assert.assertEquals(measure.getValue(), measure1.getValue());
     }
 
     @Test
     public void testGetLastTempMeasure() {
         // given
-        Measure measure = useMonitorService.getLastTempMeasure(500);
-        Measure measure1 = measureRepo.getTempStatInRoom(500);
+        Measure measure = useMonitorService.getLastTempMeasure(52740);
+        Measure measure1 = measureRepo.getTempStatInRoom(52740);
         // when
-        assertNotNull(measure); assertNotNull(measure1);
+        Assert.assertNotNull(measure); Assert.assertNotNull(measure1);
         // then
-        assertEquals(measure,measure1);
+        Assert.assertEquals(measure.getValue(), measure1.getValue());
+        Assert.assertEquals(measure.getId_measure(), measure1.getId_measure());
     }
 
     @Test
-    public void testSetEquipmentOneUp() {
+    public void testSetEquipmentOneUp() throws org.hibernate.QueryException {
         //given
         int cur_value = (int) equipmentDataRepo.findAllById_equipment_data(53690).getValue();
         //when
         equipmentDataRepo.setEquipmentOneUp(53690);
         //then
         int new_value = (int) equipmentDataRepo.findAllById_equipment_data(53690).getValue();
-        assertEquals(new_value,cur_value+1);
+        Assert.assertEquals(new_value, cur_value + 1);
     }
 
     @Test
@@ -147,7 +160,7 @@ public class UseMonitorServiceTest extends TestCase {
         equipmentDataRepo.setEquipmentOneUp(53690);
         int new_value = (int) equipmentDataRepo.findAllById_equipment_data(53690).getValue();
         //then
-        assertEquals(new_value,cur_value-1);
+        Assert.assertEquals(new_value, cur_value - 1);
     }
 
     @Test
@@ -156,12 +169,12 @@ public class UseMonitorServiceTest extends TestCase {
         Conditions conditions = new Conditions();
         conditions.setLuminosity(250); conditions.setBegin_time(LocalDateTime.now());
         conditions.setTemperature(15); conditions.setEnd_time(LocalTime.of(23, 59, 59));
-        conditions.setId_room(2);
+        conditions.setId_room(52740);
         // when
         conditionsRepo.save(conditions);
         // then
-        assertEquals(useMonitorService.getLastBestConditions(52740).getLuminosity(),250);
-        assertEquals(useMonitorService.getLastBestConditions(52740).getTemperature(),15);
+        Assert.assertEquals(useMonitorService.getLastBestConditions(52740).getLuminosity(), 250);
+        Assert.assertEquals(useMonitorService.getLastBestConditions(52740).getTemperature(), 15);
     }
 
     @Test
@@ -169,10 +182,14 @@ public class UseMonitorServiceTest extends TestCase {
         // given
         Iterable<EquipmentAndData> equipmentAndData = equipmentAndDataRepo.getEquipment_DataByIdRoom(52740);
         Iterable<EquipmentAndData> equipmentAndData1 = useMonitorService.getEquipmentAndDataByRoom(52740);
+        EquipmentAndData ead = equipmentAndData.iterator().next();
+        EquipmentAndData ead1 = equipmentAndData1.iterator().next();
         // when
-        assertNotNull(equipmentAndData);assertNotNull(equipmentAndData1);
+        Assert.assertNotNull(equipmentAndData);
+        Assert.assertNotNull(equipmentAndData1);
         // then
-        assertEquals(equipmentAndData,equipmentAndData1);
+        Assert.assertEquals(ead.getValue(), ead1.getValue());
+        Assert.assertEquals(ead.getId_equipment(), ead1.getId_equipment());
     }
 
     @Test
@@ -181,8 +198,9 @@ public class UseMonitorServiceTest extends TestCase {
         Iterable<Room> rooms = roomRepo.findAllBusinessRoom(3);
         Iterable<Room> rooms1 = useMonitorService.findAllBusinessRoom(3);
         // when
-        assertNotNull(rooms);assertNotNull(rooms1);
+        Assert.assertNotNull(rooms);
+        Assert.assertNotNull(rooms1);
         // then
-        assertEquals(rooms,rooms1);
+        Assert.assertEquals(rooms, rooms1);
     }
 }
