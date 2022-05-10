@@ -185,7 +185,7 @@ public class MixEnService {
                 int t = (int) (consumption-x-capacityHydraulic);
                 int m = 0;
                 //if(t>0){m=t;}
-                for(int y=0;y<=(limitWind-x);y+=step){
+                for(int y=0;y<=(consumption-x);y+=step){
                     if(y>consumption){y=Math.round(consumption); logger.info(""+y);}
 
                     double costSolaire =  function.economicCost(x).get(0);
@@ -193,7 +193,7 @@ public class MixEnService {
                     double costHydraulic = function.economicCost(consumption-x-y).get(2);
 
                     double cost = costHydraulic+costWind+costSolaire;
-                    if(cost<min && capacityHydraulic>= (consumption-x-y)){
+                    if(cost<min && capacityHydraulic>= (consumption-x-y) && capacityWind>=y){
                         min = cost;
                         minX = x;
                         minY = y;
@@ -413,16 +413,14 @@ public class MixEnService {
         //cas général
         for(int x=0; x<=limitSolar;x+=step){
             if(x>consumption){x=Math.round(consumption);}
-
-            for(int y=0;y<=(limitWind-x);y+=step){
+            for(int y=0;y<=(consumption-x);y+=step){
                 if(y>consumption){y=Math.round(consumption);}
-
                 double costSolaire =  function.economicCost(x).get(0);
                 double costWind = function.economicCost(y).get(1);
                 double costHydraulic = function.economicCost(consumption-x-y).get(2);
 
                 double cost = costHydraulic+costWind+costSolaire;
-                if(cost<min && capacityHydraulic>= (consumption-x-y)){
+                if(cost<min && capacityHydraulic>= (consumption-x-y) && capacityWind>=y){
                     min = cost;
                     minX = x;
                     minY = y;

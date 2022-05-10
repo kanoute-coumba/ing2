@@ -269,4 +269,29 @@ public class MixEnServiceTest extends TestCase {
     public void testHydraulicHisto(){
         //Test non fait pour cette methode
     }
+
+    @Test
+    public void testGetResAlgoEco(){
+        HashMap<String,List<String>> hm1 = new HashMap<>();
+        List<String> l1 = new ArrayList<>();
+        l1.add("25");
+        l1.add("25");
+        l1.add("50");
+        hm1.put("prop",l1);
+
+        HashMap<String,List<String>> hm1bis = mixEnService.getResAlgoEco(4000,1000,1000,2000);
+
+        assertEquals(hm1,hm1bis);
+
+        HashMap<String,List<String>> hm2 = new HashMap<>();
+        List<String> l2 = new ArrayList<>();
+        l2.add("0");
+        l2.add("25");
+        l2.add("75");
+        hm2.put("prop",l2);
+
+        HashMap<String,List<String>> hm2bis = mixEnService.getResAlgoEco(8000,8000,7000,7000);
+
+        assertEquals(hm2,hm2bis);
+    }
 }
