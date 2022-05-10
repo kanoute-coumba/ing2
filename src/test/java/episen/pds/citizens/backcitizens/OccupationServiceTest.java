@@ -4,150 +4,112 @@ import episen.pds.citizens.backcitizens.model.*;
 import episen.pds.citizens.backcitizens.repository.*;
 import episen.pds.citizens.backcitizens.service.OccupationService;
 import junit.framework.TestCase;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
+@SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
 class OccupationServiceTest extends TestCase {
 
+    @InjectMocks
+    private OccupationService occupationService;
+
     @Mock
-    RentCounterByYearRepo rentCounterByYearRepo;
+    private RentCounterByYearRepo rentCounterByYearRepo;
+
     @Mock
-    DWPbyBuildingRepo dwpByBuildingRepo;
-    @Mock
-    private TenantDetailsRepo tenantDetailsRepo;
+    private DWPbyBuildingRepo dwpByBuildingRepo;
     @Mock
     private OccupationRateRepo occupationRateRepo;
     @Mock
     private OccupationRateByBuildingRepo occupationRateByBuildingRepo;
 
-    @InjectMocks
-    private OccupationService occupationService;
-
-    @Before
-    public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
-    }
 
     @Test
-    void getRentCounterByYear() {
+    public void testGetRentCounterByYear() {
 
-        while (occupationService!=null) {
-
-            if (rentCounterByYearRepo!=null) {
-
-                Iterable<RentCounterByYear> savedRent = occupationService.getRentCounterByYear();
+                //GIVEN
                 Iterable<RentCounterByYear> expectedRent = rentCounterByYearRepo.getRentCounterByYear();
+                //WHEN
+                Iterable<RentCounterByYear> savedRent = occupationService.getRentCounterByYear();
+
                 assertNotNull(expectedRent);
                 assertNotNull(savedRent);
-                Assert.assertEquals(expectedRent,savedRent);
-            }
-        }
+                //THEN
+                assertEquals(expectedRent,savedRent);
+
     }
 
     @Test
-    void getDWPbuildings() {
+    public void testGetDWPbuildings() {
 
-        while (occupationService!=null) {
-
-            if (dwpByBuildingRepo != null) {
-
+                //GIVEN
                 Iterable<DWPbyBuilding> expectedDWP = dwpByBuildingRepo.getDWPbuildings();
+                //WHEN
                 Iterable<DWPbyBuilding> savedDWP = occupationService.getDWPbuildings();
                 assertNotNull(expectedDWP);
                 assertNotNull(savedDWP);
-                Assert.assertEquals(expectedDWP, savedDWP);
-            }
-        }
+                //THEN
+                assertEquals(expectedDWP, savedDWP);
+
     }
 
     @Test
-    void getTenantDetails() {
-        while (occupationService!=null) {
+    public void testGetOccupationRate() {
 
-            if (tenantDetailsRepo != null) {
-
-                Iterable<TenantDetails> expectedTd = tenantDetailsRepo.getTenantDetails();
-                Iterable<TenantDetails> savedTd = occupationService.getTenantDetails();
-                assertNotNull(expectedTd);
-                assertNotNull(savedTd);
-                Assert.assertEquals(expectedTd, savedTd);
-            }
-        }
-    }
-
-    @Test
-    void getOccupationRate() {
-
-        while (occupationService!=null) {
-
-            if (dwpByBuildingRepo != null) {
-
+                //GIVEN
                 Iterable<OccupationRate> expectedOccupationRate = occupationRateRepo.getOccupationRate();
+                //WHEN
                 Iterable<OccupationRate> savedOccupationRate = occupationService.getOccupationRate();
                 assertNotNull(expectedOccupationRate);
                 assertNotNull(savedOccupationRate);
-                Assert.assertEquals(expectedOccupationRate, savedOccupationRate);
-            }
-        }
+                //THEN
+                assertEquals(expectedOccupationRate, savedOccupationRate);
 
     }
 
     @Test
-    void get2020Rate() {
-        while (occupationService!=null) {
+    public void testGet2020Rate() {
 
-            if (tenantDetailsRepo != null) {
-
+                //GIVEN
                 Iterable<OccupationRateByBuilding> expectedRate1 = occupationRateByBuildingRepo.get2020Rate();
+                //WHEN
                 Iterable<OccupationRateByBuilding> savedRate1 = occupationService.get2020Rate();
                 assertNotNull(expectedRate1);
                 assertNotNull(savedRate1);
-                Assert.assertEquals(expectedRate1, savedRate1);
-            }
-        }
+                //THEN
+                assertEquals(expectedRate1, savedRate1);
 
     }
 
     @Test
-    void get2021Rate() {
+    public void testGet2021Rate() {
 
-        while (occupationService!=null) {
-
-            if (tenantDetailsRepo != null) {
-
+                //GIVEN
                 Iterable<OccupationRateByBuilding> expectedRate2 = occupationRateByBuildingRepo.get2021Rate();
+                //WHEN
                 Iterable<OccupationRateByBuilding> savedRate2 = occupationService.get2021Rate();
                 assertNotNull(expectedRate2);
                 assertNotNull(savedRate2);
-                Assert.assertEquals(expectedRate2, savedRate2);
-            }
-        }
+                //THEN
+                assertEquals(expectedRate2, savedRate2);
+
     }
 
     @Test
-    void get2022Rate() {
-
-        while (occupationService!=null) {
-
-            if (tenantDetailsRepo != null) {
+    public void testGet2022Rate() {
 
                 Iterable<OccupationRateByBuilding> expectedRate3 = occupationRateByBuildingRepo.get2022Rate();
+                //WHEN
                 Iterable<OccupationRateByBuilding> savedRate3 = occupationService.get2022Rate();
                 assertNotNull(expectedRate3);
                 assertNotNull(savedRate3);
-                Assert.assertEquals(expectedRate3, savedRate3);
-            }
-        }
+                //THEN
+                assertEquals(expectedRate3, savedRate3);
+
     }
 }
