@@ -13,7 +13,8 @@ import org.springframework.stereotype.Repository;
 @Repository
     public interface SpacesRepo extends CrudRepository<RSpace, Integer> {
 
-    @Query(value="select users.user_id, username, right_layer, type, name_space, type_space, id_floor, reservation_id, start_time, end_time from space inner join reservation on space.id_space=reservation.id_space inner join users on users.user_id=reservation.user_id;", nativeQuery = true)
+    //@Query(value="select users.user_id, username, right_layer, type, name_space, type_space, id_floor, reservation_id, start_time, end_time from space inner join reservation on space.id_space=reservation.id_space inner join users on users.user_id=reservation.user_id;", nativeQuery = true)
+    @Query(value="select * from space inner join reservation on space.id_space=reservation.id_space inner join users on users.user_id=reservation.user_id;", nativeQuery = true)
     Iterable<RSpace> findReservedSpaces();
 
     //@Nullable
@@ -21,7 +22,7 @@ import org.springframework.stereotype.Repository;
             "inner join floor on space.id_floor = floor.id_floor " +
             "inner join building on building.id_building = floor.id_building " +
             "inner join userbuilding on building.id_building = userbuilding.id_building  " +
-            "where space.type_space='Bureau' and userbuilding.id_user=4 and ((start_time not between 1652171443 and 1652178643 and end_time not between 1652171443 and 1652178643) OR(start_time is NULL));", nativeQuery = true)
+            "where space.type_space=?3 and userbuilding.id_user=?4 and (((start_time <= ?1 or start_time >= ?2) and (end_time <= ?1 or end_time <= ?2)) OR(start_time is NULL)) limit 10;", nativeQuery = true)
     Iterable<RSpace> findDispoSpaces(long starttime, long endtime, String typespace, int iduser);
 
     /* @Query(value="select space.* from space inner join reservation on space.id_space = reservation.id_space " +

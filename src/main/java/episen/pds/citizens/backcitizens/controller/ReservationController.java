@@ -29,17 +29,17 @@ public class ReservationController {
         reservationService.saveMenuReservation(reservation);
     }
 
-    @GetMapping("/spaces")
-    public Iterable<RSpace> getSpace() {
-        logger.config("returning values REEEEEEESAAAAAAAAAAAAA");
-        return reservationService.getReservedSpace();
-    }
+//    @GetMapping("/spaces")
+//    public Iterable<RSpace> getSpace() {
+//        logger.config("returning values REEEEEEESAAAAAAAAAAAAA");
+//        return reservationService.getReservedSpace();
+//    }
 
-    @GetMapping("/reservations")
-    public Iterable<Reservation> getReservation() {
-        logger.config("returning values REEEEEEESAAAAAAAAAAAAA");
-        return reservationService.getReservation();
-    }
+//    @GetMapping("/reservations")
+//    public Iterable<Reservation> getReservation() {
+//        logger.config("returning values REEEEEEESAAAAAAAAAAAAA");
+//        return reservationService.getReservation();
+//    }
 
     @GetMapping("/reservations/{idu}/{heureDebut}/{heureFin}/{typeEspace}")
     public Iterable<RSpace> getDispoReservation(@PathVariable("idu") int idu, @PathVariable("heureDebut") long heureDebut, @PathVariable("heureFin") long heureFin, @PathVariable("typeEspace") String typeEspace) {
@@ -54,7 +54,7 @@ public class ReservationController {
     } */
 
     @GetMapping("/reservations/{id}")
-    public Optional<Reservation> getReservationById(@PathVariable int id) {
+    public Reservation getReservationById(@PathVariable int id) {
         logger.config("returning menu values");
         return reservationService.getReservationById(id);
     }
