@@ -1,16 +1,17 @@
 package episen.pds.citizens.backcitizens.controller;
 
-import episen.pds.citizens.backcitizens.model.BuildingCentral;
-import episen.pds.citizens.backcitizens.service.BuildingCentralService;
-import episen.pds.citizens.backcitizens.service.CentralService;
-import episen.pds.citizens.backcitizens.service.MixEnService;
+import episen.pds.citizens.backcitizens.model.District;
+import episen.pds.citizens.backcitizens.model.Production;
+import episen.pds.citizens.backcitizens.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -20,82 +21,97 @@ public class SmartGridController {
     private MixEnService mixEnService;
 
     @Autowired
-    private BuildingCentralService buildingCentralService;
+    private CentralService centralService;
 
     @Autowired
-    private CentralService centralService;
+    private ProductionService productionService;
+
+    @Autowired
+    private DistrictService districtService;
 
     @GetMapping("/smartgrid")
     public Double smartgrid() {
-        double balance = randomRange(0, 2000);
-        HashMap<String, List<String>> mix = mixEnService.getResultAlgoMix((float) balance);
-        Optional<String> key = mix.keySet().stream().findFirst();
-        if (key.isPresent()) {
-            switch(key.get()) {
-                case "pref":
-                    System.out.println("pref");
-                    break;
-                case "prop":
-                    System.out.println("prop");
-                    Double solar = round(balance * Double.parseDouble(mix.get("prop").get(0)) / 100, 2);
-                    Double wind = round(balance * Double.parseDouble(mix.get("prop").get(1)) / 100, 2);
-                    Double hydraulic = round(balance * Double.parseDouble(mix.get("prop").get(2)) / 100, 2);
-                    this.prop(solar, wind, hydraulic);
-                    break;
-                default:
-                    System.err.println("ERROR");
+        List<District> districts = districtService.readDistricts();
+        double consumption = 0;
+        double production = 0;
+        for(District district : districts) {
+            consumption += district.getConsumption();
+            production += district.getProduction();
+        }
+        double balance = production - consumption;
+        System.out.println("> Bilan énergétique de départ = " + balance);
+
+        if (balance < 0) {
+            balance = (float) Math.abs(balance);
+            List<Integer> centrals = new ArrayList<>();
+
+            HashMap<String, List<String>> mix = mixEnService.getResultAlgoMix((float) balance);
+            Optional<String> key = mix.keySet().stream().findFirst();
+
+            if (key.isPresent()) {
+                switch(key.get()) {
+                    case "pref":
+                        System.out.println("Mix énergétique utilisé = pref");
+                        balance = this.pref(mix.get("pref"), balance, centrals);
+                        break;
+                    case "prop":
+                        System.out.println("Mix énergétique utilisé = prop");
+                        balance = this.prop(mix.get("prop"), balance, centrals);
+                        break;
+                    default:
+                        System.err.println("ERROR");
+                }
+            }
+
+            if (balance > 0) {
+                balance = this.activeCentralThermal(balance, centrals);
+            }
+            System.out.println("Nombre de générateur qui va être activé = " + centrals.size());
+            System.out.println("Bilan énergétique d'arrivé = " + (balance * (-1)));
+
+            centralService.updateResetStateOfCentral();
+            centralService.updateStateOfCentral(centrals);
+        }
+
+        return balance * (-1);
+    }
+
+    private double pref(List<String> mix, double balance, List<Integer> centrals) {
+        for(int i = 0; i < mix.size() && balance > 0; i++) {
+            List<Production> productions = productionService.findAllProductionByCentralType(mix.get(i));
+            for(int j = 0; j < productions.size() && balance > 0; j++) {
+                centrals.add(productions.get(j).getIdCentral());
+                balance -= productions.get(j).getCapacity();
             }
         }
         return balance;
-    }
-
-    private static double randomRange(int min, int max) {
-        return round((Math.random() * (max - min)) + min, 2);
     }
 
     private static double round(double number, int decimal) {
         return Math.round(number * Math.pow(10, decimal)) / Math.pow(10, decimal);
     }
 
-    private void prop(Double solar, Double wind, Double hydraulic) {
-        System.out.println("Total = " + solar + wind + hydraulic);
-        System.out.println("solar = " + solar);
-        System.out.println("wind = " + wind);
-        System.out.println("hydraulic = " + hydraulic);
-        List<BuildingCentral> centrals = buildingCentralService.readBuildingsTypeCentral();
-        List<BuildingCentral> centralsSolar = centrals.stream().filter(central -> central.getType().equals("solaire")).collect(Collectors.toList());
-        List<BuildingCentral> centralsWind = centrals.stream().filter(central -> central.getType().equals("eolienne")).collect(Collectors.toList());
-        List<BuildingCentral> centralsHydraulic = centrals.stream().filter(central -> central.getType().equals("hydraulique")).collect(Collectors.toList());
-        List<BuildingCentral> centralsThermal = centrals.stream().filter(central -> central.getType().equals("thermique")).collect(Collectors.toList());
-        List<Integer> id = new ArrayList<>();
-
-        for(int i = 0; i < centralsSolar.size() && solar > 0; i++) {
-            solar -= centralsSolar.get(i).getCapacity();
-            id.add(centralsSolar.get(i).getId());
-        }
-
-        for(int i = 0; i < centralsWind.size() && wind > 0; i++) {
-            wind -= centralsWind.get(i).getCapacity();
-            id.add(centralsWind.get(i).getId());
-        }
-
-        for(int i = 0; i < centralsHydraulic.size() && hydraulic > 0; i++) {
-            wind -= centralsHydraulic.get(i).getCapacity();
-            id.add(centralsHydraulic.get(i).getId());
-        }
-
-        double total = solar + wind + hydraulic;
-        if(total > 0) {
-            for(int i = 0; i < centralsThermal.size() && total > 0; i++) {
-                total -= centralsThermal.get(i).getCapacity();
-                id.add(centralsThermal.get(i).getId());
+    private double prop(List<String> mix, double balance, List<Integer> centrals) {
+        String[] type = {"solaire", "eolienne", "hydraulique"};
+        if(mix.size() == type.length) {
+            for(int i = 0; i < mix.size() && balance > 0; i++) {
+                double proportion = round(balance * Double.parseDouble(mix.get(i)) / 100, 2);
+                List<Production> productions = productionService.findAllProductionByCentralType(type[i]);
+                for(int j = 0; j < productions.size() && (balance * proportion) > 0; j++) {
+                    centrals.add(productions.get(j).getIdCentral());
+                    balance -= productions.get(j).getCapacity();
+                }
             }
         }
-        System.out.println("after solar = " + solar);
-        System.out.println("after wind = " + wind);
-        System.out.println("after hydraulic = " + hydraulic);
-        System.out.println("after Total = " + solar + wind + hydraulic);
-        centralService.updateResetStateOfCentral();
-        centralService.updateStateOfCentral(id);
+        return balance;
+    }
+
+    private double activeCentralThermal(double balance, List<Integer> centrals) {
+        List<Production> productions = productionService.findAllProductionByCentralType("thermique");
+        for(int j = 0; j < productions.size() && balance > 0; j++) {
+            centrals.add(productions.get(j).getIdCentral());
+            balance -= productions.get(j).getCapacity();
+        }
+        return balance;
     }
 }
