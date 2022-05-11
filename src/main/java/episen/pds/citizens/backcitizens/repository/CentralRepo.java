@@ -17,7 +17,7 @@ public interface CentralRepo extends CrudRepository<Central, Integer> {
     @Query(value = """
         UPDATE central
         SET state = 'actif'
-        WHERE id_building IN :id""", nativeQuery = true)
+        WHERE id_central IN :id""", nativeQuery = true)
     void updateStateOfCentral(@Param("id") List<Integer> id);
 
     @Transactional
