@@ -1,9 +1,11 @@
 package episen.pds.citizens.backcitizens;
 
-import episen.pds.citizens.backcitizens.model.*;
+import episen.pds.citizens.backcitizens.model.Conditions;
+import episen.pds.citizens.backcitizens.model.EquipmentAndData;
+import episen.pds.citizens.backcitizens.model.Measure;
+import episen.pds.citizens.backcitizens.model.Room;
 import episen.pds.citizens.backcitizens.repository.*;
 import episen.pds.citizens.backcitizens.service.UseMonitorService;
-import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.AfterAll;
@@ -12,7 +14,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
