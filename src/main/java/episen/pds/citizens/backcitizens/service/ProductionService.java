@@ -15,8 +15,8 @@ public class ProductionService {
     @Autowired
     private ProductionRepo productionRepo;
 
-    public List<Production> findAllLastProduction() {
-        return productionRepo.findAllLastProduction();
+    public List<Production> findAllProductionByCentralType(String type) {
+        return productionRepo.findAllProductionByCentralType(type);
     }
 
     public Production findProductionByIdBuilding(int idb){

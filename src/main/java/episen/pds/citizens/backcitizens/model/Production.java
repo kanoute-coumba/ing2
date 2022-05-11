@@ -11,6 +11,9 @@ public class Production {
     @Column(name = "id_production")
     private int id;
 
+    @Column(name = "capacity")
+    public double capacity;
+
     @Column(name = "date_time")
     private Timestamp timestamp;
 
@@ -34,6 +37,10 @@ public class Production {
         return id;
     }
 
+    public double getCapacity() {
+        return capacity;
+    }
+
     public Timestamp getTimestamp() {
         return timestamp;
     }
@@ -50,6 +57,7 @@ public class Production {
     public String toString() {
         return "Production{" +
                 "id=" + id +
+                ", capacity=" + capacity +
                 ", timestamp=" + timestamp +
                 ", value=" + value +
                 ", idCentral=" + idCentral +
