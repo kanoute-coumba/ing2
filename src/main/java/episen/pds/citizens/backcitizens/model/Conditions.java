@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
@@ -17,7 +18,7 @@ public class Conditions {
     private int temperature;
 
     @Column(name = "begin_time")
-    private LocalTime begin_time;
+    private LocalDateTime begin_time;
 
     @Column(name = "end_time")
     private LocalTime end_time;
@@ -42,15 +43,15 @@ public class Conditions {
         this.temperature = temperature;
     }
 
-    public LocalTime getBegin_time() {
+    public LocalDateTime getBegin_time() {
         return begin_time;
     }
 
-    public void setBegin_time(LocalTime begin_time) {
+    public void setBegin_time(LocalDateTime begin_time) {
         this.begin_time = begin_time;
     }
 
-    public LocalTime getEnd_time() {
+    public LocalTime getEnd_time(LocalDateTime of) {
         return end_time;
     }
 

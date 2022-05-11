@@ -67,8 +67,8 @@ public interface EquipmentRepo extends CrudRepository<Equipment, Integer> {
             "                on r.id_room = s.id_room inner join floor f\n" +
             "               on r.id_floor = f.id_floor inner join building b\n" +
             "                   on f.id_building = b.id_building\n" +
-            "         where s.type =:typeSensor and type_building = 'Maison' order by r.id_room", nativeQuery = true)
-    List<Integer> listIdroom(@Param("typeSensor") String typeSensor);
+            "         where s.type =:typeSensor and type_building = 'Maison' and b.id_building=:id_building order by r.id_room", nativeQuery = true)
+    List<Integer> listIdroom(@Param("typeSensor") String typeSensor, @Param("id_building") Integer id_building);
 
     @Query(value = "select distinct eq.statut from equipment_data eq inner join equipment e\n" +
             "    on eq.id_equipment_data = e.id_equipment inner join room r\n" +
@@ -108,9 +108,16 @@ public interface EquipmentRepo extends CrudRepository<Equipment, Integer> {
     @Query(value = "select end_time from equipment_data where id_equipment_data =:id_equipment_data", nativeQuery = true)
     Timestamp getEndTime(@Param("id_equipment_data") Integer id_equipment_data);
 
-    @Query(value = "select r.id_room from room r inner join equipment e on r.id_room = e.id_room inner join equipment_data eq on e.id_equipment = eq.id_equipment_data where type =:type_equipment and type_mode =:type_mode", nativeQuery = true)
-    List<Integer> listRoomWithDryerLine (@Param("type_equipment") String type_equipment, @Param("type_mode") String type_mode);
+    @Query(value = "select r.id_room from room r inner join equipment e\n" +
+            "    on r.id_room = e.id_room inner join equipment_data eq\n" +
+            "        on e.id_equipment = eq.id_equipment_data inner join floor f\n" +
+            "            on f.id_floor = r.id_floor inner join building b\n" +
+            "                on b.id_building = f.id_building where type =:type_equipment and type_mode =:type_mode and b.id_building =:id_building", nativeQuery = true)
+    List<Integer> listRoomWithDryerLine (@Param("type_equipment") String type_equipment, @Param("type_mode") String type_mode, @Param("id_building") Integer id_building);
 
+
+    @Query(value = "select building.id_building from building inner join floor f on building.id_building = f.id_building inner join room r  on f.id_floor = r.id_floor where id_room =:idroom", nativeQuery = true)
+    Integer getIdBuildingByEachRoom(@Param("idroom") Integer idroom);
 
 
     @Nullable

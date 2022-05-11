@@ -26,26 +26,25 @@ public class ReservationService {
 
     private static final Logger logger = Logger.getLogger(MenuController.class.getName());
 
-    public Optional<Reservation> getReservationById(final int id) {
-        return reservationRepo.findById(id);
+    public Reservation getReservationById(final int id) {
+        return reservationRepo.findById(id).get();
     }
 
-    public Iterable<Reservation> getReservation() {
-        return reservationRepo.findAll();
-    }
-    //public Iterable<Space> getSpace() {
-     //   return spacesRepo.findAll();
-   // }
+//    public Iterable<Reservation> getReservation() {
+//        return reservationRepo.findAll();
+//    }
 
-    public Iterable<RSpace> getReservedSpace() {
-        return spacesRepo.findReservedSpaces();
-    }
 
+    public Iterable<RSpace> getDispoSpace(long starttime, long endtime, String typespace, int iduser) {
+        return spacesRepo.findDispoSpaces(starttime, endtime, typespace, iduser);
+    }
 
     public Reservation saveMenuReservation(Reservation reservation) {
         logger.config(reservation.toString());
         return reservationRepo.save(reservation);
     }
+
+
 
 
 }

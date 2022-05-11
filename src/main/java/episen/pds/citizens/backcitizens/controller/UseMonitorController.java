@@ -18,13 +18,6 @@ public class UseMonitorController {
     private UseMonitorService useMonitorService;
     private static final Logger logger = Logger.getLogger(TestController.class.getName());
 
-    @GetMapping("/getConsumptionByBuilding/{id}")
-    public Iterable<Consumption> getConsumptionByBuilding(@PathVariable("id") int id_building) {
-        for (Consumption row:useMonitorService.getConsumptionByBuilding(id_building)) {
-            logger.info(row.toString());
-        }
-        return useMonitorService.getConsumptionByBuilding(id_building);
-    }
 /*
     @GetMapping("/getRoomsWithConsumption")
     public Iterable<RoomsWithConsumption> getRoomsWithConsumption() {
@@ -56,12 +49,12 @@ public class UseMonitorController {
         return useMonitorService.findEquipmentOrderByRoom();
     }
 
-    @GetMapping("/getAllRooms")
-    public Iterable<Room> getAllRooms() {
-        for (Room row:useMonitorService.findAllBusinessRoom()) {
+    @GetMapping("/getAllRooms/{id_user}")
+    public Iterable<Room> getAllRooms(@PathVariable("id_user") int id_user) {
+        for (Room row:useMonitorService.findAllBusinessRoom(id_user)) {
             logger.info(row.toString());
         }
-        return useMonitorService.findAllBusinessRoom();
+        return useMonitorService.findAllBusinessRoom(id_user);
     }
 
     @PostMapping("/setEquipment/{id}/{value}")
@@ -106,8 +99,10 @@ public class UseMonitorController {
         logger.info("GET_CURRENT_COND: id_room=" + id_room);
         Conditions current_condition = new Conditions();
         current_condition.setId_room(id_room);
-        current_condition.setLuminosity(useMonitorService.getLastLightMeasure(id_room).getValue());
-        current_condition.setTemperature(useMonitorService.getLastTempMeasure(id_room).getValue());
+        try {
+            current_condition.setLuminosity(useMonitorService.getLastLightMeasure(id_room).getValue());
+            current_condition.setTemperature(useMonitorService.getLastTempMeasure(id_room).getValue());
+        } catch (Exception ignored) {}
         logger.info("CURRENT_COND : " + current_condition.toString());
         return current_condition;
     }

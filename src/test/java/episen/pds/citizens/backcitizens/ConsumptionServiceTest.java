@@ -34,7 +34,6 @@ public class ConsumptionServiceTest extends TestCase {
         String id_e = "1";
         long dBegin = 1;
         long dEnd= 2000000000;
-
         assertEquals(consumptionRepo.findHistoryConsumptionByIdEquipmentBetweenTwoDate(
                 Integer.parseInt(id_e), dBegin,dEnd),
                 consumptionService.findHistoryConsumptionByIdEquipmentBetweenTwoDate(id_e,dBegin,dEnd)
@@ -48,7 +47,6 @@ public class ConsumptionServiceTest extends TestCase {
 
         ArrayList<Consumption> consumptionArrayList = consumptionRepo.findHistoryConsumptionByIdRoomBetweenTwoDate(Integer.parseInt(id_r), dBegin,dEnd);
         ArrayList<Consumption> c = consumptionRepo.findConsumptionByRoomBefore(Integer.parseInt(id_r),dBegin);
-
         assertEquals(consumptionService.getConsumptionsFirst(consumptionArrayList, c),
                 consumptionService.findHistoryConsumptionByIdRoomBetweenTwoDate(id_r,dBegin,dEnd));
     }

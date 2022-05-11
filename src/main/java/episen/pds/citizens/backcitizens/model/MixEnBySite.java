@@ -58,4 +58,14 @@ public class MixEnBySite {
     public int getNumber_equip() { return number_equip;}
     public void setNumber_equip(int number_equip) { this.number_equip = number_equip;}
 
+    @Override
+    public String toString() {
+        return "MixEnBySite{" +
+                "mix=" + mix +
+                ", address='" + address + '\'' +
+                ", name_building='" + name_building + '\'' +
+                ", active_equip=" + active_equip +
+                ", number_equip=" + number_equip +
+                '}';
+    }
 }

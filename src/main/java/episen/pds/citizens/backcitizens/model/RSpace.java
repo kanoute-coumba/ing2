@@ -6,21 +6,31 @@ import javax.persistence.*;
 @Entity
 public class RSpace {
 
-    @Id
-    @Column(name = "reservation_id")
-    private int  reservation_id;
+    public int getId_space() {
+        return id_space;
+    }
 
-    @Column(name = "user_id")
+    public void setId_space(int id_space) {
+        this.id_space = id_space;
+    }
+
+    @Id
+    @Column(name = "id_space")
+    private int  id_space;
+
+    @Column(name = "id_user")
     private int  user_id;
 
-    @Column(name = "username")
-    private String username;
 
-    @Column(name = "right_layer")
-    private int right_layer;
 
-    @Column(name = "type")
-    private String type;
+//    @Column(name = "username")
+//    private String username;
+
+    //@Column(name = "right_layer")
+    //private int right_layer;
+
+    //@Column(name = "type")
+    //private String type;
 
     @Column(name = "name_space")
     private String name_space;
@@ -31,11 +41,11 @@ public class RSpace {
     @Column(name = "id_floor")
     private int id_floor;
 
-    @Column(name = "start_time")
-    private long start_time;
-
-    @Column(name = "end_time")
-    private long end_time;
+//    @Column(name = "start_time")
+//    private long start_time;
+//
+//    @Column(name = "end_time")
+//    private long end_time;
 
 
 
@@ -47,30 +57,30 @@ public class RSpace {
         this.user_id = user_id;
     }
 
-    public String getUsername() {
-        return username;
-    }
+//    public String getUsername() {
+//        return username;
+//    }
+//
+//    public void setUsername(String username) {
+//        this.username = username;
+//    }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+//    public int getRight_layer() {
+//        return right_layer;
+//    }
+//
+//    public void setRight_layer(int right_layer) {
+//        this.right_layer = right_layer;
+//    }
 
-    public int getRight_layer() {
-        return right_layer;
-    }
-
-    public void setRight_layer(int right_layer) {
-        this.right_layer = right_layer;
-    }
-
-    public String getType() {
+    /*public String getType() {
         return type;
     }
 
     public void setType(String type) {
         this.type = type;
     }
-
+*/
     public String getName_space() {
         return name_space;
     }
@@ -95,45 +105,45 @@ public class RSpace {
         this.id_floor = id_floor;
     }
 
-    public int getReservation_id() {
-        return reservation_id;
-    }
+//    public int getReservation_id() {
+//        return reservation_id;
+//    }
+//
+//    public void setReservation_id(int reservation_id) {
+//        this.reservation_id = reservation_id;
+//    }
 
-    public void setReservation_id(int reservation_id) {
-        this.reservation_id = reservation_id;
-    }
+//    public long getStart_time() {
+//        return start_time;
+//    }
+//
+//    public void setStart_time(long start_time) {
+//        this.start_time = start_time;
+//    }
+//
+//    public long getEnd_time() {
+//        return end_time;
+//    }
+//
+//    public void setEnd_time(long end_time) {
+//        this.end_time = end_time;
 
-    public long getStart_time() {
-        return start_time;
-    }
-
-    public void setStart_time(long start_time) {
-        this.start_time = start_time;
-    }
-
-    public long getEnd_time() {
-        return end_time;
-    }
-
-    public void setEnd_time(long end_time) {
-        this.end_time = end_time;
-
-    }
+//}
 
     @Override
     public String toString() {
         return "RSpace{" +
 
                 ", user_id=" + user_id +
-                ", username='" + username + '\'' +
-                ", right_layer=" + right_layer +
-                ", type='" + type + '\'' +
+                //", username='" + username + '\'' +
+               // ", right_layer=" + right_layer +
+                //", type='" + type + '\'' +
                 ", name_space='" + name_space + '\'' +
                 ", type_space='" + type_space + '\'' +
                 ", id_floor=" + id_floor +
-                ", reservation_id=" + reservation_id +
-                ", start_time=" + start_time +
-                ", end_time=" + end_time +
+                //", reservation_id=" + reservation_id +
+                //", start_time=" + start_time +
+                //", end_time=" + end_time +
                 '}';
     }
 

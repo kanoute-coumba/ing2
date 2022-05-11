@@ -1,6 +1,5 @@
 package episen.pds.citizens.backcitizens.service;
 
-import episen.pds.citizens.backcitizens.CitizensBackendApplication;
 import episen.pds.citizens.backcitizens.model.EquipmentAndData;
 import episen.pds.citizens.backcitizens.model.Room;
 import episen.pds.citizens.backcitizens.repository.ConditionsRepo;
@@ -27,14 +26,16 @@ public class ConfigTempAutoDWP implements Runnable {
     RoomRepo roomRepo;
     @Autowired
     EquipmentAndDataRepo equipmentAndDataRepo;
-
+    int id_user;
 
     private static final Logger logger = Logger.getLogger(ConfigTempAutoDWP.class.getName());
 
-
+    public void ConfigLightAutoDWP(int id_u) {
+        id_user = id_u;
+    }
     public void configAuto()  {
         while (true) {
-            Iterable<Room> rooms = roomRepo.findAllBusinessRoom();
+            Iterable<Room> rooms = roomRepo.findAllBusinessRoom(id_user);
             rooms.forEach(room -> {
                 try {
                     int difTemp = measureRepo.getTempStatInRoom(room.getId_room()).getValue() - conditionsRepo.findLastConditionsByRoom(room.getId_room()).getTemperature();
@@ -43,7 +44,7 @@ public class ConfigTempAutoDWP implements Runnable {
                     //                 useMonitorService.setAllEquipmentsOff(room.getId_room());
                     //             } else {
                     while (difTemp > 3 || difTemp < -3) {
-                        configTempAuto(room.getId_room(), difTemp, current_date);
+                        configTempAuto(room.getId_room(), difTemp);
                         difTemp = measureRepo.getTempStatInRoom(room.getId_room()).getValue() - conditionsRepo.findLastConditionsByRoom(room.getId_room()).getTemperature();
                     }
                 } catch (Exception e) {
@@ -57,7 +58,7 @@ public class ConfigTempAutoDWP implements Runnable {
         }
     }
 
-    public void configTempAuto(int id_room, int difTemp, Timestamp current_date) {
+    public void configTempAuto(int id_room, int difTemp) {
         Iterable<EquipmentAndData> equipments = equipmentAndDataRepo.getAutoEquipment_DataByIdRoom(id_room);
         if (difTemp < 0) {
             equipments.forEach(equipment -> {
@@ -70,6 +71,12 @@ public class ConfigTempAutoDWP implements Runnable {
                     logger.info("-1 on climatisation for " + id_room);
                     //   if (equipment.getValue() == 1)
                     //       useMonitorService.setEquipmentOff(equipment.getId_equipment());
+                }
+                if (equipment.getType().equals("radiateur") && equipment.getValue() < 5) {
+                    useMonitorService.setEquipmentOneUp(equipment.getId_equipment());
+                    logger.info("-1 on radiator for " + id_room);
+                    //  if (equipment.getValue() == 1)
+                    //      useMonitorService.setEquipmentOff(equipment.getId_equipment());
                 }
             });
         }
@@ -84,6 +91,12 @@ public class ConfigTempAutoDWP implements Runnable {
                     logger.info("-1 on radiator for " + id_room);
                     //  if (equipment.getValue() == 1)
                     //      useMonitorService.setEquipmentOff(equipment.getId_equipment());
+                }
+                if (equipment.getType().equals("climatisation") && equipment.getValue() < 5) {
+                    useMonitorService.setEquipmentOneUp(equipment.getId_equipment());
+                    logger.info("-1 on climatisation for " + id_room);
+                    //   if (equipment.getValue() == 1)
+                    //       useMonitorService.setEquipmentOff(equipment.getId_equipment());
                 }
             });
         }

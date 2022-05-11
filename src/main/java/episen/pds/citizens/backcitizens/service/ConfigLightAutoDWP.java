@@ -1,6 +1,5 @@
 package episen.pds.citizens.backcitizens.service;
 
-import episen.pds.citizens.backcitizens.CitizensBackendApplication;
 import episen.pds.citizens.backcitizens.model.EquipmentAndData;
 import episen.pds.citizens.backcitizens.model.Room;
 import episen.pds.citizens.backcitizens.repository.ConditionsRepo;
@@ -33,7 +32,7 @@ public class ConfigLightAutoDWP implements Runnable {
 
     public void configAuto()  {
         while (true) {
-            Iterable<Room> rooms = roomRepo.findAllBusinessRoom();
+            Iterable<Room> rooms = roomRepo.findAllBusinessRoom(1588);
             rooms.forEach(room -> {
                 try {
                     int difLum = measureRepo.getLightStatInRoom(room.getId_room()).getValue() - conditionsRepo.findLastConditionsByRoom(room.getId_room()).getLuminosity();
