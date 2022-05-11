@@ -18,11 +18,14 @@ import org.springframework.stereotype.Repository;
     Iterable<RSpace> findReservedSpaces();
 
     //@Nullable
-    @Query(value="select * from space left join reservation on space.id_space = reservation.id_space \n" +
+    @Query(value="select * from space " +
             "inner join floor on space.id_floor = floor.id_floor " +
             "inner join building on building.id_building = floor.id_building " +
             "inner join userbuilding on building.id_building = userbuilding.id_building  " +
-            "where space.type_space=?3 and userbuilding.id_user=?4 and (((start_time <= ?1 or start_time >= ?2) and (end_time <= ?1 or end_time <= ?2)) OR(start_time is NULL)) limit 10;", nativeQuery = true)
+            "where space.type_space=?3 and userbuilding.id_user=?4 and " +
+            "id_space not in " +
+            "(Select id_space from reservation where " +
+            "(start_time <= ?2) and (end_time >= ?1));", nativeQuery = true)
     Iterable<RSpace> findDispoSpaces(long starttime, long endtime, String typespace, int iduser);
 
     /* @Query(value="select space.* from space inner join reservation on space.id_space = reservation.id_space " +
